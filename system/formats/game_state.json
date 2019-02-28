@@ -1,0 +1,15 @@
+{
+    "nina_state": {
+        "type": "object",
+        "objectDefinition": {
+            "sex_count": {
+                "type": "Integer",
+                "default": 0
+            },
+            "orgasm_count": {
+                "type": "Integer",
+                "default": 0
+            }
+        }
+    }
+}
