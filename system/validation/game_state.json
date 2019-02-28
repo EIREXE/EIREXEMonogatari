@@ -1,0 +1,54 @@
+{
+    "name": "Game State",
+    "keys": {
+        "nina_state": {
+            "type": "Object",
+            "description": "Information and stats about Nina",
+            "object": {
+                "frustation": {
+                    "type": "Number",
+                    "default": 0,
+                    "description": "Frustración sexual acumulada por Nina"
+                },
+                "lust": {
+                    "type": "Number",
+                    "default": 0,
+                    "description": "Deseo que siente nina hacia el jugador"
+                },
+                "affection": {
+                    "type": "Number",
+                    "default": 0,
+                    "description": "Lo unida que se siente Nina al jugador"
+                },
+                "sex_count": {
+                    "type": "Number",
+                    "default": 0,
+                    "description": "Las veces que Nina ha tenido sexo con el jugador"
+                },
+                "orgasm_count": {
+                    "type": "Number",
+                    "default": 0,
+                    "description": "La cantidad de orgasmos que ha tenido Nina desde el comienzo del juego"
+                },
+                "sensibilities": {
+                    "type": "Object",
+                    "description": "Sensibilidad de ciertas partes de Nina",
+                    "object": {
+                        "breasts": {
+                            "type": "Number",
+                            "default": 0
+                        },
+                        "mouth": {
+                            "type": "Number",
+                            "default": 0
+                        },
+                        "vagina": {
+                            "type": "Number",
+                            "default": 0
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

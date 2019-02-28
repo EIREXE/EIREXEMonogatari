@@ -8,14 +8,9 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Reference",
-"class": "JSONLoader",
-"language": "GDScript",
-"path": "res://system/json_loader.gd"
-} ]
+_global_script_classes=[  ]
 _global_script_class_icons={
-"JSONLoader": ""
+
 }
 
 [application]
@@ -23,6 +18,18 @@ _global_script_class_icons={
 config/name="Project Sugar"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
+
+[autoload]
+
+JSONLoader="*res://system/json_loader.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "zylann.editor_debugger" )
+
+[gui]
+
+theme/custom="res://system/theme.tres"
 
 [rendering]
 

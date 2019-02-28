@@ -34,6 +34,7 @@ extends "res://addons/gut/gut_gui.gd"
 
 var _utils = load('res://addons/gut/utils.gd').new()
 var _lgr = _utils.get_logger()
+var _deprecated_tracker = _utils.ThingCounter.new()
 
 # ###########################
 # Editor Variables
@@ -134,13 +135,15 @@ func _init():
 	add_user_signal(SIGNAL_TESTS_FINISHED)
 	add_user_signal(SIGNAL_STOP_YIELD_BEFORE_TEARDOWN)
 	add_user_signal('timeout')
+	add_user_signal('done_waiting')
 	_doubler.set_output_dir(_temp_directory)
 	_doubler.set_stubber(_stubber)
 	_doubler.set_spy(_spy)
 	_doubler.set_logger(_lgr)
+	_lgr.set_gut(self)
 
-	#_stubber.set_logger(_lgr)
-	#_spy.set_logger(_lgr)
+	_stubber.set_logger(_lgr)
+	_test_collector.set_logger(_lgr)
 
 # ------------------------------------------------------------------------------
 # Connect all the controls created in the parent class to the methods here.
@@ -163,6 +166,7 @@ func _connect_controls():
 # ------------------------------------------------------------------------------
 func _ready():
 	_lgr.info(str('using [', OS.get_user_data_dir(), '] for temporary output.'))
+
 	set_it_up()
 	set_process_input(true)
 	_connect_controls()
@@ -305,6 +309,13 @@ func _on_script_selected(id):
 func _on_run_rest_pressed():
 	test_scripts(true)
 
+# ------------------------------------------------------------------------------
+# completed signal for GDScriptFucntionState returned from a test script that
+# has yielded
+# ------------------------------------------------------------------------------
+func _on_test_script_yield_completed():
+	_waiting = false
+
 #####################
 #
 # Private
@@ -315,9 +326,20 @@ func _on_run_rest_pressed():
 # Convert the _summary dictionary into text
 # ------------------------------------------------------------------------------
 func _get_summary_text():
-	var to_return = "*****************\nRun Summary\n*****************\n"
+	var to_return = "\n\n*****************\nRun Summary\n*****************"
 
 	to_return += "\n" + _new_summary.get_summary_text() + "\n"
+
+	var logger_text = ''
+	if(_lgr.get_errors().size() > 0):
+		logger_text += str("\n  * ", _lgr.get_errors().size(), ' Errors.')
+	if(_lgr.get_warnings().size() > 0):
+		logger_text += str("\n  * ", _lgr.get_warnings().size(), ' Warnings.')
+	if(_lgr.get_deprecated().size() > 0):
+		logger_text += str("\n  * ", _lgr.get_deprecated().size(), ' Deprecated calls.')
+	if(logger_text != ''):
+		logger_text = "\nWarnings/Errors:" + logger_text + "\n\n"
+	to_return += logger_text
 
 	if(_new_summary.get_totals().tests > 0):
 		to_return +=  '+++ ' + str(_new_summary.get_totals().passing) + ' passed ' + str(_new_summary.get_totals().failing) + ' failed.  ' + \
@@ -405,15 +427,15 @@ func _is_function_state(script_result):
 # Print out the heading for a new script
 # ------------------------------------------------------------------------------
 func _print_script_heading(script):
-	if(_does_class_name_match(_inner_class_name, script.inner_class_name)):
+	if(_does_class_name_match(_inner_class_name, script.class_name)):
 		p("\n/-----------------------------------------")
-		if(script.inner_class_name == null):
+		if(script.class_name == null):
 			p("Running Script " + script.path, 0)
 		else:
-			p("Running Class [" + script.inner_class_name + "] in " + script.path, 0)
+			p("Running Class [" + script.class_name + "] in " + script.path, 0)
 
-		if(_inner_class_name != null and _does_class_name_match(_inner_class_name, script.inner_class_name)):
-			p(str('  [',script.inner_class_name, '] matches [', _inner_class_name, ']'))
+		if(_inner_class_name != null and _does_class_name_match(_inner_class_name, script.class_name)):
+			p(str('  [',script.class_name, '] matches [', _inner_class_name, ']'))
 
 		if(_unit_test_name != ''):
 			p('  Only running tests like: "' + _unit_test_name + '"')
@@ -433,8 +455,73 @@ func _should_yield_now():
 		_yield_between.tests_since_last_yield += 1
 	return should
 
-func _does_class_name_match(a_class_name, script_class_name):
-	return a_class_name == null or (script_class_name != null and script_class_name.find(a_class_name) != -1)
+# ------------------------------------------------------------------------------
+# Yes if the class name is null or the script's class name includes class_name
+# ------------------------------------------------------------------------------
+func _does_class_name_match(class_name, script_class_name):
+	return class_name == null or (script_class_name != null and script_class_name.find(class_name) != -1)
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+func _setup_script(test_script):
+	test_script.gut = self
+	test_script.set_logger(_lgr)
+	add_child(test_script)
+	_test_script_objects.append(test_script)
+
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+func _do_yield_between(time):
+	_yield_between.timer.set_wait_time(time)
+	_yield_between.timer.start()
+	return _yield_between.timer
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+func _wait_for_done(result):
+	var iter_counter = 0
+	var print_after = 3
+
+	# sets waiting to false.
+	result.connect('completed', self, '_on_test_script_yield_completed')
+
+	if(!_was_yield_method_called):
+		p('/# Yield detected, waiting #/')
+
+	_was_yield_method_called = false
+	_waiting = true
+	_wait_timer.set_wait_time(0.25)
+
+	while(_waiting):
+		iter_counter += 1
+		if(iter_counter > print_after):
+			p(WAITING_MESSAGE, 2)
+			iter_counter = 0
+		_wait_timer.start()
+		yield(_wait_timer, 'timeout')
+
+	emit_signal('done_waiting')
+
+# ------------------------------------------------------------------------------
+# returns self so it can be integrated into the yield call.
+# ------------------------------------------------------------------------------
+func _wait_for_continue_button():
+	p(PAUSE_MESSAGE, 0)
+	_waiting = true
+	_ctrls.continue_button.set_disabled(false)
+	return self
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+func _call_deprecated_script_method(script, method, alt):
+	if(script.has_method(method)):
+		var txt = str(script, '-', method)
+		if(!_deprecated_tracker.has(txt)):
+			_lgr.deprecated(str('The method ', method, ' has been deprecated, use ', alt, ' instead.'))
+			_deprecated_tracker.add(txt)
+		script.call(method)
+
 # ------------------------------------------------------------------------------
 # Run all tests in a script.  This is the core logic for running tests.
 #
@@ -450,35 +537,31 @@ func _test_the_scripts():
 	# loop through scripts
 	for s in range(_test_collector.scripts.size()):
 		var the_script = _test_collector.scripts[s]
+
 		if(the_script.tests.size() > 0):
 			set_title('Running:  ' + the_script.get_full_name())
 			_print_script_heading(the_script)
 			_new_summary.add_script(the_script.get_full_name())
 
 		var test_script = the_script.get_new()
-		print(the_script.to_s())
-		test_script.gut = self
-		add_child(test_script)
-		_test_script_objects.append(test_script)
 		var script_result = null
+		_setup_script(test_script)
 		_doubler.set_strategy(_double_strategy)
 
 		# yield between test scripts so things paint
 		if(_yield_between.should):
-			_yield_between.timer.set_wait_time(0.01)
-			_yield_between.timer.start()
-			yield(_yield_between.timer, 'timeout')
+			yield(_do_yield_between(0.01), 'timeout')
 
 		# !!!
 		# Hack so there isn't another indent to this monster of a method.  if
 		# inner class is set and we do not have a match then empty the tests
 		# for the current test.
 		# !!!
-		if(!_does_class_name_match(_inner_class_name, the_script.inner_class_name)):
+		if(!_does_class_name_match(_inner_class_name, the_script.class_name)):
 			the_script.tests = []
 		else:
 			# call both pre-all-tests methods until prerun_setup is removed
-			test_script.prerun_setup()
+			_call_deprecated_script_method(test_script, 'prerun_setup', 'before_all')
 			test_script.before_all()
 
 		_ctrls.test_progress.set_max(the_script.tests.size())
@@ -494,40 +577,31 @@ func _test_the_scripts():
 			   (_unit_test_name == '')):
 				p(_current_test.name, 1)
 				_new_summary.add_test(_current_test.name)
+
 				# yield so things paint
 				if(_should_yield_now()):
-					_yield_between.timer.set_wait_time(0.001)
-					_yield_between.timer.start()
-					yield(_yield_between.timer, 'timeout')
+					yield(_do_yield_between(0.001), 'timeout')
 
-				# call both pre-each-test method until setup is removed
-				test_script.setup()
+				_call_deprecated_script_method(test_script, 'setup', 'before_each')
 				test_script.before_each()
 
+
+				#When the script yields it will return a GDScriptFunctionState object
 				script_result = test_script.call(_current_test.name)
-				#When the script yields it will return a GDFunctionState object
 				if(_is_function_state(script_result)):
-					if(!_was_yield_method_called):
-						p('/# Yield detected, waiting #/')
-					_was_yield_method_called = false
-					_waiting = true
-					while(_waiting):
-						p(WAITING_MESSAGE, 2)
-						_wait_timer.start()
-						yield(_wait_timer, 'timeout')
+					_wait_for_done(script_result)
+					yield(self, 'done_waiting')
+
 
 				#if the test called pause_before_teardown then yield until
 				#the continue button is pressed.
 				if(_pause_before_teardown and !_ignore_pause_before_teardown):
-					p(PAUSE_MESSAGE, 1)
-					_waiting = true
-					_ctrls.continue_button.set_disabled(false)
-					yield(self, SIGNAL_STOP_YIELD_BEFORE_TEARDOWN)
+					yield(_wait_for_continue_button(), SIGNAL_STOP_YIELD_BEFORE_TEARDOWN)
 
 				test_script.clear_signal_watcher()
 
 				# call each post-each-test method until teardown is removed.
-				test_script.teardown()
+				_call_deprecated_script_method(test_script, 'teardown', 'after_each')
 				test_script.after_each()
 
 				if(_current_test.passed):
@@ -547,7 +621,7 @@ func _test_the_scripts():
 
 		# call both post-all-tests methods until postrun_teardown is removed.
 		if(_does_class_name_match(_inner_class_name, the_script.class_name)):
-			test_script.postrun_teardown()
+			_call_deprecated_script_method(test_script, 'postrun_teardown', 'after_all')
 			test_script.after_all()
 
 		# This might end up being very resource intensive if the scripts
@@ -769,7 +843,8 @@ func is_strict_datatype_checks_disabled():
 # you want to watch a test play out onscreen or inspect results.
 # ------------------------------------------------------------------------------
 func end_yielded_test():
-	_waiting = false
+	_lgr.deprecated('end_yielded_test is no longer necessary, you can remove it.')
+	#_waiting = false
 
 # ------------------------------------------------------------------------------
 # Clears the text of the text box.  This resets all counters.
@@ -1006,6 +1081,11 @@ func get_current_script_object():
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
+func get_current_test_object():
+	return _current_test
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 func get_stubber():
 	return _stubber
 
@@ -1079,7 +1159,7 @@ func set_include_subdirectories(include_subdirectories):
 # Moved method warnings.
 # #######################
 func moved_method(method_name):
-	p('[' + method_name + '] has been moved to the Test class.  To fix, remove "gut." from in front of it.')
+	_lgr.deprecated('[' + method_name + '] has been moved to the Test class.  To fix, remove "gut." from in front of it.')
 	_test_script_objects[-1]._fail('Method has been moved.')
 	_summary.moved_methods += 1
 func assert_eq(got, expected, text=""):

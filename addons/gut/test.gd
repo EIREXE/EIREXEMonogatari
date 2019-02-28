@@ -107,9 +107,11 @@ var _signal_watcher = load('res://addons/gut/signal_watcher.gd').new()
 var DOUBLE_STRATEGY = null
 
 var _utils = load('res://addons/gut/utils.gd').new()
+var _lgr = _utils.get_logger()
+
 func _init():
 	_init_types_dictionary()
-	DOUBLE_STRATEGY = _utils.DOUBLE_STRATEGY
+	DOUBLE_STRATEGY = _utils.DOUBLE_STRATEGY # yes, this is right
 
 # ------------------------------------------------------------------------------
 # Fail an assertion.  Causes test and script to fail as well.
@@ -122,7 +124,6 @@ func _fail(text):
 	if(gut):
 		gut.p(msg, gut.LOG_LEVEL_FAIL_ONLY)
 		gut._fail(text)
-		gut.end_yielded_test()
 
 # ------------------------------------------------------------------------------
 # Pass an assertion.
@@ -135,7 +136,6 @@ func _pass(text):
 	if(gut):
 		gut.p(msg, gut.LOG_LEVEL_ALL_ASSERTS)
 		gut._pass(text)
-		gut.end_yielded_test()
 
 # ------------------------------------------------------------------------------
 # Checks if the datatypes passed in match.  If they do not then this will cause
@@ -152,8 +152,7 @@ func _do_datatypes_match__fail_if_not(got, expected, text):
 			# If we have a mismatch between float and int (types 2 and 3) then
 			# print out a warning but do not fail.
 			if([2, 3].has(got_type) and [2, 3].has(expect_type)):
-				if(gut):
-					gut.get_logger().warn(str('Warn:  Float/Int comparison.  Got ', types[got_type], ' but expected ', types[expect_type]))
+				_lgr.warn(str('Warn:  Float/Int comparison.  Got ', types[got_type], ' but expected ', types[expect_type]))
 			else:
 				_fail('Cannot compare ' + types[got_type] + '[' + str(got) + '] to ' + types[expect_type] + '[' + str(expected) + '].  ' + text)
 				passed = false
@@ -204,22 +203,6 @@ func _get_fail_msg_including_emitted_signals(text, object):
 # Virtual Methods
 # #######################
 
-# Overridable method that runs before each test.
-func setup():
-	pass
-
-# Overridable method that runs after each test
-func teardown():
-	pass
-
-# Overridable method that runs before any tests are run
-func prerun_setup():
-	pass
-
-# Overridable method that runs after all tests are run
-func postrun_teardown():
-	pass
-
 # alias for prerun_setup
 func before_all():
 	pass
@@ -240,6 +223,16 @@ func after_each():
 # Public
 # #######################
 
+func get_logger():
+	return _lgr
+
+func set_logger(logger):
+	_lgr = logger
+
+
+# #######################
+# Asserts
+# #######################
 
 # ------------------------------------------------------------------------------
 # Asserts that the expected value equals the value got.
@@ -410,6 +403,11 @@ func assert_file_not_empty(file_path):
 func assert_has_method(obj, method):
 	assert_true(obj.has_method(method), 'Should have method: ' + method)
 
+# Old deprecated method name
+func assert_get_set_methods(obj, property, default, set_to):
+	_lgr.deprecated('assert_get_set_methods', 'assert_accessors')
+	assert_accessors(obj, property, default, set_to)
+
 # ------------------------------------------------------------------------------
 # Verifies the object has get and set methods for the property passed in.  The
 # property isn't tied to anything, just a name to be appended to the end of
@@ -417,21 +415,19 @@ func assert_has_method(obj, method):
 # If they exist then it asserts get_ returns the expected default then calls
 # set_ and asserts get_ has the value it was set to.
 # ------------------------------------------------------------------------------
-func assert_get_set_methods(obj, property, default, set_to):
+func assert_accessors(obj, property, default, set_to):
 	var fail_count = _summary.failed
 	var get = 'get_' + property
 	var set = 'set_' + property
 	assert_has_method(obj, get)
 	assert_has_method(obj, set)
+	# SHORT CIRCUIT
 	if(_summary.failed > fail_count):
 		return
 	assert_eq(obj.call(get), default, 'It should have the expected default value.')
 	obj.call(set, set_to)
 	assert_eq(obj.call(get), set_to, 'The set value should have been returned.')
 
-# Alias for assert_get_set_methods
-func assert_accessors(obj, property, default, set_to):
-	assert_get_set_methods(obj, property, default, set_to)
 
 # ---------------------------------------------------------------------------
 # Property search helper.  Used to retrieve Dictionary of specified property
@@ -580,6 +576,24 @@ func get_signal_parameters(object, signal_name, index=-1):
 	return _signal_watcher.get_signal_parameters(object, signal_name, index)
 
 # ------------------------------------------------------------------------------
+# Get the parameters for a method call to a doubled object.  By default it will
+# return the most recent call.  You can optionally specify an index.
+#
+# Returns:
+# * an array of parameter values if a call the method was found
+# * null when a call to the method was not found or the index specified was
+#   invalid.
+# ------------------------------------------------------------------------------
+func get_call_parameters(object, method_name, index=-1):
+	var to_return = null
+	if(_utils.is_double(object)):
+		to_return = gut.get_spy().get_call_parameters(object, method_name, index)
+	else:
+		_lgr.error('You must pass a doulbed object to get_call_parameters.')
+
+	return to_return
+
+# ------------------------------------------------------------------------------
 # Assert that object is an instance of a_class
 # ------------------------------------------------------------------------------
 func assert_extends(object, a_class, text=''):
@@ -677,7 +691,7 @@ func assert_string_ends_with(text, search, match_case=true):
 func assert_called(inst, method_name, parameters=null):
 	var disp = str('Expected [',method_name,'] to have been called on ',inst)
 
-	if(!inst.get('__gut_metadata_')):
+	if(!_utils.is_double(inst)):
 		_fail('You must pass a doubled instance to assert_called.  Check the wiki for info on using double.')
 	else:
 		if(gut.get_spy().was_called(inst, method_name, parameters)):
@@ -695,7 +709,7 @@ func assert_called(inst, method_name, parameters=null):
 func assert_not_called(inst, method_name, parameters=null):
 	var disp = str('Expected [', method_name, '] to NOT have been called on ', inst)
 
-	if(!inst.get('__gut_metadata_')):
+	if(!_utils.is_double(inst)):
 		_fail('You must pass a doubled instance to assert_not_called.  Check the wiki for info on using double.')
 	else:
 		if(gut.get_spy().was_called(inst, method_name, parameters)):
@@ -719,7 +733,7 @@ func assert_call_count(inst, method_name, expected_count, parameters=null):
 	var disp = 'Expected [%s] on %s to be called [%s] times%s.  It was called [%s] times.'
 	disp = disp % [method_name, inst, expected_count, param_text, count]
 
-	if(!inst.get('__gut_metadata_')):
+	if(!_utils.is_double(inst)):
 		_fail('You must pass a doubled instance to assert_call_count.  Check the wiki for info on using double.')
 	else:
 		if(count == expected_count):
@@ -758,7 +772,6 @@ func pending(text=""):
 		else:
 			gut.p("Pending:  " + text)
 		gut._pending(text)
-		gut.end_yielded_test()
 
 # ------------------------------------------------------------------------------
 # Returns the number of times a signal was emitted.  -1 returned if the object
@@ -788,7 +801,8 @@ func yield_to(obj, signal_name, max_wait, msg=''):
 # not make assertions after a yield.
 # ------------------------------------------------------------------------------
 func end_test():
-	gut.end_yielded_test()
+	_lgr.deprecated('end_test is no longer necessary, you can remove it.')
+	#gut.end_yielded_test()
 
 func get_summary():
 	return _summary

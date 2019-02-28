@@ -3,6 +3,8 @@ var Stubber = load('res://addons/gut/stubber.gd')
 var Doubler = load('res://addons/gut/doubler.gd')
 var Spy = load('res://addons/gut/spy.gd')
 var StubParams = load('res://addons/gut/stub_params.gd')
+var ThingCounter = load('res://addons/gut/thing_counter.gd')
+const GUT_METADATA = '__gut_metadata_'
 
 enum DOUBLE_STRATEGY{
 	FULL,
@@ -53,3 +55,20 @@ func nvl(value, if_null):
 		return if_null
 	else:
 		return value
+
+# ------------------------------------------------------------------------------
+# returns true if the object has been freed, false if not
+#
+# From what i've read, the weakref approach should work.  It seems to work most
+# of the time but sometimes it does not catch it.  The str comparison seems to
+# fill in the gaps.  I've not seen any errors after adding that check.
+# ------------------------------------------------------------------------------
+func is_freed(obj):
+	var wr = weakref(obj)
+	return !(wr.get_ref() and str(obj) != '[Deleted Object]')
+
+func is_not_freed(obj):
+	return !is_freed(obj)
+
+func is_double(obj):
+	return obj.get(GUT_METADATA) != null

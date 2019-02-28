@@ -336,7 +336,7 @@ func setup_options():
 	opts.add('-gexit', false, 'Exit after running tests.  If not specified you have to manually close the window.')
 	opts.add('-glog', 1, 'Log level.  Default [default]')
 	opts.add('-gignore_pause', false, 'Ignores any calls to gut.pause_before_teardown.')
-	opts.add('-gselect', '', ('Select a sccript to run initially.  The first script that ' +
+	opts.add('-gselect', '', ('Select a script to run initially.  The first script that ' +
 	                          'was loaded using -gtest or -gdir that contains the specified ' +
 	                          'string will be executed.  You may run others by interacting ' +
                               'with the GUI.'))
@@ -441,7 +441,7 @@ func apply_options(opts):
 		_auto_run = _tester.select_script(opts.selected)
 		_run_single = true
 		if(!_auto_run):
-			_tester.p("Could not find a script that matched:  " + opts.selected)
+			_tester.get_logger().error("Could not find a script that matched:  " + opts.selected)
 
 	if(opts.double_strategy == 'full'):
 		_tester.set_double_strategy(_utils.DOUBLE_STRATEGY.FULL)
@@ -493,6 +493,7 @@ func _init():
 
 			if(_auto_run):
 				_tester.test_scripts(!_run_single)
+
 
 # exit if option is set.
 func _on_tests_finished(should_exit):
