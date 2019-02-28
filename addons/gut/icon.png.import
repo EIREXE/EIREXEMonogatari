@@ -1,0 +1,15 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+path="res://.import/icon.png-91b084043b8aaf2f1c906e7b9fa92969.res"
+
+[deps]
+
+source_file="res://addons/gut/icon.png"
+dest_files=[ "res://.import/icon.png-91b084043b8aaf2f1c906e7b9fa92969.res" ]
+
+[params]
+
+create_from=0
+threshold=0.5
