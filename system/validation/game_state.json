@@ -3,7 +3,7 @@
     "keys": {
         "nina_state": {
             "type": "Object",
-            "description": "Information and stats about Nina",
+            "description": "Información y stats de Nina",
             "object": {
                 "frustation": {
                     "type": "Number",

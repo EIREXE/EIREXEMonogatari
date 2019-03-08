@@ -5,24 +5,28 @@ var formats := {}
 func _ready():
 	load_formats()
 
-func validate(data: Dictionary) -> bool:
+func validate(data: Dictionary, format_keys: Dictionary) -> bool:
 	var validation_OK := false
-	if data.has('__format'):
-		var format : Dictionary = formats[data['__format']]
-		for key in data:
-			if format["keys"].has(key):
-				var keyData : Dictionary = data["keys"]["key"]
-				
-				match keyData.type:
-					"Object":
-						validation_OK = validate(data[key])
-					"Number":
-						validation_OK = typeof(data[key]) == TYPE_ARRAY or TYPE_INT
-					"Boolean":
-						validation_OK = typeof(data[key]) == TYPE_BOOL
-			if validation_OK == false:
-				break
+
+	for key in data:
+		if format_keys.has(key):
+			var keyData : Dictionary = format_keys[key]
+
+			match keyData.type:
+				"Object":
+					validation_OK = validate(data[key], keyData["object"])
+				"Number":
+					validation_OK = typeof(data[key]) == TYPE_ARRAY or TYPE_INT
+				"Boolean":
+					validation_OK = typeof(data[key]) == TYPE_BOOL
+		if validation_OK == false:
+			break
 	return validation_OK
+
+func validate_format(data: Dictionary, format_name: String) -> bool:
+	var format : Dictionary = formats[data['__format']]["keys"]
+	
+	return validate(data, format)
 
 func load_formats():
 	var dir := Directory.new()
@@ -52,6 +56,25 @@ func from_file(path: String) -> Dictionary:
 	if file_result == OK:
 		var text := file.get_as_text()
 		var result := JSON.parse(text)
-		if validate(result.result):
-			return result.result
+		if result.result.has("__format"):
+			if validate_format(result.result, result.result["__format"]):
+				return result.result
 	return {"error": file_result}
+	
+func get_defaults(format_keys: Dictionary):
+	var result = {}
+	for key in format_keys:
+		var format_key = format_keys[key]
+		if format_key.has("default"):
+			result[key] = format_key["default"]
+		elif format_key["type"] == "Object":
+			result[key] = get_defaults(format_key["object"])
+	return result
+	
+func get_format_defaults(format_name: String) -> Dictionary:
+	var result : Dictionary
+	if formats.has(format_name):
+		var format = formats[format_name]
+		result = get_defaults(format["keys"])
+	result["__format"] = format_name
+	return result
