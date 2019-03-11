@@ -7,7 +7,7 @@ var button_container = VBoxContainer.new()
 const TOOLS = [
 		{
 			"name": "JSON Editor",
-			"path": "res://system/debug/json_editor/editor.tscn"
+			"path": "res://system/debug/file_editor/editor.tscn"
 		}
 	]
 

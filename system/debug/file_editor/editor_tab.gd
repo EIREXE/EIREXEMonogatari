@@ -1,7 +1,5 @@
 extends MarginContainer
 
-class_name SugarEditorTab
-
 signal contents_changed
 
 var text_edit : TextEdit

@@ -6,6 +6,9 @@ onready var code_validation_status_label = get_node("Panel/VBoxContainer/StatusB
 onready var new_format_option_button = get_node("NewFileDialog/HBoxContainer/OptionButton")
 onready var new_file_dialog : WindowDialog = get_node("NewFileDialog")
 onready var new_file_button : Button = get_node("NewFileDialog/HBoxContainer/NewFileButton")
+
+const SugarEditorTab = preload("res://system/debug/file_editor/editor_tab.gd")
+
 enum FILE_MENU_OPTIONS {
 	NEW_FILE
 	OPEN_FILE,
