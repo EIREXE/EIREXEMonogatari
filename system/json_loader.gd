@@ -19,14 +19,26 @@ func validate(data: Dictionary, format_keys: Dictionary) -> bool:
 					validation_OK = typeof(data[key]) == TYPE_ARRAY or TYPE_INT
 				"Boolean":
 					validation_OK = typeof(data[key]) == TYPE_BOOL
+		else:
+			validation_OK = true
 		if validation_OK == false:
+			print("Validation failed for key %s" % [key])
 			break
 	return validation_OK
 
-func validate_format(data: Dictionary, format_name: String) -> bool:
-	var format : Dictionary = formats[data['__format']]["keys"]
-	
-	return validate(data, format)
+func validate_dict(data: Dictionary) -> bool:
+	if data.has("__format"):
+		var format : Dictionary = formats[data['__format']]["keys"]
+		return validate(data, format)
+	else:
+		return true
+
+func validate_string(string: String) -> bool:
+	var result := JSON.parse(string)
+	if result.error == OK:
+		return validate_dict(result.result)
+	else:
+		return false
 
 func load_formats():
 	var dir := Directory.new()
@@ -50,14 +62,16 @@ func load_formats():
 				pass
 	dir.list_dir_end()
 	
-func from_file(path: String) -> Dictionary:
+func from_file(path: String, validation: bool = true) -> Dictionary:
 	var file := File.new()
 	var file_result := file.open(path, File.READ)
 	if file_result == OK:
 		var text := file.get_as_text()
 		var result := JSON.parse(text)
-		if result.result.has("__format"):
-			if validate_format(result.result, result.result["__format"]):
+		if result.error == OK:
+			return result.result
+			var validation_result := validate_dict(result.result)
+			if validation_result:
 				return result.result
 	return {"error": file_result}
 	
