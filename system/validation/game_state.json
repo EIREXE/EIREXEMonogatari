@@ -30,9 +30,9 @@
                     "default": 0,
                     "description": "La cantidad de orgasmos que ha tenido Nina desde el comienzo del juego"
                 },
-                "sensibilities": {
+                "sensitivity": {
                     "type": "Object",
-                    "description": "Sensibilidad de ciertas partes de Nina",
+                    "description": "Sensibilidad de ciertas partes del cuerpo de Nina",
                     "object": {
                         "breasts": {
                             "type": "Number",

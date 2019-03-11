@@ -5,20 +5,38 @@ var formats := {}
 func _ready():
 	load_formats()
 
+func validate_type(value, keyData: Dictionary) -> bool:
+	var validation_OK := false
+	match keyData.type:
+		"Object":
+			validation_OK = validate(value, keyData.object)
+		"Number":
+			validation_OK = typeof(value) == TYPE_REAL
+		"Boolean":
+			validation_OK = typeof(value) == TYPE_BOOL
+		"String":
+			validation_OK = typeof(value) == TYPE_STRING
+		"Array":
+			var array_type = keyData.arrayType
+			print("checking array entry %s" % keyData.arrayType)
+			validation_OK = typeof(value) == TYPE_ARRAY
+			for entry in value:
+
+				validation_OK = validate_type(entry, array_type)
+				if not validation_OK:
+					break
+		"Format":
+			if formats.has(keyData.format):
+				validation_OK = validate_type(value, formats[keyData.format]["keys"])
+	return validation_OK
+
 func validate(data: Dictionary, format_keys: Dictionary) -> bool:
 	var validation_OK := false
 
 	for key in data:
 		if format_keys.has(key):
 			var keyData : Dictionary = format_keys[key]
-
-			match keyData.type:
-				"Object":
-					validation_OK = validate(data[key], keyData["object"])
-				"Number":
-					validation_OK = typeof(data[key]) == TYPE_ARRAY or TYPE_INT
-				"Boolean":
-					validation_OK = typeof(data[key]) == TYPE_BOOL
+			validation_OK = validate_type(data[key], keyData)
 		else:
 			validation_OK = true
 		if validation_OK == false:

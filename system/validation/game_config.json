@@ -11,7 +11,9 @@
         },
         "supported_languages": {
             "type": "Array",
-            "arrayType": "String",
+            "arrayType": {
+                "type": "String"
+            },
             "default": ["en"]
         }
     }

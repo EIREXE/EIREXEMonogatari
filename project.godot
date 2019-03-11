@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "MarginContainer",
 "class": "SugarEditorTab",
 "language": "GDScript",
-"path": "res://system/editor/editor_tab.gd"
+"path": "res://system/debug/json_editor/editor_tab.gd"
 } ]
 _global_script_class_icons={
 "SugarEditorTab": ""
@@ -27,10 +27,19 @@ config/icon="res://icon.png"
 [autoload]
 
 SJSON="*res://system/json_loader.gd"
+GameManager="*res://system/game_manager.gd"
 
 [editor_plugins]
 
 enabled=PoolStringArray( "zylann.editor_debugger" )
+
+[input]
+
+open_debug={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777253,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [rendering]
 

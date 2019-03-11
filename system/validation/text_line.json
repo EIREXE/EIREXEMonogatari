@@ -1,0 +1,9 @@
+{
+    "name": "Linea de acción juego",
+    "inherits": "line",
+    "keys": {
+        "text": {
+            "type": "String"
+        }
+    }
+}

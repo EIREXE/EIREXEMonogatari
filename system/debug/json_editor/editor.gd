@@ -9,6 +9,7 @@ onready var new_file_button : Button = get_node("NewFileDialog/HBoxContainer/New
 enum FILE_MENU_OPTIONS {
 	NEW_FILE
 	OPEN_FILE,
+	SAVE_FILE
 	CHECK_FILE
 }
 
@@ -28,6 +29,11 @@ func ui_setup():
 	open_file_shortcut.set_name(tr("Abrir..."))
 	file_button.get_popup().add_shortcut(open_file_shortcut, FILE_MENU_OPTIONS.OPEN_FILE)
 
+	var save_file_shortcut = ShortCut.new()
+	save_file_shortcut.set_name(tr("Guardar"))
+	file_button.get_popup().add_shortcut(save_file_shortcut, FILE_MENU_OPTIONS.SAVE_FILE)
+	
+	file_button.get_popup().add_separator()
 	
 	var check_file_shortcut = ShortCut.new()
 	check_file_shortcut.set_name(tr("Comprobar fichero"))
@@ -37,15 +43,15 @@ func ui_setup():
 	for key in SJSON.formats:
 		var format : Dictionary = SJSON.formats[key]
 		new_format_option_button.add_item(format["name"])
-		new_format_option_button.set_item_metadata(new_format_option_button.get_item_count()-1, format)
+		new_format_option_button.set_item_metadata(new_format_option_button.get_item_count() - 1, key)
 	file_button.get_popup().connect("id_pressed", self, "on_option_pressed")
 	new_file_button.connect("pressed", self, "on_new_file_button_pressed")
 		
 func on_new_file_button_pressed():
 	var editor_tab := SugarEditorTab.new()
-	var format := new_format_option_button.get_selected_metadata() as Dictionary
+	var format := new_format_option_button.get_selected_metadata() as String
 	tab_container.add_child(editor_tab)
-	editor_tab.content = JSON.print(SJSON.get_defaults(format["keys"]), "  ")
+	editor_tab.content = JSON.print(SJSON.get_format_defaults(format), "  ")
 	tab_container.set_tab_title(tab_container.get_tab_count()-1, tr("Sin Titulo"))
 	new_file_dialog.visible = false
 	

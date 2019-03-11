@@ -1,0 +1,12 @@
+{
+    "name": "Escena del juego",
+    "keys": {
+        "lines": {
+            "type": "Array",
+            "arrayType": {
+                "type": "Format",
+                "format": "text_line"
+            }
+        }
+    }
+}

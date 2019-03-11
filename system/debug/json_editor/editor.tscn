@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://system/editor/editor.gd" type="Script" id=1]
+[ext_resource path="res://system/debug/json_editor/editor.gd" type="Script" id=1]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -17,16 +17,16 @@ anchor_bottom = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 margin_right = 1024.0
-margin_bottom = 22.0
+margin_bottom = 20.0
 
 [node name="FileButton" type="MenuButton" parent="Panel/VBoxContainer/HBoxContainer"]
 margin_right = 60.0
-margin_bottom = 22.0
+margin_bottom = 20.0
 toggle_mode = true
 text = "Archivo"
 
 [node name="TabContainer" type="TabContainer" parent="Panel/VBoxContainer"]
-margin_top = 26.0
+margin_top = 24.0
 margin_right = 1024.0
 margin_bottom = 566.0
 size_flags_vertical = 3
@@ -39,9 +39,9 @@ margin_bottom = 600.0
 rect_min_size = Vector2( 100, 30 )
 
 [node name="ValidationStatusLabel" type="Label" parent="Panel/VBoxContainer/StatusBar"]
-margin_top = 4.0
-margin_right = 89.0
-margin_bottom = 26.0
+margin_top = 8.0
+margin_right = 81.0
+margin_bottom = 22.0
 text = "Code is valid"
 
 [node name="NewFileDialog" type="WindowDialog" parent="."]
@@ -66,13 +66,13 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="NewFileDialog/HBoxContainer"]
-margin_left = 114.0
-margin_right = 142.0
+margin_left = 108.0
+margin_right = 149.0
 margin_bottom = 28.0
 
 [node name="NewFileButton" type="Button" parent="NewFileDialog/HBoxContainer"]
-margin_left = 146.0
-margin_right = 199.0
+margin_left = 153.0
+margin_right = 206.0
 margin_bottom = 28.0
 text = "Nuevo"
 
