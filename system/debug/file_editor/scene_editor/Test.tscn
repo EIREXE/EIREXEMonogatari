@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://system/debug/file_editor/scene_editor/BaseLineEditor.tscn" type="PackedScene" id=1]
+
+[node name="Control" type="ScrollContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1012.0
+margin_bottom = 770.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_right = 1012.0
+
+[node name="Control5" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 86.0
+margin_right = 1012.0
+margin_bottom = 168.0
+
+[node name="Control6" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 172.0
+margin_right = 1012.0
+margin_bottom = 254.0
+
+[node name="Control7" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 258.0
+margin_right = 1012.0
+margin_bottom = 340.0
+
+[node name="Control8" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 344.0
+margin_right = 1012.0
+margin_bottom = 426.0
+
+[node name="Control9" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 430.0
+margin_right = 1012.0
+margin_bottom = 512.0
+
+[node name="Control2" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 516.0
+margin_right = 1012.0
+margin_bottom = 598.0
+
+[node name="Control3" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 602.0
+margin_right = 1012.0
+margin_bottom = 684.0
+
+[node name="Control4" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 688.0
+margin_right = 1012.0
+margin_bottom = 770.0
+

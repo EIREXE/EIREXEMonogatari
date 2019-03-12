@@ -21,6 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Project Sugar"
+run/main_scene="res://base_scene.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 

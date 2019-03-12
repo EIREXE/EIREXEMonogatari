@@ -4,6 +4,9 @@
     "keys": {
         "text": {
             "type": "String"
+        },
+        "character": {
+            "type": "String"
         }
     }
 }
