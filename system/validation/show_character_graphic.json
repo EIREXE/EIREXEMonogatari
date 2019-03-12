@@ -1,0 +1,12 @@
+{
+    "name": "Show Character Graphic",
+    "inherits": "line",
+    "keys": {
+        "character": {
+            "type": "String"
+        },
+        "graphic": {
+            "type": "String"
+        }
+    }
+}

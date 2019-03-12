@@ -1,0 +1,15 @@
+{
+    "name": "Character",
+    "keys": {
+        "name": {
+            "type": "String",
+            "required": true
+        },
+        "graphics": {
+            "type": "Array",
+            "arrayType": {
+                "type": "String"
+            }
+        }
+    }
+}

@@ -1,20 +1,14 @@
-extends MarginContainer
+extends SugarEditorFile
 
 signal contents_changed
 
 var text_edit : TextEdit
 
-var content : String setget set_content
-var path : String setget set_path
-
 func set_content(_content: String) -> void:
 	content = _content
 	text_edit.text = content
 	
-func set_path(_path: String) -> void:
-	path = _path
-	var data := SJSON.from_file(path)
-	set_content(JSON.print(data, "  "))
+
 	
 func setup_syntax_highlighting():
 	text_edit.add_color_region("\"", "\"", Color("#ffcf7d34"))
@@ -22,6 +16,7 @@ func setup_syntax_highlighting():
 	
 func on_text_changed():
 	content = text_edit.text
+	emit_signal("contents_changed")
 	
 func _ready():
 	margin_top = 20
