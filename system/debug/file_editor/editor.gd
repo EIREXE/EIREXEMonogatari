@@ -7,8 +7,8 @@ onready var new_format_option_button = get_node("NewFileDialog/HBoxContainer/Opt
 onready var new_file_dialog : WindowDialog = get_node("NewFileDialog")
 onready var new_file_button : Button = get_node("NewFileDialog/HBoxContainer/NewFileButton")
 
-const SugarEditorTab = preload("res://system/debug/file_editor/editor_json_file.gd")
-
+const SugarJSONEditorTab = preload("res://system/debug/file_editor/editor_json_file.gd")
+const SugarSceneEditorTab = preload("res://system/debug/file_editor/scene_editor/scene_editor.gd")
 enum FILE_MENU_OPTIONS {
 	NEW_FILE,
 	OPEN_FILE,
@@ -59,8 +59,12 @@ func ui_setup():
 	file_button.get_popup().connect("id_pressed", self, "on_option_pressed")
 	new_file_button.connect("pressed", self, "on_new_file_button_pressed")
 		
-func new_file(contents = null, path = null):
-	var editor_tab := SugarEditorTab.new()
+func new_file(contents = null, path = null, type = null):
+	var editor_tab
+	if type == "scene":
+		editor_tab = SugarSceneEditorTab.new()
+	else:
+		editor_tab = SugarJSONEditorTab.new()
 	tab_container.add_child(editor_tab)
 	if path:
 		editor_tab.load_from_path(path)
@@ -79,7 +83,7 @@ func on_current_tab_contents_changed():
 	
 func on_new_file_button_pressed():
 	var format := new_format_option_button.get_selected_metadata() as String
-	new_file(JSON.print(SJSON.get_format_defaults(format), "  "))
+	new_file(JSON.print(SJSON.get_format_defaults(format), "  "), null, format)
 	new_file_dialog.visible = false
 	
 func on_option_pressed(id: int) -> void:

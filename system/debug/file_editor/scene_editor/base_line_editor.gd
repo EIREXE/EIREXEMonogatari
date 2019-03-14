@@ -1,7 +1,11 @@
-extends VSplitContainer
+extends VBoxContainer
 
 var extra_buttons_container = HBoxContainer.new()
 var editable_area = Control.new()
+
+signal move_up
+signal move_down
+
 func _ready():
 	var hbox_container := HBoxContainer.new()
 	add_child(hbox_container)
@@ -12,8 +16,25 @@ func _ready():
 	up_button.text = tr("Up")
 	down_button.text = tr("Down")
 	
-	hbox_container.add_child(up_button)
+	up_button.connect("button_down", self, "move_position_up")
+	down_button.connect("button_down", self, "move_position_down")
 	
+	hbox_container.add_child(up_button)
+	hbox_container.add_child(down_button)
 	hbox_container.add_child(extra_buttons_container)
 	
+	size_flags_vertical = SIZE_EXPAND_FILL
+	
 	add_child(editable_area)
+	
+	
+	editable_area.size_flags_vertical = SIZE_EXPAND_FILL
+	
+func move_position_up():
+	if get_position_in_parent() <= 1:
+		emit_signal("move_up", get_position_in_parent())
+		get_parent().move_child(self, get_position_in_parent()-1)
+func move_position_down():
+	if get_position_in_parent()+1 != get_parent().get_child_count():
+		emit_signal("move_down", get_position_in_parent())
+		get_parent().move_child(self, get_position_in_parent()+1)
