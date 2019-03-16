@@ -1,6 +1,7 @@
 {
     "name": "Cambio de fondo",
     "inherits": "line",
+    "hidden": true,
     "keys": {
         "background": {
             "type": "String"

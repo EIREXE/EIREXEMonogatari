@@ -54,23 +54,29 @@ func ui_setup():
 	
 	for key in SJSON.formats:
 		var format : Dictionary = SJSON.formats[key]
-		new_format_option_button.add_item(format["name"])
-		new_format_option_button.set_item_metadata(new_format_option_button.get_item_count() - 1, key)
+		var hidden = false
+		if format.has("hidden"):
+			hidden = format.hidden
+		if not hidden:
+			new_format_option_button.add_item(format["name"])
+			new_format_option_button.set_item_metadata(new_format_option_button.get_item_count() - 1, key)
 	file_button.get_popup().connect("id_pressed", self, "on_option_pressed")
 	new_file_button.connect("pressed", self, "on_new_file_button_pressed")
 		
 func new_file(contents = null, path = null, type = null):
 	var editor_tab
-	if type == "scene":
+	if not contents:
+		contents = SJSON.from_file(path)
+	if type == "scene" or contents.__format == "scene":
 		editor_tab = SugarSceneEditorTab.new()
 	else:
 		editor_tab = SugarJSONEditorTab.new()
 	tab_container.add_child(editor_tab)
 	if path:
-		editor_tab.load_from_path(path)
+		editor_tab.path = path
 	tab_container.set_tab_title(tab_container.get_tab_count()-1, editor_tab.get_title())
 	if contents:
-		editor_tab.content = contents
+		editor_tab.content = JSON.print(contents, "  ")
 	
 	editor_tab.connect("contents_changed", self, "on_current_tab_contents_changed")
 		

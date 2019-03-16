@@ -1,6 +1,14 @@
 {
   "lines": [
-
+    {
+      "background": "bg uni.jpg",
+      "__format": "background_change_line"
+    },
+    {
+      "text": "",
+      "character": "",
+      "__format": "text_line"
+    }
   ],
   "__format": "scene"
 }

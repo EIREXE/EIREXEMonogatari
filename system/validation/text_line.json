@@ -1,5 +1,6 @@
 {
     "name": "Linea de texto",
+    "hidden": true,
     "inherits": "line",
     "keys": {
         "text": {

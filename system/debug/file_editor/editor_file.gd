@@ -21,8 +21,3 @@ func set_content(value):
 
 func get_content():
 	return content
-
-func load_from_path(_path: String) -> void:
-	path = _path
-	var data := SJSON.from_file(path)
-	set_content(JSON.print(data, "  "))

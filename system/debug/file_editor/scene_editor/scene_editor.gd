@@ -58,17 +58,22 @@ func move_line_up(line_idx: int):
 	swap_lines(line_idx, line_idx-1)
 func move_line_down(line_idx: int):
 	swap_lines(line_idx, line_idx+1)
-func add_new_line(shortcut_id: int):
+	
+func on_new_line_shortcut_pressed(shortcut_id):
+	var line_type_name : String = add_shortcut_menubutton.get_popup().get_item_shortcut(shortcut_id).get_meta("line_type")
+	var line = SJSON.get_format_defaults(line_type_name)
+	scene.lines.append(line)
+	add_new_line(line_type_name)
+func add_new_line(line_type_name: String):
 	if not scene.has("lines"):
 		scene["lines"] = []
-	var line_type_name : String = add_shortcut_menubutton.get_popup().get_item_shortcut(shortcut_id).get_meta("line_type")
+
 	var line_type : Dictionary = LINE_TYPES[line_type_name]
 	var line_editor = line_type.editor.new()
 	var line = SJSON.get_format_defaults(line_type_name)
 	line_editor.line = line
-	line_hbox_container.add_child(line_editor)
 	
-	scene.lines.append(line)
+	line_hbox_container.add_child(line_editor)
 	
 	line_editor.connect("line_changed", self, "on_line_changed")
 	line_editor.connect("move_up", self, "move_line_up")
@@ -80,7 +85,11 @@ func on_line_changed(idx: int, new_line):
 func set_content(_content):
 	content = _content
 	scene = JSON.parse(_content).result
+	for child in line_hbox_container.get_children():
+		child.queue_free()
 	
+	for line in scene.lines:
+		add_new_line(line.__format)
 func delete_line(idx):
 	scene.lines.remove(idx)
 	

@@ -1,5 +1,6 @@
 {
     "name": "Show Character Graphic",
+    "hidden": true,
     "inherits": "line",
     "keys": {
         "character": {
