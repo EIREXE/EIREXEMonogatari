@@ -5,7 +5,7 @@
       "__format": "background_change_line"
     },
     {
-      "text": "Me cago en mi puta vida",
+      "text": "Test test",
       "character": "nina",
       "__format": "text_line"
     },
@@ -14,18 +14,8 @@
       "__format": "background_change_line"
     },
     {
-      "text": "Tomate pa que se saca la pistola???",
+      "text": "Testing testing...",
       "character": "nina",
-      "__format": "text_line"
-    },
-    {
-      "text": "La pistola cuando se saca es pa' disparar el que la saca pa' enseñarla es un parguela.",
-      "character": "tomate",
-      "__format": "text_line"
-    },
-    {
-      "text": "La nueve milimetros",
-      "character": "tomate",
       "__format": "text_line"
     }
   ],
