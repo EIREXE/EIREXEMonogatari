@@ -73,11 +73,16 @@ func add_new_line(shortcut_id: int):
 	line_editor.connect("line_changed", self, "on_line_changed")
 	line_editor.connect("move_up", self, "move_line_up")
 	line_editor.connect("move_down", self, "move_line_down")
+	line_editor.connect("delete", self, "delete_line")
+	
 func on_line_changed(idx: int, new_line):
 	scene.lines[idx] = new_line
 func set_content(_content):
 	content = _content
 	scene = JSON.parse(_content).result
+	
+func delete_line(idx):
+	scene.lines.remove(idx)
 	
 func get_content():
 	return JSON.print(scene, "  ")
