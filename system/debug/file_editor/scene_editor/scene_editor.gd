@@ -38,7 +38,7 @@ func _ready():
 		line_shortcut.set_meta("line_type", i)
 		add_shortcut_menubutton.get_popup().add_shortcut(line_shortcut)
 		
-	add_shortcut_menubutton.get_popup().connect("index_pressed", self, "add_new_line")
+	add_shortcut_menubutton.get_popup().connect("index_pressed", self, "on_new_line_shortcut_pressed")
 	
 	# Base scroll container
 	

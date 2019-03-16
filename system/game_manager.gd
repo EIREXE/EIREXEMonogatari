@@ -37,10 +37,9 @@ func list_characters():
 		if file_path == "":
 			break
 		elif not file_path.begins_with(".") and file_path.get_extension() == "json":
-			var result = JSON.parse("res://game/characters/" + file_path)
-			if result.error == OK:
-				
-				characters[file_path.get_basename()] = result.result
+			var result = SJSON.from_file("res://game/characters/" + file_path)
+			if not result.has("error"):
+				characters[file_path.get_basename()] = result
 	dir.list_dir_end()
 	
 func reload_game():

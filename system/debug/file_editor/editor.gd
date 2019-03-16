@@ -67,7 +67,13 @@ func new_file(contents = null, path = null, type = null):
 	var editor_tab
 	if not contents:
 		contents = SJSON.from_file(path)
-	if type == "scene" or contents.__format == "scene":
+	else:
+		contents = JSON.parse(contents).result
+	
+	if contents.has("__format"):
+		type = contents.__format
+	
+	if type == "scene":
 		editor_tab = SugarSceneEditorTab.new()
 	else:
 		editor_tab = SugarJSONEditorTab.new()
