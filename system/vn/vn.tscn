@@ -22,16 +22,31 @@ texture = ExtResource( 1 )
 expand = true
 stretch_mode = 7
 
-[node name="TextureRect" type="TextureRect" parent="Panel"]
-margin_left = -501.981
-margin_top = -48.7929
-margin_right = 1549.02
-margin_bottom = 879.207
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer"]
+margin_right = 510.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="Panel/HBoxContainer"]
+margin_left = 514.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 
 [node name="StoryContainer" type="TextureRect" parent="Panel"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5

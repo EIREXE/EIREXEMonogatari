@@ -30,8 +30,6 @@ func _ready():
 	size_flags_vertical = SIZE_EXPAND_FILL
 	
 	add_child(editable_area)
-	
-	
 	editable_area.size_flags_vertical = SIZE_EXPAND_FILL
 	
 func move_position_up():

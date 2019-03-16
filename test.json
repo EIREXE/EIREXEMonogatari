@@ -1,9 +1,13 @@
 {
   "lines": [
     {
-      "text": "",
+      "text": "asdasdasdasdasasdassdadasdasdasasdas",
       "character": "nina",
       "__format": "text_line"
+    },
+    {
+      "background": "",
+      "__format": "background_change_line"
     }
   ],
   "__format": "scene"

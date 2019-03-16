@@ -64,13 +64,15 @@ func on_new_line_shortcut_pressed(shortcut_id):
 	var line = SJSON.get_format_defaults(line_type_name)
 	scene.lines.append(line)
 	add_new_line(line_type_name)
-func add_new_line(line_type_name: String):
+func add_new_line(line_type_name: String, line = null):
 	if not scene.has("lines"):
 		scene["lines"] = []
 
 	var line_type : Dictionary = LINE_TYPES[line_type_name]
 	var line_editor = line_type.editor.new()
-	var line = SJSON.get_format_defaults(line_type_name)
+	if not line:
+		line = SJSON.get_format_defaults(line_type_name)
+		
 	line_editor.line = line
 	
 	line_hbox_container.add_child(line_editor)
@@ -89,7 +91,7 @@ func set_content(_content):
 		child.queue_free()
 	
 	for line in scene.lines:
-		add_new_line(line.__format)
+		add_new_line(line.__format, line)
 func delete_line(idx):
 	scene.lines.remove(idx)
 	
