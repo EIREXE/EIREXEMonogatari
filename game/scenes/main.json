@@ -1,0 +1,33 @@
+{
+  "lines": [
+    {
+      "background": "bg uni.jpg",
+      "__format": "background_change_line"
+    },
+    {
+      "text": "Me cago en mi puta vida",
+      "character": "nina",
+      "__format": "text_line"
+    },
+    {
+      "background": "bg meadow.jpg",
+      "__format": "background_change_line"
+    },
+    {
+      "text": "Tomate pa que se saca la pistola???",
+      "character": "nina",
+      "__format": "text_line"
+    },
+    {
+      "text": "La pistola cuando se saca es pa' disparar el que la saca pa' enseñarla es un parguela.",
+      "character": "tomate",
+      "__format": "text_line"
+    },
+    {
+      "text": "La nueve milimetros",
+      "character": "tomate",
+      "__format": "text_line"
+    }
+  ],
+  "__format": "scene"
+}

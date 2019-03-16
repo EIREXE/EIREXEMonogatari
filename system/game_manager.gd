@@ -7,6 +7,8 @@ var backgrounds := []
 var characters := {}
 var tools_menu = SugarToolsMenu.new()
 
+const VNScene = preload("res://system/vn/vn.tscn")
+
 const GAME_ROOT = "res://game/"
 
 func list_backgrounds():
@@ -27,6 +29,10 @@ func _ready():
 	
 func run_scene(scene_path: String):
 	var scene = SJSON.from_file(scene_path)
+	get_tree().current_scene.queue_free()
+	var vn_scene = VNScene.instance()
+	get_tree().get_root().add_child(vn_scene)
+	vn_scene.run_scene(scene)
 	
 func list_characters():
 	var dir := Directory.new()
