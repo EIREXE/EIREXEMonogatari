@@ -2,10 +2,10 @@ extends VBoxContainer
 
 var extra_buttons_container = HBoxContainer.new()
 var editable_area = Control.new()
-
+var line : Dictionary
 signal move_up
 signal move_down
-
+signal line_changed
 func _ready():
 	var hbox_container := HBoxContainer.new()
 	add_child(hbox_container)
@@ -31,10 +31,14 @@ func _ready():
 	editable_area.size_flags_vertical = SIZE_EXPAND_FILL
 	
 func move_position_up():
-	if get_position_in_parent() <= 1:
+	if get_position_in_parent() > 0:
 		emit_signal("move_up", get_position_in_parent())
 		get_parent().move_child(self, get_position_in_parent()-1)
+		
 func move_position_down():
 	if get_position_in_parent()+1 != get_parent().get_child_count():
 		emit_signal("move_down", get_position_in_parent())
 		get_parent().move_child(self, get_position_in_parent()+1)
+		
+func update_line():
+	emit_signal("line_changed", get_position_in_parent(), line)

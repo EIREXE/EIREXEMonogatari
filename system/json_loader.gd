@@ -27,7 +27,7 @@ func validate_type(value, keyData: Dictionary) -> bool:
 					break
 		"Format":
 			if formats.has(keyData.format):
-				validation_OK = validate_type(value, formats[keyData.format]["keys"])
+				validation_OK = validate(value, formats[keyData.format]["keys"])
 	return validation_OK
 
 func validate(data: Dictionary, format_keys: Dictionary) -> bool:
@@ -98,9 +98,15 @@ func get_defaults(format_keys: Dictionary):
 	for key in format_keys:
 		var format_key = format_keys[key]
 		if format_key.has("default"):
-			result[key] = format_key["default"]
+			result[key] = format_key.default
 		elif format_key["type"] == "Object":
 			result[key] = get_defaults(format_key["object"])
+		elif format_key["type"] == "String":
+			result[key] = ""
+		elif format_key["type"] == "Number":
+			result[key] = 0
+		elif format_key["type"] == "Array":
+			result[key] = []
 	return result
 	
 func get_format_defaults(format_name: String) -> Dictionary:

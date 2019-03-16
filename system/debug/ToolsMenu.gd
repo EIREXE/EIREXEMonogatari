@@ -33,4 +33,5 @@ func run_tool(tool_path: String):
 func _input(event):
 	if OS.is_debug_build():
 		if Input.is_action_just_released("open_debug"):
+			get_tree().current_scene.visible = false
 			popup_centered_ratio(0.25)

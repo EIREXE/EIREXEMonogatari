@@ -1,0 +1,9 @@
+{
+  "lines": [
+    {
+      "background": "bg uni.jpg",
+      "__format": "background_change_line"
+    }
+  ],
+  "__format": "scene"
+}

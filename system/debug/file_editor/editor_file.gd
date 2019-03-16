@@ -14,10 +14,13 @@ func get_title() -> String:
 	else:
 		return tr("Sin Titulo")
 		
-var content : String setget set_content
+var content : String setget set_content, get_content
 
 func set_content(value):
 	content = value
+
+func get_content():
+	return content
 
 func load_from_path(_path: String) -> void:
 	path = _path

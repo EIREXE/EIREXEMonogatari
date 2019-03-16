@@ -1,5 +1,5 @@
 {
-    "name": "Linea de acción juego",
+    "name": "Linea de texto",
     "inherits": "line",
     "keys": {
         "text": {

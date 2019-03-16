@@ -8,8 +8,6 @@ func set_content(_content: String) -> void:
 	content = _content
 	text_edit.text = content
 	
-
-	
 func setup_syntax_highlighting():
 	text_edit.add_color_region("\"", "\"", Color("#ffcf7d34"))
 	text_edit.add_keyword_color("true", Color("#ffcc8242"))

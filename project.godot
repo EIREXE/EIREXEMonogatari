@@ -30,9 +30,18 @@ config/icon="res://icon.png"
 SJSON="*res://system/json_loader.gd"
 GameManager="*res://system/game_manager.gd"
 
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep_height"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "zylann.editor_debugger" )
+
+[gui]
+
+theme/custom_font="res://system/fonts/RobotoRegular-12.tres"
 
 [input]
 

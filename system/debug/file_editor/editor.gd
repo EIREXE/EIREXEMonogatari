@@ -98,7 +98,7 @@ func on_option_pressed(id: int) -> void:
 			file_dialog.popup_centered_ratio()
 			file_dialog.connect("file_selected", self, "on_open_file_file_selected")
 		FILE_MENU_OPTIONS.CHECK_FILE:
-			check_current_file()
+			validate_current_file()
 		FILE_MENU_OPTIONS.NEW_FILE:
 			new_file_dialog.popup_centered()
 		FILE_MENU_OPTIONS.SAVE_FILE:
@@ -111,7 +111,7 @@ func on_option_pressed(id: int) -> void:
 			save_current_file_as()
 		
 
-func check_current_file() -> bool:
+func validate_current_file() -> bool:
 	var tab_control = tab_container.get_current_tab_control()
 	var validation_result : bool = SJSON.validate_string(tab_control.content) as bool
 	if validation_result:
@@ -122,7 +122,7 @@ func check_current_file() -> bool:
 
 func save_current_file():
 	var file = File.new()
-	if check_current_file():
+	if validate_current_file():
 		file.open(tab_container.get_current_tab_control().path, File.WRITE)
 		file.store_string(tab_container.get_current_tab_control().content)
 		file.close()

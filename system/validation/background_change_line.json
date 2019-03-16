@@ -1,0 +1,9 @@
+{
+    "name": "Cambio de fondo",
+    "inherits": "line",
+    "keys": {
+        "background": {
+            "type": "String"
+        }
+    }
+}

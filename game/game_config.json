@@ -1,0 +1,9 @@
+{
+  "__format": "game_config",
+  "name": "Project Sugar",
+  "auto_quote": true,
+  "supported_languages": [
+    "es",
+    "en"
+  ]
+}
