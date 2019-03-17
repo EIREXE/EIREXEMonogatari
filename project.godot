@@ -59,7 +59,8 @@ skip_text={
 
 [locale]
 
-translations=PoolStringArray( "res://system/translations/tools.es.translation", "res://system/translations/tools.en.translation" )
+test="en"
+translations=PoolStringArray( "res://system/translations/tools.es.translation", "res://system/translations/tools.en.translation", "res://system/translations/tools.ca.translation" )
 
 [rendering]
 

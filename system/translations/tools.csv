@@ -1,23 +1,23 @@
-,en,es
-SCENE_EDITOR_HINT_VIEW_CODE,View code,Ver codigo
-SCENE_EDITOR_HINT_ADD_LINE,Add new line,Añadir nueva linea
-SCENE_EDITOR_TEXT_LINE,Dialogue line,Linea de dialogo
-SCENE_EDITOR_BACKGROUND_CHANGE_LINE,Background change,Cambio de fondo
-SCENE_EDITOR_NARRATOR,Narrator,Narrador
-SCENE_EDITOR_HINT_RUN_SCENE,Run,Ejecutar
-EDITOR_FILE,File,Archivo
-EDITOR_NEW_FILE,New,Nuevo
-EDITOR_OPEN_FILE,Open,Abrir
-EDITOR_OPEN_CHARACTER,Open character...,Abrir personaje...
-EDITOR_SAVE_FILE,Save,Guardar
-EDITOR_SAVE_FILE_AS,Save as...,Guardar como...
-EDITOR_CHECK_FILE,Check file,Comprobar fichero
-EDITOR_UNTITLED,Untitled,Sín Título
-EDITOR_CANCEL,Cancel,Cancelar
-EDITOR_HINT_BUTTON_UP,Up,Arriba
-EDITOR_HINT_BUTTON_DOWN,Down,Abajo
-EDITOR_HINT_BUTTON_DELETE,Delete,Borrar
-TOOLS_WINDOW_TITLE,Development tools,Herramientas de desarrollo
-TOOLS_WINDOW_RUN_MAIN_SCENE,Run main scene,Ejecutar escena principal
-TOOLS_WINDOW_RELOAD_GAME,Reload game data,Recargar datos del juego
-TOOLS_WINDOW_JSON_EDITOR,Game data editor,Editor de datos del juego
+,en,es,ca
+SCENE_EDITOR_HINT_VIEW_CODE,View code,Ver codigo,Veure codi
+SCENE_EDITOR_HINT_ADD_LINE,Add new line,Añadir nueva linea,Afegir nova linea
+SCENE_EDITOR_TEXT_LINE,Dialogue line,Linea de dialogo,Linea de dialeg
+SCENE_EDITOR_BACKGROUND_CHANGE_LINE,Background change,Cambio de fondo,Canvi de fons
+SCENE_EDITOR_NARRATOR,Narrator,Narrador,Narrador
+SCENE_EDITOR_HINT_RUN_SCENE,Run,Ejecutar,Executar
+EDITOR_FILE,File,Archivo,Arxiu
+EDITOR_NEW_FILE,New,Nuevo,Nou
+EDITOR_OPEN_FILE,Open,Abrir,Obrir
+EDITOR_OPEN_CHARACTER,Open character...,Abrir personaje...,Obrir personatge...
+EDITOR_SAVE_FILE,Save,Guardar,Desa
+EDITOR_SAVE_FILE_AS,Save as...,Guardar como...,Anomena i desa
+EDITOR_CHECK_FILE,Check file,Comprobar fichero,Comprovar arxiu
+EDITOR_UNTITLED,Untitled,Sín Título,Sense Titol
+EDITOR_CANCEL,Cancel,Cancelar,Cancelar
+EDITOR_HINT_BUTTON_UP,Up,Arriba,Amunt
+EDITOR_HINT_BUTTON_DOWN,Down,Abajo,Asota
+EDITOR_HINT_BUTTON_DELETE,Delete,Borrar,Esborrar
+TOOLS_WINDOW_TITLE,Development tools,Herramientas de desarrollo,Eines de desenvolupament
+TOOLS_WINDOW_RUN_MAIN_SCENE,Run main scene,Ejecutar escena principal,Executar escena principal
+TOOLS_WINDOW_RELOAD_GAME,Reload game data,Recargar datos del juego,Recarregar dades del joc
+TOOLS_WINDOW_JSON_EDITOR,Game data editor,Editor de datos del juego,Editor de dades del joc
