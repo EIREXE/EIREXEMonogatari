@@ -56,6 +56,11 @@ skip_text={
  ]
 }
 
+[locale]
+
+test="es"
+translations=PoolStringArray( "res://system/translations/tools.csv" )
+
 [rendering]
 
 environment/default_clear_color=Color( 0, 0, 0, 1 )

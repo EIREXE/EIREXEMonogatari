@@ -38,7 +38,7 @@ func _run_tool(tool_path: String):
 	var tool_instance = scene.instance()
 	add_child(tool_window)
 	tool_window.add_child(tool_instance)
-	# HACK to prevent window from being hidden when clicked away
+	# HACK to prevent window from being hidden when clicked away, while still making use of popup_centered_ratio
 	tool_window.popup_centered_ratio()
 	tool_window.hide()
 	tool_window.show()

@@ -2,11 +2,14 @@
 
 importer="csv_translation"
 type="Translation"
-valid=false
 
 [deps]
 
+files=[ "res://system/translations/tools.en.translation", "res://system/translations/tools.es.translation" ]
+
 source_file="res://system/translations/tools.csv"
+dest_files=[ "res://system/translations/tools.en.translation", "res://system/translations/tools.es.translation" ]
+
 [params]
 
 compress=true

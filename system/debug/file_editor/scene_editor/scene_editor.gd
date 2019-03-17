@@ -20,22 +20,30 @@ var LINE_TYPES : Dictionary = {
 var line_hbox_container = VBoxContainer.new()
 var add_shortcut_menubutton : MenuButton
 var scene : Dictionary = { "lines": [] }
+var code_viewer = TextEdit.new()
 
+var scroll_container := ScrollContainer.new()
+var editor_container := VBoxContainer.new()
 func _ready():
-	var vbox_container := VBoxContainer.new()
 	var buttons_container := HBoxContainer.new()
 	
 	# Line addition button
 	
-	vbox_container.add_child(buttons_container)
+	editor_container.add_child(buttons_container)
 	
 	add_shortcut_menubutton = MenuButton.new()
 	add_shortcut_menubutton.text = "+"
 	add_shortcut_menubutton.flat = false
 	
-	buttons_container.alignment = HBoxContainer.ALIGN_END
+	var view_code_button = Button.new()
+	view_code_button.text = tr("SCENE_EDITOR_VIEW_CODE")
+	buttons_container.add_child(view_code_button)
+	
+	view_code_button.connect("button_down", self, "_toggle_code_view")
 	
 	buttons_container.add_child(add_shortcut_menubutton)
+	
+	buttons_container.alignment = HBoxContainer.ALIGN_END
 	
 	for i in LINE_TYPES:
 		var line_shortcut = ShortCut.new()
@@ -46,13 +54,27 @@ func _ready():
 	add_shortcut_menubutton.get_popup().connect("index_pressed", self, "on_new_line_shortcut_pressed")
 	
 	# Base scroll container
-	
-	var scroll_container := ScrollContainer.new()
-	add_child(vbox_container)
-	vbox_container.add_child(scroll_container)
+
+	add_child(editor_container)
+	editor_container.add_child(scroll_container)
 	scroll_container.add_child(line_hbox_container)
 	scroll_container.size_flags_vertical = SIZE_EXPAND_FILL
 	line_hbox_container.size_flags_horizontal = SIZE_EXPAND_FILL
+	
+	editor_container.add_child(code_viewer)
+	
+	code_viewer.size_flags_vertical = SIZE_EXPAND_FILL
+	code_viewer.visible = false
+	code_viewer.syntax_highlighting = true
+	code_viewer.show_line_numbers = true
+	code_viewer.add_color_region("\"", "\"", Color("#ffcf7d34"))
+	code_viewer.add_keyword_color("true", Color("#ffcc8242"))
+	code_viewer.readonly = true
+func _toggle_code_view():
+	code_viewer.visible = !code_viewer.visible
+	scroll_container.visible = !scroll_container.visible
+	if code_viewer.visible:
+		code_viewer.text = get_content()
 	
 func swap_lines(idx1: int, idx2: int):
 	var temp : Dictionary = scene.lines[idx1]
