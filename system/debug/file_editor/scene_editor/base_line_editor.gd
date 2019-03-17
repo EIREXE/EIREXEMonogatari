@@ -3,7 +3,7 @@ extends VBoxContainer
 """
 Base for VN game scene line editor
 """
-
+# BRBBBB
 signal move_up
 signal move_down
 signal line_changed

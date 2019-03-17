@@ -13,9 +13,11 @@ onready var new_file_button : Button = get_node("NewFileDialog/HBoxContainer/New
 
 const SugarJSONEditorTab = preload("res://system/debug/file_editor/editor_json_file.gd")
 const SugarSceneEditorTab = preload("res://system/debug/file_editor/scene_editor/scene_editor.gd")
+const SugarOpenCharacterDialog = preload("res://system/debug/file_editor/open_character_dialog.gd")
 enum FILE_MENU_OPTIONS {
 	NEW_FILE,
 	OPEN_FILE,
+	OPEN_CHARACTER,
 	SAVE_FILE,
 	SAVE_FILE_AS,
 	CHECK_FILE
@@ -23,8 +25,11 @@ enum FILE_MENU_OPTIONS {
 var file_dialog := FileDialog.new()
 var save_file_dialog := FileDialog.new()
 var open_files := []
-
+var character_dialog := SugarOpenCharacterDialog.new()
 func ui_setup():
+	add_child(character_dialog)
+	character_dialog.connect("character_selected", self, "_on_character_selected")
+	
 	add_child(file_dialog)
 	add_child(save_file_dialog)
 	
@@ -40,6 +45,10 @@ func ui_setup():
 	var open_file_shortcut = ShortCut.new()
 	open_file_shortcut.set_name(tr("EDITOR_OPEN_FILE"))
 	file_button.get_popup().add_shortcut(open_file_shortcut, FILE_MENU_OPTIONS.OPEN_FILE)
+
+	var open_character_shortcut = ShortCut.new()
+	open_character_shortcut.set_name(tr("EDITOR_OPEN_CHARACTER"))
+	file_button.get_popup().add_shortcut(open_character_shortcut, FILE_MENU_OPTIONS.OPEN_CHARACTER)
 
 	var save_file_shortcut = ShortCut.new()
 	save_file_shortcut.set_name(tr("EDITOR_SAVE_FILE"))
@@ -125,6 +134,8 @@ func on_option_pressed(id: int) -> void:
 			file_dialog.popup_exclusive = true
 			file_dialog.popup_centered_ratio()
 			file_dialog.connect("file_selected", self, "on_open_file_file_selected")
+		FILE_MENU_OPTIONS.OPEN_CHARACTER:
+			character_dialog.popup_centered_ratio(0.25)
 		FILE_MENU_OPTIONS.CHECK_FILE:
 			validate_current_file()
 		FILE_MENU_OPTIONS.NEW_FILE:
@@ -156,6 +167,9 @@ func save_current_file():
 		file.close()
 		tab_container.set_tab_title(tab_container.current_tab, tab_container.get_current_tab_control().get_title())
 		tab_container.update()
+	
+func _on_character_selected(character):
+	new_file_from_path("res://game/characters/%s.json" % character)
 	
 func save_current_file_as():
 
