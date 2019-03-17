@@ -1,12 +1,12 @@
 {
   "lines": [
     {
-      "text": "asdasdasdasdasasdassdadasdasdasasdas",
+      "text": "UwU",
       "character": "nina",
       "__format": "text_line"
     },
     {
-      "background": "",
+      "background": "bg meadow.jpg",
       "__format": "background_change_line"
     }
   ],

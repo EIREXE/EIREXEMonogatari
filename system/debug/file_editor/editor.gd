@@ -74,7 +74,7 @@ func _get_editor_for_format(format: String):
 	else:
 		format_editor = SugarJSONEditorTab.new()
 	return format_editor
-	
+
 
 # Adds a new empty file format
 func new_empty_file(format: String) -> SugarEditorTab:
@@ -98,6 +98,7 @@ func new_file_from_path(path: String) -> SugarEditorTab:
 		if result.has("__format"):
 			tab = new_empty_file(result.__format)
 			tab.path = path
+			tab_container.set_tab_title(tab_container.get_tab_count()-1, tab.get_title())
 			tab.content = JSON.print(result, "  ")
 	return tab
 	
