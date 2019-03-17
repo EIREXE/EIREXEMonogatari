@@ -10,6 +10,8 @@ var path : String setget set_path
 
 var content : String setget set_content, get_content
 
+var editor_window
+
 func set_path(value):
 	path = value
 	

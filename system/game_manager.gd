@@ -14,6 +14,14 @@ var backgrounds := []
 var characters := {}
 var tools_menu = SugarToolsMenu.new()
 
+var current_scene setget ,_get_current_scene
+
+func _get_current_scene():
+	if current_scene:
+		return current_scene
+	else:
+		return get_tree().current_scene
+
 func list_backgrounds():
 	var dir := Directory.new()
 	dir.open("res://game/backgrounds")
@@ -27,14 +35,28 @@ func list_backgrounds():
 	dir.list_dir_end()
 
 func _ready():
-	add_child(tools_menu)
+	var debug_canvas_layer := CanvasLayer.new()
+	debug_canvas_layer.add_child(tools_menu)
+	add_child(debug_canvas_layer)
 	reload_game()
 	
-func run_scene(scene_path: String):
+func change_scene_to(scene_packed: PackedScene):
+	var scene = scene_packed.instance()
+	get_tree().get_root().add_child(scene)
+	if get_tree().current_scene:
+		get_tree().current_scene.queue_free()
+	if current_scene:
+		current_scene.queue_free()
+	current_scene = scene
+	
+	return current_scene
+	
+func run_vn_scene_from_file(scene_path: String):
 	var scene = SJSON.from_file(scene_path)
-	get_tree().current_scene.queue_free()
-	var vn_scene = VNScene.instance()
-	get_tree().get_root().add_child(vn_scene)
+	run_vn_scene(scene)
+	
+func run_vn_scene(scene: Dictionary):
+	var vn_scene = change_scene_to(VNScene)
 	vn_scene.run_scene(scene)
 	
 func list_characters():

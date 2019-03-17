@@ -21,9 +21,16 @@ func _ready():
 	var down_button := Button.new()
 	var delete_button := Button.new()
 	
-	up_button.text = tr("EDITOR_BUTTON_UP")
-	down_button.text = tr("EDITOR_BUTTON_DOWN")
-	delete_button.text = tr("EDITOR_BUTTON_DELETE")
+	up_button.hint_tooltip = tr("EDITOR_HINT_BUTTON_UP")
+	down_button.hint_tooltip = tr("EDITOR_HINT_BUTTON_DOWN")
+	delete_button.hint_tooltip = tr("EDITOR_HINT_BUTTON_DELETE")
+	
+	up_button.icon = ImageTexture.new()
+	up_button.icon.load("res://system/debug/file_editor/icons/icon_move_up.svg")
+	down_button.icon = ImageTexture.new()
+	down_button.icon.load("res://system/debug/file_editor/icons/icon_move_down.svg")
+	delete_button.icon = ImageTexture.new()
+	delete_button.icon.load("res://system/debug/file_editor/icons/icon_remove.svg")
 	
 	up_button.connect("button_down", self, "move_position_up")
 	down_button.connect("button_down", self, "move_position_down")

@@ -94,12 +94,14 @@ func new_empty_file(format: String) -> SugarEditorTab:
 func new_file_from_path(path: String) -> SugarEditorTab:
 	var result = SJSON.from_file(path)
 	var tab : SugarEditorTab
+	
 	if not result.has("error"):
 		if result.has("__format"):
 			tab = new_empty_file(result.__format)
 			tab.path = path
 			tab_container.set_tab_title(tab_container.get_tab_count()-1, tab.get_title())
 			tab.content = JSON.print(result, "  ")
+	tab.editor_window = get_parent()
 	return tab
 	
 func on_current_tab_contents_changed():
