@@ -29,6 +29,7 @@ var file_dialog := FileDialog.new()
 var save_file_dialog := FileDialog.new()
 var open_files := []
 var character_dialog := SugarOpenCharacterDialog.new()
+
 func ui_setup():
 	add_child(character_dialog)
 	character_dialog.connect("character_selected", self, "_on_character_selected")
@@ -41,31 +42,21 @@ func ui_setup():
 	
 	vb_container.set_anchors_preset(PRESET_WIDE)
 	
-	var new_file_shortcut = ShortCut.new()
-	new_file_shortcut.set_name(tr("EDITOR_NEW_FILE"))
-	file_button.get_popup().add_shortcut(new_file_shortcut, FILE_MENU_OPTIONS.NEW_FILE)
+	file_button.get_popup().add_item(tr("EDITOR_NEW_FILE"), FILE_MENU_OPTIONS.NEW_FILE, KEY_MASK_CTRL | KEY_N)
 	
-	var open_file_shortcut = ShortCut.new()
-	open_file_shortcut.set_name(tr("EDITOR_OPEN_FILE"))
-	file_button.get_popup().add_shortcut(open_file_shortcut, FILE_MENU_OPTIONS.OPEN_FILE)
+	file_button.get_popup().add_item(tr("EDITOR_OPEN_FILE"), FILE_MENU_OPTIONS.OPEN_FILE, KEY_MASK_CTRL | KEY_O)
 
-	var open_character_shortcut = ShortCut.new()
-	open_character_shortcut.set_name(tr("EDITOR_OPEN_CHARACTER"))
-	file_button.get_popup().add_shortcut(open_character_shortcut, FILE_MENU_OPTIONS.OPEN_CHARACTER)
-
-	var save_file_shortcut = ShortCut.new()
-	save_file_shortcut.set_name(tr("EDITOR_SAVE_FILE"))
-	file_button.get_popup().add_shortcut(save_file_shortcut, FILE_MENU_OPTIONS.SAVE_FILE)
-	
-	var save_as_shortcut = ShortCut.new()
-	save_as_shortcut.set_name(tr("EDITOR_SAVE_FILE_AS"))
-	file_button.get_popup().add_shortcut(save_as_shortcut, FILE_MENU_OPTIONS.SAVE_FILE_AS)
+	file_button.get_popup().add_item(tr("EDITOR_OPEN_CHARACTER"), FILE_MENU_OPTIONS.OPEN_CHARACTER, KEY_MASK_CTRL | KEY_P)
 	
 	file_button.get_popup().add_separator()
 	
-	var check_file_shortcut = ShortCut.new()
-	check_file_shortcut.set_name(tr("EDITOR_CHECK_FILE"))
-	file_button.get_popup().add_shortcut(check_file_shortcut, FILE_MENU_OPTIONS.CHECK_FILE)
+	file_button.get_popup().add_item(tr("EDITOR_SAVE_FILE"), FILE_MENU_OPTIONS.SAVE_FILE, KEY_MASK_CTRL | KEY_S)
+	
+	file_button.get_popup().add_item(tr("EDITOR_SAVE_FILE_AS"), FILE_MENU_OPTIONS.SAVE_FILE_AS, KEY_MASK_CTRL | KEY_MASK_SHIFT | KEY_S)
+	
+	file_button.get_popup().add_separator()
+	
+	file_button.get_popup().add_item(tr("EDITOR_CHECK_FILE"), FILE_MENU_OPTIONS.CHECK_FILE)
 
 	
 	for key in SJSON.formats:
@@ -96,7 +87,7 @@ func new_empty_file(format: String) -> SugarEditorTab:
 	
 	tab_container.add_child(editor)
 	tab_container.set_tab_title(tab_container.get_tab_count()-1, editor.get_title())
-	
+	tab_container.current_tab = tab_container.get_tab_count()-1
 	editor.content = defaults
 	
 	editor.connect("contents_changed", self, "on_current_tab_contents_changed")
@@ -113,7 +104,10 @@ func new_file_from_path(path: String) -> SugarEditorTab:
 			tab.path = path
 			tab_container.set_tab_title(tab_container.get_tab_count()-1, tab.get_title())
 			tab.content = JSON.print(result, "  ")
-	tab.editor_window = get_parent()
+	if not get_parent() is Viewport:
+		tab.editor_window = get_parent()
+	else:
+		tab.editor_window = self
 	return tab
 	
 func on_current_tab_contents_changed():
@@ -174,6 +168,7 @@ func save_current_file():
 	for auto_reload_path in AUTO_RELOAD_PATHS:
 		if auto_reload_path in path:
 			GameManager.reload_game()
+			break
 func _on_character_selected(character):
 	new_file_from_path("res://game/characters/%s.json" % character)
 	
