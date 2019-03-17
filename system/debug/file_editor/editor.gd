@@ -4,6 +4,9 @@ extends Control
 Extensible, general purpose game data editor
 """
 
+# Paths that will automatically fire a game_reload when saving to them
+const AUTO_RELOAD_PATHS = ["res://game"]
+
 onready var tab_container : TabContainer = get_node("Panel/VBoxContainer/TabContainer")
 onready var file_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/FileButton")
 onready var code_validation_status_label = get_node("Panel/VBoxContainer/StatusBar/ValidationStatusLabel")
@@ -160,14 +163,17 @@ func validate_current_file() -> bool:
 	return validation_result
 
 func save_current_file():
-	var file = File.new()
+	var file := File.new()
+	var path := tab_container.get_current_tab_control().path as String
 	if validate_current_file():
-		file.open(tab_container.get_current_tab_control().path, File.WRITE)
+		file.open(path, File.WRITE)
 		file.store_string(tab_container.get_current_tab_control().content)
 		file.close()
 		tab_container.set_tab_title(tab_container.current_tab, tab_container.get_current_tab_control().get_title())
 		tab_container.update()
-	
+	for auto_reload_path in AUTO_RELOAD_PATHS:
+		if auto_reload_path in path:
+			GameManager.reload_game()
 func _on_character_selected(character):
 	new_file_from_path("res://game/characters/%s.json" % character)
 	

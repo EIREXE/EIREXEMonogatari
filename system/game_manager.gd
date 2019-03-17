@@ -4,6 +4,8 @@ extends Node
 Manages global game state
 """
 
+signal game_reloaded
+
 const SugarToolsMenu = preload("debug/ToolsMenu.gd")
 const VNScene = preload("res://system/vn/vn.tscn")
 
@@ -73,7 +75,8 @@ func list_characters():
 				characters[file_path.get_basename()] = result
 	dir.list_dir_end()
 	
-func reload_game():
+# Reloads game data, silent mode doesn't emit a signal
+func reload_game(silent: bool = false):
 	list_backgrounds()
 	list_characters()
 	game_info = SJSON.from_file(GAME_ROOT + "game_config.json")
@@ -87,3 +90,6 @@ func reload_game():
 		title += " (Debug)"
 	
 	OS.set_window_title(title)
+	
+	if not silent:
+		emit_signal("game_reloaded")
