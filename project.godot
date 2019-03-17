@@ -10,12 +10,12 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "MarginContainer",
-"class": "SugarEditorFile",
+"class": "SugarEditorTab",
 "language": "GDScript",
 "path": "res://system/debug/file_editor/editor_file.gd"
 } ]
 _global_script_class_icons={
-"SugarEditorFile": ""
+"SugarEditorTab": ""
 }
 
 [application]

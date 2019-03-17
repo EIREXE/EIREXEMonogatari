@@ -1,12 +1,18 @@
 extends VBoxContainer
 
-var extra_buttons_container = HBoxContainer.new()
-var editable_area = Control.new()
-var line : Dictionary
+"""
+Base for VN game scene line editor
+"""
+
 signal move_up
 signal move_down
 signal line_changed
 signal delete
+
+var extra_buttons_container = HBoxContainer.new()
+var editable_area = Control.new()
+var line : Dictionary
+
 func _ready():
 	var hbox_container := HBoxContainer.new()
 	add_child(hbox_container)

@@ -1,5 +1,9 @@
 extends "base_line_editor.gd"
 
+"""
+Editor for VN dialogue lines
+"""
+
 var line_text = TextEdit.new()
 var character_selector := OptionButton.new()
 func _ready():

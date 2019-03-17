@@ -1,4 +1,8 @@
-extends SugarEditorFile
+extends SugarEditorTab
+
+"""
+Plain JSON text file editor
+"""
 
 signal contents_changed
 

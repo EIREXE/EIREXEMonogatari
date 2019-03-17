@@ -1,15 +1,18 @@
 extends Node
 
+"""
+Manages global game state
+"""
+
 const SugarToolsMenu = preload("debug/ToolsMenu.gd")
+const VNScene = preload("res://system/vn/vn.tscn")
+
+const GAME_ROOT = "res://game/"
 
 var game_info : Dictionary
 var backgrounds := []
 var characters := {}
 var tools_menu = SugarToolsMenu.new()
-
-const VNScene = preload("res://system/vn/vn.tscn")
-
-const GAME_ROOT = "res://game/"
 
 func list_backgrounds():
 	var dir := Directory.new()

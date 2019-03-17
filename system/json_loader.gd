@@ -1,11 +1,16 @@
 extends Node
 
+"""
+Universal loader and validator for JSON files, uses files from res://system/validation
+"""
+
 var formats := {}
 
 func _ready():
 	load_formats()
 
-func validate_type(value, keyData: Dictionary) -> bool:
+# Ensures the key complies with the information in keyData
+func validate_key(value, keyData: Dictionary) -> bool:
 	var validation_OK := false
 	match keyData.type:
 		"Object":
@@ -22,7 +27,7 @@ func validate_type(value, keyData: Dictionary) -> bool:
 			validation_OK = typeof(value) == TYPE_ARRAY
 			for entry in value:
 
-				validation_OK = validate_type(entry, array_type)
+				validation_OK = validate_key(entry, array_type)
 				if not validation_OK:
 					break
 		"Format":
@@ -30,13 +35,14 @@ func validate_type(value, keyData: Dictionary) -> bool:
 				validation_OK = validate(value, formats[keyData.format]["keys"])
 	return validation_OK
 
+# Validates a dictionary against a group of format keys
 func validate(data: Dictionary, format_keys: Dictionary) -> bool:
 	var validation_OK := false
 
 	for key in data:
 		if format_keys.has(key):
 			var keyData : Dictionary = format_keys[key]
-			validation_OK = validate_type(data[key], keyData)
+			validation_OK = validate_key(data[key], keyData)
 		else:
 			validation_OK = true
 		if validation_OK == false:
@@ -44,6 +50,7 @@ func validate(data: Dictionary, format_keys: Dictionary) -> bool:
 			break
 	return validation_OK
 
+# Validates a dictionary, automatically gets the proper key data
 func validate_dict(data: Dictionary) -> bool:
 	if data.has("__format"):
 		var format : Dictionary = formats[data['__format']]["keys"]
@@ -51,6 +58,7 @@ func validate_dict(data: Dictionary) -> bool:
 	else:
 		return true
 
+# Validates a file from string
 func validate_string(string: String) -> bool:
 	var result := JSON.parse(string)
 	if result.error == OK:
@@ -58,6 +66,7 @@ func validate_string(string: String) -> bool:
 	else:
 		return false
 
+# Loads all the format data from the validation folder
 func load_formats():
 	var dir := Directory.new()
 	dir.open("res://system/validation")
@@ -80,9 +89,11 @@ func load_formats():
 				pass
 	dir.list_dir_end()
 	
+# Loads and validates a JSON file from the disk, returns the file
 func from_file(path: String, validation: bool = true) -> Dictionary:
 	var file := File.new()
 	var file_result := file.open(path, File.READ)
+	var json_output : Dictionary
 	if file_result == OK:
 		var text := file.get_as_text()
 		var result := JSON.parse(text)
@@ -90,9 +101,13 @@ func from_file(path: String, validation: bool = true) -> Dictionary:
 			return result.result
 			var validation_result := validate_dict(result.result)
 			if validation_result:
-				return result.result
-	return {"error": file_result}
+				json_output = result.result
+	else:
+		json_output = {"error": file_result}
+	return json_output
 	
+	
+# Gets the defaults (a "skeleton") of a dictionary of format keys.
 func get_defaults(format_keys: Dictionary):
 	var result = {}
 	for key in format_keys:
@@ -108,11 +123,13 @@ func get_defaults(format_keys: Dictionary):
 		elif format_key["type"] == "Array":
 			result[key] = []
 	return result
-	
+
+# Gets the defaults for a format by name
 func get_format_defaults(format_name: String) -> Dictionary:
 	var result : Dictionary
 	if formats.has(format_name):
 		var format = formats[format_name]
 		result = get_defaults(format["keys"])
 	result["__format"] = format_name
+
 	return result

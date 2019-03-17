@@ -1,5 +1,9 @@
 extends WindowDialog
 
+"""
+Development tools menu, opened with F10
+"""
+
 const SugarToolWindow = preload("ToolWindow.gd")
 
 var button_container = VBoxContainer.new()
@@ -18,7 +22,7 @@ func _ready():
 	for tool_info in TOOLS:
 		var button := Button.new()
 		button.text = tool_info["name"]
-		button.connect("button_up", self, "run_tool", [tool_info["path"]])
+		button.connect("button_up", self, "_run_tool", [tool_info["path"]])
 		button_container.add_child(button)
 	
 	button_container.add_child(HSeparator.new())
@@ -28,13 +32,16 @@ func _ready():
 	run_main_button.connect("button_down", GameManager, "run_scene", ["res://game/scenes/main.json"])
 	run_main_button.connect("button_down", self, "hide")
 	button_container.add_child(run_main_button)
-func run_tool(tool_path: String):
+func _run_tool(tool_path: String):
 	var scene = load(tool_path)
 	var tool_window = SugarToolWindow.new() as WindowDialog
 	var tool_instance = scene.instance()
 	add_child(tool_window)
 	tool_window.add_child(tool_instance)
+	# HACK to prevent window from being hidden when clicked away
 	tool_window.popup_centered_ratio()
+	tool_window.hide()
+	tool_window.show()
 	
 func _input(event):
 	if OS.is_debug_build():

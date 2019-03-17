@@ -1,4 +1,10 @@
-extends SugarEditorFile
+extends SugarEditorTab
+
+"""
+Editor for VN scenes
+"""
+
+const TextLineEditor = preload("res://system/debug/file_editor/scene_editor/text_line_editor.gd")
 
 var LINE_TYPES : Dictionary = {
 	"text_line": {
@@ -13,9 +19,8 @@ var LINE_TYPES : Dictionary = {
 
 var line_hbox_container = VBoxContainer.new()
 var add_shortcut_menubutton : MenuButton
-const TextLineEditor = preload("res://system/debug/file_editor/scene_editor/text_line_editor.gd")
-
 var scene : Dictionary = { "lines": [] }
+
 func _ready():
 	var vbox_container := VBoxContainer.new()
 	var buttons_container := HBoxContainer.new()

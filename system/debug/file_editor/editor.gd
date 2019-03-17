@@ -1,5 +1,9 @@
 extends Control
 
+"""
+Extensible, general purpose game data editor
+"""
+
 onready var tab_container : TabContainer = get_node("Panel/VBoxContainer/TabContainer")
 onready var file_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/FileButton")
 onready var code_validation_status_label = get_node("Panel/VBoxContainer/StatusBar/ValidationStatusLabel")
@@ -63,30 +67,39 @@ func ui_setup():
 	file_button.get_popup().connect("id_pressed", self, "on_option_pressed")
 	new_file_button.connect("pressed", self, "on_new_file_button_pressed")
 		
-func new_file(contents = null, path = null, type = null):
-	var editor_tab
-	if not contents:
-		contents = SJSON.from_file(path)
+func _get_editor_for_format(format: String):
+	var format_editor
+	if format == "scene":
+		format_editor = SugarSceneEditorTab.new()
 	else:
-		contents = JSON.parse(contents).result
+		format_editor = SugarJSONEditorTab.new()
+	return format_editor
 	
-	if contents.has("__format"):
-		type = contents.__format
+
+# Adds a new empty file format
+func new_empty_file(format: String) -> SugarEditorTab:
+	var defaults = JSON.print(SJSON.get_format_defaults(format), "  ")
+
+	var editor : SugarEditorTab = _get_editor_for_format(format)
 	
-	if type == "scene":
-		editor_tab = SugarSceneEditorTab.new()
-	else:
-		editor_tab = SugarJSONEditorTab.new()
-	tab_container.add_child(editor_tab)
-	if path:
-		editor_tab.path = path
-	tab_container.set_tab_title(tab_container.get_tab_count()-1, editor_tab.get_title())
-	if contents:
-		editor_tab.content = JSON.print(contents, "  ")
+	tab_container.add_child(editor)
+	tab_container.set_tab_title(tab_container.get_tab_count()-1, editor.get_title())
 	
-	editor_tab.connect("contents_changed", self, "on_current_tab_contents_changed")
-		
-	return editor_tab
+	editor.content = defaults
+	
+	editor.connect("contents_changed", self, "on_current_tab_contents_changed")
+
+	return editor
+	
+func new_file_from_path(path: String) -> SugarEditorTab:
+	var result = SJSON.from_file(path)
+	var tab : SugarEditorTab
+	if not result.has("error"):
+		if result.has("__format"):
+			tab = new_empty_file(result.__format)
+			tab.path = path
+			tab.content = JSON.print(result, "  ")
+	return tab
 	
 func on_current_tab_contents_changed():
 	var new_title : String = tab_container.get_current_tab_control().get_title() + " *"
@@ -95,7 +108,7 @@ func on_current_tab_contents_changed():
 	
 func on_new_file_button_pressed():
 	var format := new_format_option_button.get_selected_metadata() as String
-	new_file(JSON.print(SJSON.get_format_defaults(format), "  "), null, format)
+	new_empty_file(format)
 	new_file_dialog.visible = false
 	
 func on_option_pressed(id: int) -> void:
@@ -157,14 +170,6 @@ func on_save_current_file_as(path):
 
 # Called when a user opens a file
 func on_open_file_file_selected(file_path: String):
-	new_file(null, file_path)
+	new_file_from_path(file_path)
 func _ready():
 	ui_setup()
-
-func field2tree(tree : Tree, field : Dictionary, field_name : String, parent : TreeItem = null) -> void:
-	var item = tree.create_item(parent)
-	item.set_text(0, field_name)
-	
-	if field["type"] == "Object":
-		for key in field["object"]:
-			field2tree(tree, field["object"][key], key, item)
