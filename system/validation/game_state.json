@@ -1,6 +1,6 @@
 {
     "name": "Game State",
-    "hidden": true,
+    "hidden": false,
     "keys": {
         "nina_state": {
             "type": "Object",

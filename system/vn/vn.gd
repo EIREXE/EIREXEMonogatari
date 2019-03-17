@@ -73,12 +73,13 @@ func _process(delta):
 func _unhandled_input(event):
 	# text skipping
 	if event.is_action_pressed("skip_text") and not event.is_echo():
-		if _get_current_line_text().length() == text_label.text.length():
-			if current_line + 1 < lines.size():
-				current_line += 1
-			_continue_parsing()
-		else:
-			current_position = _get_current_line_text().length()
+			if _get_current_line_text().length() == text_label.text.length():
+				if current_line != lines.size()-1:
+					if current_line + 1 < lines.size():
+						current_line += 1
+					_continue_parsing()
+			else:
+				current_position = _get_current_line_text().length()
 			
 func _ready():
 	set_process(false)
