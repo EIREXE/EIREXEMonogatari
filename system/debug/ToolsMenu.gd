@@ -8,15 +8,15 @@ const SugarToolWindow = preload("ToolWindow.gd")
 
 var button_container = VBoxContainer.new()
 
-const TOOLS = [
+var TOOLS = [
 		{
-			"name": "JSON Editor",
+			"name": tr("TOOLS_WINDOW_JSON_EDITOR"),
 			"path": "res://system/debug/file_editor/editor.tscn"
 		}
 	]
 
 func _ready():
-	window_title = "Herramientas de desarrollo"
+	window_title = tr("TOOLS_WINDOW_TITLE")
 	add_child(button_container)
 	button_container.set_anchors_and_margins_preset(Control.PRESET_WIDE)
 	for tool_info in TOOLS:
@@ -28,11 +28,18 @@ func _ready():
 	button_container.add_child(HSeparator.new())
 	
 	var run_main_button = Button.new()
-	run_main_button.text = "Run main scene"
+	run_main_button.text = tr("TOOLS_WINDOW_RUN_MAIN_SCENE")
 	run_main_button.connect("button_down", GameManager, "run_scene", ["res://game/scenes/main.json"])
 	run_main_button.connect("button_down", self, "hide")
 	button_container.add_child(run_main_button)
-func _run_tool(tool_path: String):
+	
+	var game_reload_button = Button.new()
+	game_reload_button.text = tr("TOOLS_WINDOW_RELOAD_GAME")
+	game_reload_button.connect("button_down", GameManager, "reload_game")
+	game_reload_button.connect("button_down", self, "hide")
+	button_container.add_child(game_reload_button)
+	
+func _run_tool(tool_path: String) -> void:
 	var scene = load(tool_path)
 	var tool_window = SugarToolWindow.new() as WindowDialog
 	var tool_instance = scene.instance()

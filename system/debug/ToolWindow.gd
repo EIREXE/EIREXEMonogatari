@@ -1,7 +1,7 @@
 extends WindowDialog
 
 func _ready():
-	connect("modal_closed", self, "on_modal_closed")
 	resizable = true
-func on_modal_closed():
+	connect("modal_closed", self, "_on_modal_closed")
+func _on_modal_closed() -> void:
 	queue_free()

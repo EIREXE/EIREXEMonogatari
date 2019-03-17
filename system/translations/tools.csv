@@ -4,6 +4,7 @@ SCENE_EDITOR_ADD_LINE_TIP,Add new line,Añadir nueva linea
 SCENE_EDITOR_TEXT_LINE,Dialogue line,Linea de dialogo
 SCENE_EDITOR_BACKGROUND_CHANGE_LINE,Background change, cambio de fondo
 SCENE_EDITOR_NARRATOR,Narrator,Narrador
+EDITOR_FILE,File,Archivo
 EDITOR_NEW_FILE,New,Nuevo
 EDITOR_OPEN_FILE,Open,Abrir
 EDITOR_SAVE_FILE,Save,Guardar
@@ -13,3 +14,7 @@ EDITOR_UNTITLED,Untitled,Sín Título
 EDITOR_BUTTON_UP,Up,Arriba
 EDITOR_BUTTON_DOWN,Down,Abajo
 EDITOR_BUTTON_DELETE,Delete,Borrar
+TOOLS_WINDOW_TITLE,Development tools,Herramientas de desarrollo
+TOOLS_WINDOW_RUN_MAIN_SCENE,Run main scene,Ejecutar escena principal
+TOOLS_WINDOW_RELOAD_GAME,Reload game data,Recargar datos del juego
+TOOLS_WINDOW_JSON_EDITOR,Game data editor,Editor de datos del juego

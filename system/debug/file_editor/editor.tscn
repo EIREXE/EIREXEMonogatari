@@ -17,16 +17,16 @@ anchor_bottom = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 margin_right = 1024.0
-margin_bottom = 20.0
+margin_bottom = 21.0
 
 [node name="FileButton" type="MenuButton" parent="Panel/VBoxContainer/HBoxContainer"]
-margin_right = 60.0
-margin_bottom = 20.0
+margin_right = 83.0
+margin_bottom = 21.0
 toggle_mode = true
-text = "Archivo"
+text = "EDITOR_FILE"
 
 [node name="TabContainer" type="TabContainer" parent="Panel/VBoxContainer"]
-margin_top = 24.0
+margin_top = 25.0
 margin_right = 1024.0
 margin_bottom = 566.0
 size_flags_vertical = 3
@@ -39,8 +39,8 @@ margin_bottom = 600.0
 rect_min_size = Vector2( 100, 30 )
 
 [node name="ValidationStatusLabel" type="Label" parent="Panel/VBoxContainer/StatusBar"]
-margin_top = 8.0
-margin_right = 81.0
+margin_top = 7.0
+margin_right = 71.0
 margin_bottom = 22.0
 text = "Code is valid"
 
@@ -66,13 +66,13 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="NewFileDialog/HBoxContainer"]
-margin_left = 108.0
-margin_right = 149.0
+margin_left = 111.0
+margin_right = 152.0
 margin_bottom = 28.0
 
 [node name="NewFileButton" type="Button" parent="NewFileDialog/HBoxContainer"]
-margin_left = 153.0
-margin_right = 206.0
+margin_left = 156.0
+margin_right = 203.0
 margin_bottom = 28.0
 text = "Nuevo"
 

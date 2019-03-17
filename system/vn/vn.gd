@@ -43,7 +43,7 @@ func _run_nontext_line(line):
 		"background_change_line":
 			change_background(line.background)
 
-# Runs all nodes
+# Continues parsing lines
 func _continue_parsing():
 	for line_i in range(current_line, lines.size(), 1):
 		current_line = line_i
@@ -80,6 +80,6 @@ func _unhandled_input(event):
 					_continue_parsing()
 			else:
 				current_position = _get_current_line_text().length()
-			
+
 func _ready():
 	set_process(false)

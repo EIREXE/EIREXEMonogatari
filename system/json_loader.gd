@@ -131,5 +131,4 @@ func get_format_defaults(format_name: String) -> Dictionary:
 		var format = formats[format_name]
 		result = get_defaults(format["keys"])
 	result["__format"] = format_name
-
 	return result
