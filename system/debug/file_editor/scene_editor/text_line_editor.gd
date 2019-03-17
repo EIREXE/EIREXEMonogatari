@@ -12,7 +12,7 @@ func _ready():
 	rect_min_size = Vector2(0, 100)
 	line_text.connect("text_changed", self, "on_text_changed")
 	line_text.text = line.text
-	character_selector.add_item(tr("CHARACTER_NARRATOR"))
+	character_selector.add_item(tr("SCENE_EDITOR_NARRATOR"))
 	character_selector.set_item_metadata(0, "")
 	
 	for character_name in GameManager.characters:

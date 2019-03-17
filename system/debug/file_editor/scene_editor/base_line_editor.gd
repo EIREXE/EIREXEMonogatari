@@ -21,9 +21,9 @@ func _ready():
 	var down_button := Button.new()
 	var delete_button := Button.new()
 	
-	up_button.text = tr("Arriba")
-	down_button.text = tr("Abajo")
-	delete_button.text = tr("Borrar")
+	up_button.text = tr("EDITOR_BUTTON_UP")
+	down_button.text = tr("EDITOR_BUTTON_DOWN")
+	delete_button.text = tr("EDITOR_BUTTON_DELETE")
 	
 	up_button.connect("button_down", self, "move_position_up")
 	down_button.connect("button_down", self, "move_position_down")

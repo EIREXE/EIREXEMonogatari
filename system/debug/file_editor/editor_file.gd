@@ -17,7 +17,7 @@ func get_title() -> String:
 	if path:
 		return path.split("/")[-1]
 	else:
-		return tr("Sin Titulo")
+		return tr("EDITOR_UNTITLED")
 func set_content(value):
 	content = value
 

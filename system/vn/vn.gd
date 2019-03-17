@@ -8,8 +8,8 @@ const TEXT_SPEED = 15.0
 
 onready var text_label = get_node("Panel/StoryContainer/VBoxContainer/TextLabel")
 onready var background = get_node("Panel/Background")
-onready var character_label = get_node("Panel/StoryContainer/TextureRect/CharacterLabel")
-
+onready var character_label = get_node("Panel/StoryContainer/CharacterNameTextureRect/CharacterLabel")
+onready var character_texture_rect = get_node("Panel/StoryContainer/CharacterNameTextureRect")
 var current_position = 0.0
 var current_line = 0
 var lines : Array = []
@@ -52,7 +52,11 @@ func _continue_parsing():
 			current_position = 0
 			set_process(true)
 			text_label.text = ""
-			character_label.text = GameManager.characters[lines[line_i].character].name
+			if lines[line_i].character == "":
+				character_texture_rect.visible = false
+			else:
+				character_texture_rect.visible = true
+				character_label.text = GameManager.characters[lines[line_i].character].name
 			break
 		else:
 			_run_nontext_line(lines[line_i])

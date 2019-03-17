@@ -1,2 +1,15 @@
 ,en,es
 SCENE_EDITOR_VIEW_CODE,View code,Ver codigo
+SCENE_EDITOR_ADD_LINE_TIP,Add new line,Añadir nueva linea
+SCENE_EDITOR_TEXT_LINE,Dialogue line,Linea de dialogo
+SCENE_EDITOR_BACKGROUND_CHANGE_LINE,Background change, cambio de fondo
+SCENE_EDITOR_NARRATOR,Narrator,Narrador
+EDITOR_NEW_FILE,New,Nuevo
+EDITOR_OPEN_FILE,Open,Abrir
+EDITOR_SAVE_FILE,Save,Guardar
+EDITOR_SAVE_FILE_AS,Save as...,Guardar como...
+EDITOR_CHECK_FILE,Check file,Comprobar fichero
+EDITOR_UNTITLED,Untitled,Sín Título
+EDITOR_BUTTON_UP,Up,Arriba
+EDITOR_BUTTON_DOWN,Down,Abajo
+EDITOR_BUTTON_DELETE,Delete,Borrar

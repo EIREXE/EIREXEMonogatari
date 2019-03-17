@@ -8,11 +8,11 @@ const TextLineEditor = preload("res://system/debug/file_editor/scene_editor/text
 
 var LINE_TYPES : Dictionary = {
 	"text_line": {
-		"name": tr("Linea de texto"),
+		"name": tr("SCENE_EDITOR_TEXT_LINE"),
 		"editor": preload("res://system/debug/file_editor/scene_editor/text_line_editor.gd")
 	},
 	"background_change_line": {
-		"name": tr("Cambio de fondo"),
+		"name": tr("SCENE_EDITOR_BACKGROUND_CHANGE_LINE"),
 		"editor": preload("res://system/debug/file_editor/scene_editor/background_change_editor.gd")
 	}
 }
@@ -103,7 +103,6 @@ func add_new_line(line_type_name: String, line = null):
 	line_editor.line = line
 	
 	line_hbox_container.add_child(line_editor)
-	
 	line_editor.connect("line_changed", self, "on_line_changed")
 	line_editor.connect("move_up", self, "move_line_up")
 	line_editor.connect("move_down", self, "move_line_down")

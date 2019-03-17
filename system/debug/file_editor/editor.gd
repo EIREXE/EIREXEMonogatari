@@ -34,25 +34,25 @@ func ui_setup():
 	vb_container.set_anchors_preset(PRESET_WIDE)
 	
 	var new_file_shortcut = ShortCut.new()
-	new_file_shortcut.set_name(tr("Nuevo..."))
+	new_file_shortcut.set_name(tr("EDITOR_NEW_FILE"))
 	file_button.get_popup().add_shortcut(new_file_shortcut, FILE_MENU_OPTIONS.NEW_FILE)
 	
 	var open_file_shortcut = ShortCut.new()
-	open_file_shortcut.set_name(tr("Abrir..."))
+	open_file_shortcut.set_name(tr("EDITOR_OPEN_FILE"))
 	file_button.get_popup().add_shortcut(open_file_shortcut, FILE_MENU_OPTIONS.OPEN_FILE)
 
 	var save_file_shortcut = ShortCut.new()
-	save_file_shortcut.set_name(tr("Guardar"))
+	save_file_shortcut.set_name(tr("EDITOR_SAVE_FILE"))
 	file_button.get_popup().add_shortcut(save_file_shortcut, FILE_MENU_OPTIONS.SAVE_FILE)
 	
 	var save_as_shortcut = ShortCut.new()
-	save_as_shortcut.set_name(tr("Guardar como..."))
+	save_as_shortcut.set_name(tr("EDITOR_SAVE_FILE_AS"))
 	file_button.get_popup().add_shortcut(save_as_shortcut, FILE_MENU_OPTIONS.SAVE_FILE_AS)
 	
 	file_button.get_popup().add_separator()
 	
 	var check_file_shortcut = ShortCut.new()
-	check_file_shortcut.set_name(tr("Comprobar fichero"))
+	check_file_shortcut.set_name(tr("EDITOR_CHECK_FILE"))
 	file_button.get_popup().add_shortcut(check_file_shortcut, FILE_MENU_OPTIONS.CHECK_FILE)
 
 	
