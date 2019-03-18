@@ -59,6 +59,30 @@ func run_vn_scene_from_file(scene_path: String):
 	
 func run_vn_scene(scene: Dictionary):
 	var vn_scene = change_scene_to(VNScene)
+	var stretch_mode = get_tree().STRETCH_MODE_DISABLED
+	var stretch_mode_setting = ProjectSettings.get_setting("display/window/stretch/mode")
+	
+	if stretch_mode_setting == "2d":
+		stretch_mode = get_tree().STRETCH_MODE_2D
+	elif stretch_mode_setting == "viewport":
+		stretch_mode = get_tree().STRETCH_MODE_VIEWPORT
+	var aspect_mode_settings = ProjectSettings.get_setting("display/window/stretch/aspect")
+	
+	var aspect_mode = get_tree().STRETCH_ASPECT_IGNORE
+	
+	if aspect_mode_settings == "keep":
+		aspect_mode = get_tree().STRETCH_ASPECT_KEEP
+	if aspect_mode_settings == "keep_width":
+		aspect_mode = get_tree().STRETCH_ASPECT_KEEP_WIDTH
+	if aspect_mode_settings == "keep_height":
+		aspect_mode = get_tree().STRETCH_ASPECT_KEEP_HEIGHT
+	if aspect_mode_settings == "expand":
+		aspect_mode = get_tree().STRETCH_ASPECT_EXPAND
+	
+	
+	var size = Vector2(ProjectSettings.get_setting("display/window/size/width"), ProjectSettings.get_setting("display/window/size/height"))
+
+	get_tree().set_screen_stretch(stretch_mode, aspect_mode, size)
 	vn_scene.run_scene(scene)
 	
 func list_characters():

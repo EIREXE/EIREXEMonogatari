@@ -61,4 +61,6 @@ func _run_tool(tool_path: String) -> void:
 func _input(event):
 	if OS.is_debug_build():
 		if Input.is_action_just_released("open_debug"):
+			var size = Vector2(ProjectSettings.get_setting("display/window/size/width"), ProjectSettings.get_setting("display/window/size/height"))
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_KEEP_HEIGHT, size)
 			popup_centered_ratio(0.25)
