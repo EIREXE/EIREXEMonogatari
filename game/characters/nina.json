@@ -1,8 +1,15 @@
 {
   "name": "Nina",
   "color": "000000",
-  "graphics": [
-
+  "graphics_layers": [
+    {
+      "name": "Layer name ..!!!1",
+      "__format": "character_graphics_layer"
+    },
+    {
+      "name": "asdasdsadasdasd",
+      "__format": "character_graphics_layer"
+    }
   ],
   "__format": "character"
 }

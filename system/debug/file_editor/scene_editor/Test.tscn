@@ -1,40 +1,21 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene format=2]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends VBoxContainer
-
-const TextLineEditor = preload(\"res://system/debug/file_editor/scene_editor/text_line_editor.gd\")
-
-func _ready():
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())
-	add_child(TextLineEditor.new())"
-
-[node name="Control" type="ScrollContainer"]
+[node name="Control" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 1024.0
+margin_bottom = 21.0
+
+[node name="Label" type="TextEdit" parent="HBoxContainer"]
+margin_right = 1008.0
+margin_bottom = 21.0
 size_flags_horizontal = 3
-script = SubResource( 1 )
+text = "asdsadasdasdsadasdasdsads"
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+margin_left = 1012.0
+margin_right = 1024.0
+margin_bottom = 21.0
 

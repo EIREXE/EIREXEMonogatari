@@ -9,10 +9,11 @@
             "type": "String",
             "default": "000000"
         },
-        "graphics": {
+        "graphics_layers": {
             "type": "Array",
             "arrayType": {
-                "type": "String"
+                "type": "Format",
+                "format": "character_graphics_layer"
             }
         }
     }

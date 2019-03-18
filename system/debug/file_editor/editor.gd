@@ -16,6 +16,7 @@ onready var new_file_button : Button = get_node("NewFileDialog/HBoxContainer/New
 
 const SugarJSONEditorTab = preload("res://system/debug/file_editor/editor_json_file.gd")
 const SugarSceneEditorTab = preload("res://system/debug/file_editor/scene_editor/scene_editor.gd")
+const SugarCharacterEditorTab = preload("res://system/debug/file_editor/character_editor/character_editor.gd")
 const SugarOpenCharacterDialog = preload("res://system/debug/file_editor/open_character_dialog.gd")
 enum FILE_MENU_OPTIONS {
 	NEW_FILE,
@@ -72,7 +73,9 @@ func ui_setup():
 		
 func _get_editor_for_format(format: String):
 	var format_editor
-	if format == "scene":
+	if format == "character":
+		format_editor = SugarCharacterEditorTab.new()
+	elif format == "scene":
 		format_editor = SugarSceneEditorTab.new()
 	else:
 		format_editor = SugarJSONEditorTab.new()

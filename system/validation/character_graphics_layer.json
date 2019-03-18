@@ -1,0 +1,14 @@
+{
+    "name": "Character Graphic Layer",
+    "keys": {
+        "name": {
+            "type": "String"
+        },
+        "graphics": {
+            "type": "array",
+            "arrayType": {
+                "type": "String"
+            }
+        }
+    }
+}

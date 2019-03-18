@@ -14,6 +14,10 @@ var LINE_TYPES : Dictionary = {
 	"background_change_line": {
 		"name": tr("SCENE_EDITOR_BACKGROUND_CHANGE_LINE"),
 		"editor": preload("res://system/debug/file_editor/scene_editor/background_change_editor.gd")
+	},
+	"change_character_visibility_line": {
+		"name": tr("SCENE_EDITOR_CHARACTER_VISIBILITY_CHANGE"),
+		"editor": preload("res://system/debug/file_editor/scene_editor/character_visibility_change_editor.gd")
 	}
 }
 

@@ -13,10 +13,13 @@ EDITOR_SAVE_FILE,Save,Guardar,Desa
 EDITOR_SAVE_FILE_AS,Save as...,Guardar como...,Anomena i desa
 EDITOR_CHECK_FILE,Check file,Comprobar fichero,Comprovar arxiu
 EDITOR_UNTITLED,Untitled,Sín Título,Sense Titol
-EDITOR_CANCEL,Cancel,Cancelar,Cancelar
+EDITOR_CANCEL,Cancel,Cancelar,Cancel·lar
+EDITOR_CHARACTER_NAME,Name,Nombre,Nom
 EDITOR_HINT_BUTTON_UP,Up,Arriba,Amunt
 EDITOR_HINT_BUTTON_DOWN,Down,Abajo,Asota
 EDITOR_HINT_BUTTON_DELETE,Delete,Borrar,Esborrar
+EDITOR_HINT_BUTTON_EDIT,Edit,Editar,Editar
+CHARACTER_EDITOR_ADD_GRAPHICS_LAYER,Add new graphics layer,Añadir nueva capa de graficos,Afegir nova capa de grafics
 TOOLS_WINDOW_TITLE,Development tools,Herramientas de desarrollo,Eines de desenvolupament
 TOOLS_WINDOW_RUN_MAIN_SCENE,Run main scene,Ejecutar escena principal,Executar escena principal
 TOOLS_WINDOW_RELOAD_GAME,Reload game data,Recargar datos del juego,Recarregar dades del joc

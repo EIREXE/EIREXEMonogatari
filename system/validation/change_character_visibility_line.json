@@ -3,10 +3,16 @@
     "hidden": true,
     "inherits": "line",
     "keys": {
+        "show": {
+            "type": "Boolean"
+        },
         "character": {
             "type": "String"
         },
         "graphic": {
+            "type": "String"
+        },
+        "position": {
             "type": "String"
         }
     }
