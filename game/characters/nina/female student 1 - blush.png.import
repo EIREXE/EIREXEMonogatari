@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/female student 1 - happy.png-d1e82057add7eda435add3618116a3ac.stex"
+path="res://.import/female student 1 - blush.png-3b47433d366787a5c27a90df8fdd3cb5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/characters/test_character/female student 1 - happy.png"
-dest_files=[ "res://.import/female student 1 - happy.png-d1e82057add7eda435add3618116a3ac.stex" ]
+source_file="res://game/characters/nina/female student 1 - blush.png"
+dest_files=[ "res://.import/female student 1 - blush.png-3b47433d366787a5c27a90df8fdd3cb5.stex" ]
 
 [params]
 

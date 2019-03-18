@@ -2,10 +2,11 @@
 
 [ext_resource path="res://system/vn/vn.gd" type="Script" id=1]
 [ext_resource path="res://game/backgrounds/bg uni.jpg" type="Texture" id=2]
-[ext_resource path="res://game/characters/test_character/female student 1 - happy.png" type="Texture" id=3]
+[ext_resource path="res://game/characters/nina/female student 1 - happy.png" type="Texture" id=3]
 [ext_resource path="res://game/gui/textbox.png" type="Texture" id=4]
 [ext_resource path="res://system/fonts/ArchitectsDaughter.tres" type="DynamicFont" id=5]
 [ext_resource path="res://game/gui/namebox.png" type="Texture" id=6]
+
 
 [node name="Control" type="Control"]
 anchor_right = 1.0

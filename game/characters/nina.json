@@ -3,11 +3,11 @@
   "color": "000000",
   "graphics_layers": [
     {
-      "name": "Layer name ..!!!1",
-      "__format": "character_graphics_layer"
-    },
-    {
-      "name": "asdasdsadasdasd",
+      "name": "Base",
+      "graphics": [
+        "female student 1 - sad.png",
+        "female student 1 - blush.png"
+      ],
       "__format": "character_graphics_layer"
     }
   ],

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/female student 1 - upset.png-abf02c765ba53e3f3e29a51448b754dc.stex"
+path="res://.import/female student 1 - surprised.png-85b4371eb77d40371992bdbaf0344438.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/characters/test_character/female student 1 - upset.png"
-dest_files=[ "res://.import/female student 1 - upset.png-abf02c765ba53e3f3e29a51448b754dc.stex" ]
+source_file="res://game/characters/nina/female student 1 - surprised.png"
+dest_files=[ "res://.import/female student 1 - surprised.png-85b4371eb77d40371992bdbaf0344438.stex" ]
 
 [params]
 

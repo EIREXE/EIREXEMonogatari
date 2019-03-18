@@ -118,6 +118,7 @@ func add_new_graphics_layer(data):
 	var layer = SugarGraphicsLayerEditor.new()
 	layer.layer_data = data
 	layer_list_vbox.add_child(layer)
+	layer.character = path.split("/")[-1].split(".json")[0]
 	layer.connect("layer_changed", self, "_on_layer_changed")
 	layer.connect("move_up", self, "_on_move_layer_up")
 	layer.connect("move_down", self, "_on_move_layer_down")

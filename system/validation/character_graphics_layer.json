@@ -5,7 +5,7 @@
             "type": "String"
         },
         "graphics": {
-            "type": "array",
+            "type": "Array",
             "arrayType": {
                 "type": "String"
             }
