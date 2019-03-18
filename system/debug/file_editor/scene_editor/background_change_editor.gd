@@ -20,7 +20,7 @@ func _ready():
 	background_preview.rect_position = Vector2(0,-50)
 	editable_area.rect_min_size = Vector2(0, 100)
 	
-	if not line.background:
+	if line.background == "":
 		on_background_changed(0)
 	
 func on_background_changed(idx):

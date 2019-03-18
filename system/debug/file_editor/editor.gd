@@ -92,7 +92,10 @@ func new_empty_file(format: String) -> SugarEditorTab:
 	tab_container.set_tab_title(tab_container.get_tab_count()-1, editor.get_title())
 	tab_container.current_tab = tab_container.get_tab_count()-1
 	editor.content = defaults
-	
+	if not get_parent() is Viewport:
+		editor.editor_window = get_parent()
+	else:
+		editor.editor_window = self
 	editor.connect("contents_changed", self, "on_current_tab_contents_changed")
 
 	return editor
@@ -107,10 +110,6 @@ func new_file_from_path(path: String) -> SugarEditorTab:
 			tab.path = path
 			tab_container.set_tab_title(tab_container.get_tab_count()-1, tab.get_title())
 			tab.content = JSON.print(result, "  ")
-	if not get_parent() is Viewport:
-		tab.editor_window = get_parent()
-	else:
-		tab.editor_window = self
 	return tab
 	
 func on_current_tab_contents_changed():
