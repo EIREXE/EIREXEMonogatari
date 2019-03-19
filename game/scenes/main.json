@@ -1,13 +1,13 @@
 {
   "lines": [
     {
-      "text": "Nina follaniñas",
-      "character": "nina",
-      "__format": "text_line"
-    },
-    {
       "background": "bg uni.jpg",
       "__format": "background_change_line"
+    },
+    {
+      "text": "Padre hagame el amor",
+      "character": "nina",
+      "__format": "text_line"
     }
   ],
   "__format": "scene"
