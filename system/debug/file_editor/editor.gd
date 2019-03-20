@@ -26,6 +26,11 @@ enum FILE_MENU_OPTIONS {
 	SAVE_FILE_AS,
 	CHECK_FILE
 }
+
+enum TOOLS_MENU_OPTIONS {
+	TRANSLATION_REPORT
+}
+
 var file_dialog := FileDialog.new()
 var save_file_dialog := FileDialog.new()
 var open_files := []
@@ -44,15 +49,12 @@ func ui_setup():
 	vb_container.set_anchors_preset(PRESET_WIDE)
 	
 	file_button.get_popup().add_item(tr("EDITOR_NEW_FILE"), FILE_MENU_OPTIONS.NEW_FILE, KEY_MASK_CTRL | KEY_N)
-	
 	file_button.get_popup().add_item(tr("EDITOR_OPEN_FILE"), FILE_MENU_OPTIONS.OPEN_FILE, KEY_MASK_CTRL | KEY_O)
-
 	file_button.get_popup().add_item(tr("EDITOR_OPEN_CHARACTER"), FILE_MENU_OPTIONS.OPEN_CHARACTER, KEY_MASK_CTRL | KEY_P)
 	
 	file_button.get_popup().add_separator()
 	
 	file_button.get_popup().add_item(tr("EDITOR_SAVE_FILE"), FILE_MENU_OPTIONS.SAVE_FILE, KEY_MASK_CTRL | KEY_S)
-	
 	file_button.get_popup().add_item(tr("EDITOR_SAVE_FILE_AS"), FILE_MENU_OPTIONS.SAVE_FILE_AS, KEY_MASK_CTRL | KEY_MASK_SHIFT | KEY_S)
 	
 	file_button.get_popup().add_separator()
