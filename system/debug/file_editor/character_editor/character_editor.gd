@@ -5,7 +5,7 @@ Editor for VN scenes
 """
 
 var character : Dictionary
-var code_viewer = TextEdit.new()
+var code_viewer := TextEdit.new()
 
 var hbox_container := HBoxContainer.new()
 var editor_container := VBoxContainer.new()
@@ -46,6 +46,16 @@ func _ready():
 	editor_container.add_child(buttons_container)
 	editor_container.add_child(code_viewer)
 
+	buttons_container.alignment = HBoxContainer.ALIGN_END
+	
+	var open_graphics_directory_button = Button.new()
+	open_graphics_directory_button.hint_tooltip = tr("CHARACTER_EDITOR_OPEN_GRAPHICS_DIRECTORY")
+	open_graphics_directory_button.icon = ImageTexture.new()
+	open_graphics_directory_button.icon.load("res://system/debug/file_editor/icons/icon_folder.svg")
+	
+	open_graphics_directory_button.connect("button_down", self, "_on_open_graphics_directory")
+	
+	buttons_container.add_child(open_graphics_directory_button)
 	
 	var view_code_button = Button.new()
 	view_code_button.hint_tooltip = tr("SCENE_EDITOR_HINT_VIEW_CODE")
@@ -53,7 +63,7 @@ func _ready():
 	view_code_button.icon.load("res://system/debug/file_editor/icons/icon_script.svg")
 	
 	buttons_container.add_child(view_code_button)
-	buttons_container.alignment = HBoxContainer.ALIGN_END
+
 	
 	code_viewer.size_flags_vertical = SIZE_EXPAND_FILL
 	code_viewer.visible = false
@@ -118,7 +128,7 @@ func add_new_graphics_layer(data):
 	var layer = SugarGraphicsLayerEditor.new()
 	layer.layer_data = data
 	layer_list_vbox.add_child(layer)
-	layer.character = path.split("/")[-1].split(".json")[0]
+	layer.character = get_character_internal_name()
 	layer.connect("layer_changed", self, "_on_layer_changed")
 	layer.connect("move_up", self, "_on_move_layer_up")
 	layer.connect("move_down", self, "_on_move_layer_down")
@@ -139,6 +149,9 @@ func _on_delete_layer(layer_idx: int):
 func _on_layer_changed(idx):
 	character.graphics_layers[idx] = layer_list_vbox.get_child(idx).layer_data
 	
+func get_character_internal_name():
+	return path.split("/")[-1].split(".json")[0]
+	
 func _on_add_graphics_layer():
 	var data = SJSON.get_format_defaults("character_graphics_layer")
 	character.graphics_layers.append(data)
@@ -147,3 +160,11 @@ func _on_field_text_changed(value, field):
 	character[field] = value
 func get_content():
 	return JSON.print(character, "  ")
+func _on_open_graphics_directory():
+	var dir := Directory.new()
+	var character_dir : String = "res://game/characters/" + get_character_internal_name()
+	var result := dir.make_dir_recursive(character_dir)
+	if result == OK:
+		OS.shell_open(ProjectSettings.globalize_path(character_dir))
+	else:
+		push_error("Error creating directory %s" % character_dir)

@@ -4,7 +4,8 @@
     "inherits": "line",
     "keys": {
         "text": {
-            "type": "String"
+            "type": "object",
+            "objectTypes": "String"
         },
         "character": {
             "type": "String"

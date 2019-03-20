@@ -21,6 +21,7 @@ EDITOR_HINT_BUTTON_DELETE,Delete,Borrar,Esborrar
 EDITOR_HINT_BUTTON_EDIT,Edit,Editar,Editar
 CHARACTER_EDITOR_ADD_GRAPHICS_LAYER,Add new graphics layer,Añadir nueva capa de graficos,Afegir nova capa de grafics
 CHARACTER_EDITOR_GRAPHIC_LAYER_EDITOR_TITLE,Graphic layers,Capas de graficos,Capes de grafics
+CHARACTER_EDITOR_OPEN_GRAPHICS_DIRECTORY,Open graphics directory,Abrir directorio de graficos,Obrir directori de gràfics
 TOOLS_WINDOW_TITLE,Development tools,Herramientas de desarrollo,Eines de desenvolupament
 TOOLS_WINDOW_RUN_MAIN_SCENE,Run main scene,Ejecutar escena principal,Executar escena principal
 TOOLS_WINDOW_RELOAD_GAME,Reload game data,Recargar datos del juego,Recarregar dades del joc
