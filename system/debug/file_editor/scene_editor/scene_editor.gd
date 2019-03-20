@@ -4,6 +4,8 @@ extends SugarEditorTab
 Editor for VN scenes
 """
 
+signal locale_override_changed()
+
 const TextLineEditor = preload("res://system/debug/file_editor/scene_editor/text_line_editor.gd")
 
 var LINE_TYPES : Dictionary = {
@@ -28,13 +30,30 @@ var code_viewer = TextEdit.new()
 
 var scroll_container := ScrollContainer.new()
 var editor_container := VBoxContainer.new()
+
+var locale_override : String
+
+var locale_override_selector = OptionButton.new()
+
 func _ready():
+	locale_override = TranslationServer.get_locale()
 	var buttons_container := HBoxContainer.new()
-	
-	# Line addition button
 	
 	editor_container.add_child(buttons_container)
 	
+	# Locale override selector
+	
+	for locale in GameManager.game_info.supported_languages:
+		locale_override_selector.add_item(TranslationServer.get_locale_name(locale))
+		locale_override_selector.set_item_metadata(locale_override_selector.get_item_count()-1, locale)
+		if locale == locale_override:
+			locale_override_selector.select(locale_override_selector.get_item_count()-1)
+	
+	locale_override_selector.connect("item_selected", self, "_on_locale_override_selected")
+	
+	buttons_container.add_child(locale_override_selector)
+	
+	# Line addition button
 	add_line_menubutton = MenuButton.new()
 	add_line_menubutton.flat = false
 	add_line_menubutton.icon = ImageTexture.new()
@@ -91,6 +110,13 @@ func _toggle_code_view():
 	if code_viewer.visible:
 		code_viewer.text = get_content()
 	
+func _run_scene():
+	GameManager.run_vn_scene(scene)
+	editor_window.hide()
+	
+func _on_locale_override_selected(i: int):
+	locale_override = locale_override_selector.get_item_metadata(i)
+	emit_signal("locale_override_changed")
 func swap_lines(idx1: int, idx2: int):
 	var temp : Dictionary = scene.lines[idx1]
 	scene.lines[idx1] = scene.lines[idx2]
@@ -112,6 +138,7 @@ func add_new_line(line_type_name: String, line = null):
 
 	var line_type : Dictionary = LINE_TYPES[line_type_name]
 	var line_editor = line_type.editor.new()
+	line_editor.scene_editor = self
 	if not line:
 		line = SJSON.get_format_defaults(line_type_name)
 		
@@ -121,10 +148,6 @@ func add_new_line(line_type_name: String, line = null):
 	line_editor.connect("move_up", self, "move_line_up")
 	line_editor.connect("move_down", self, "move_line_down")
 	line_editor.connect("delete", self, "delete_line")
-	
-func _run_scene():
-	GameManager.run_vn_scene(scene)
-	editor_window.hide()
 	
 func on_line_changed(idx: int, new_line):
 	scene.lines[idx] = new_line

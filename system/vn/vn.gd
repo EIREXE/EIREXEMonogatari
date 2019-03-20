@@ -26,9 +26,23 @@ func _get_character_speed(character):
 	else:
 		return TEXT_SPEED
 
-# Returns the current line's target text, and also applies settings such as auto_quote
+# Returns the current line's target text in the correct locale, and also applies settings such as auto_quote
 func _get_current_line_text():
-	var target_text = lines[current_line].text
+	var target_text : String
+	# We try to get the current line based on the current locale, if this fails
+	# we will just try to get it from the fallback locale, if this fails too we
+	# will attempt to get the first line we can find, if there are no lines the
+	# text will be ### LINE NOT FOUND ###
+	if lines[current_line].text.has(TranslationServer.get_locale()):
+		target_text = lines[current_line].text[TranslationServer.get_locale()]
+	elif lines[current_line].text.has(ProjectSettings.get_setting("locale/fallback")):
+		target_text = lines[current_line].text[ProjectSettings.get_setting("locale/fallback")]
+	else:
+		target_text = "### LINE NOT FOUND ###"
+		if lines[current_line].text.size() > 0:
+			target_text = lines[current_line].text.values()[0]
+		push_error("Line translation not found uwu")
+		
 	if GameManager.game_info.auto_quote:
 		target_text = "\"%s\"" % target_text
 	return target_text

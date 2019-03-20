@@ -15,6 +15,12 @@ func validate_key(value, keyData: Dictionary) -> bool:
 	match keyData.type:
 		"Object":
 			validation_OK = validate(value, keyData.object)
+		"ObjectOf":
+			for i in value:
+				var object = value[i]
+				validation_OK = validate_key(object, keyData.objectType)
+				if not validation_OK:
+					break
 		"Number":
 			validation_OK = typeof(value) == TYPE_REAL
 		"Boolean":
@@ -114,6 +120,8 @@ func get_defaults(format_keys: Dictionary):
 		var format_key = format_keys[key]
 		if format_key.has("default"):
 			result[key] = format_key.default
+		elif format_key["type"] == "ObjectOf":
+			result[key] = {}
 		elif format_key["type"] == "Object":
 			result[key] = get_defaults(format_key["object"])
 		elif format_key["type"] == "String":

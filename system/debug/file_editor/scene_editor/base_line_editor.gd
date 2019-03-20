@@ -12,6 +12,7 @@ signal delete
 var extra_buttons_container = HBoxContainer.new()
 var editable_area = Control.new()
 var line : Dictionary
+var scene_editor
 
 func _ready():
 	var hbox_container := HBoxContainer.new()

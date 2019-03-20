@@ -1,11 +1,13 @@
 {
     "name": "Linea de texto",
-    "hidden": true,
+    "hidden": false,
     "inherits": "line",
     "keys": {
         "text": {
-            "type": "object",
-            "objectTypes": "String"
+            "type": "ObjectOf",
+            "objectType": {
+                "type": "String"
+            }
         },
         "character": {
             "type": "String"
