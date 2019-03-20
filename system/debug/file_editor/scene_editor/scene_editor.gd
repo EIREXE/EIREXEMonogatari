@@ -35,12 +35,17 @@ var locale_override : String
 
 var locale_override_selector = OptionButton.new()
 
+var translation_viewer := Panel.new()
+
 func _ready():
 	locale_override = TranslationServer.get_locale()
 	var buttons_container := HBoxContainer.new()
-	
+	buttons_container.add_constant_override("separation", 10)
 	editor_container.add_child(buttons_container)
 	
+	# Translation viewer
+	editor_container.add_child(translation_viewer)
+	translation_viewer.hide()
 	# Locale override selector
 	
 	for locale in GameManager.game_info.supported_languages:
@@ -52,6 +57,17 @@ func _ready():
 	locale_override_selector.connect("item_selected", self, "_on_locale_override_selected")
 	
 	buttons_container.add_child(locale_override_selector)
+	
+	# Translation view button
+	
+	var translation_view_button = Button.new()
+	translation_view_button.hint_tooltip = tr("SCENE_EDITOR_TRANSLATION_VIEW")
+	translation_view_button.icon = ImageTexture.new()
+	translation_view_button.icon.load("res://system/debug/file_editor/icons/icon_translation.svg")
+	
+	translation_view_button.connect("button_down", self, "_toggle_translation_view")
+	
+	buttons_container.add_child(translation_view_button)
 	
 	# Line addition button
 	add_line_menubutton = MenuButton.new()
@@ -106,10 +122,20 @@ func _ready():
 	code_viewer.readonly = true
 func _toggle_code_view():
 	code_viewer.visible = !code_viewer.visible
-	scroll_container.visible = !scroll_container.visible
+
 	if code_viewer.visible:
+		scroll_container.hide()
+		translation_viewer.hide()
 		code_viewer.text = get_content()
-	
+	else:
+		scroll_container.show()
+func _toggle_translation_view():
+	translation_viewer.visible = !translation_viewer.visible
+	if translation_viewer.visible:
+		scroll_container.hide()
+		code_viewer.hide()
+	else:
+		scroll_container.show()
 func _run_scene():
 	GameManager.run_vn_scene(scene)
 	editor_window.hide()

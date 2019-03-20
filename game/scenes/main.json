@@ -5,7 +5,11 @@
       "__format": "background_change_line"
     },
     {
-      "text": "Padre hagame el amor",
+      "text": {
+        "es": "¡Hola, Mundo!",
+        "en": "Hello, World!",
+        "ca": "Hola, Món!"
+      },
       "character": "nina",
       "__format": "text_line"
     }
