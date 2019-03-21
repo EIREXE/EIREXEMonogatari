@@ -19,6 +19,10 @@ var open_tools = {
 	
 	}
 
+# Generic text scrolling dialog
+
+var scrolling_text_dialog := WindowDialog.new()
+var scrolling_text_dialog_label := RichTextLabel.new()
 func _ready():
 	window_title = tr("TOOLS_WINDOW_TITLE")
 	add_child(button_container)
@@ -43,6 +47,20 @@ func _ready():
 	game_reload_button.connect("button_down", self, "hide")
 	button_container.add_child(game_reload_button)
 	
+	var translation_report_button = Button.new()
+	translation_report_button.text = tr("TOOLS_WINDOW_TRANSLATION_REPORT")
+	translation_report_button.connect("button_down", self, "get_translation_report")
+	button_container.add_child(translation_report_button)
+	
+	# Setup scrolling text container
+	var scroll_container = ScrollContainer.new()
+	add_child(scrolling_text_dialog)
+	scroll_container.set_anchors_and_margins_preset(Control.PRESET_WIDE)
+	scrolling_text_dialog_label.size_flags_horizontal = SIZE_EXPAND_FILL
+	scrolling_text_dialog_label.size_flags_vertical = SIZE_EXPAND_FILL
+	scrolling_text_dialog.add_child(scroll_container)
+	scroll_container.add_child(scrolling_text_dialog_label)
+	
 func _run_tool(tool_path: String) -> void:
 	if open_tools.has(tool_path):
 		open_tools[tool_path].show()
@@ -57,6 +75,56 @@ func _run_tool(tool_path: String) -> void:
 		tool_window.hide()
 		tool_window.show()
 		open_tools[tool_path] = tool_window
+	
+func get_translation_report():
+	var dir := Directory.new()
+	dir.open("res://game/scenes")
+	dir.list_dir_begin()
+	var scenes = []
+	while true:
+		var file_path := dir.get_next()
+		if file_path == "":
+			break
+		elif not file_path.begins_with(".") and file_path.get_extension() == "json":
+			var file := File.new()
+			var file_result := file.open("res://game/scenes/" + file_path, File.READ)
+			if file_result == OK:
+				var text := file.get_as_text()
+				var result := JSON.parse(text)
+				if result.error == OK:
+					result.result["__path"] = file_path
+					scenes.append(result.result)
+				else:
+					pass
+			else:
+				pass
+	dir.list_dir_end()
+	var report = ""
+	for scene in scenes:
+		var locale_untranslated := {}
+		for line in scene.lines:
+			if line.__format == "text_line":
+				for locale in GameManager.game_info.supported_languages:
+					var is_translated = true
+					if not line.text.has(locale):
+						is_translated = false
+					elif line.text[locale] == "":
+						is_translated = false
+					if not is_translated:
+						if locale_untranslated.has(locale):
+							locale_untranslated[locale] += 1
+						else:
+							locale_untranslated[locale] = 1
+		if locale_untranslated.size() > 0:
+			var report_text = tr("TOOLS_WINDOW_TRANSLATION_REPORT_TEXT").format({"path": scene.__path})
+			var line_text = ""
+			for locale in locale_untranslated: 
+				line_text += tr("TOOLS_WINDOW_TRANSLATION_REPORT_LINE_TEXT").format({"n": locale_untranslated[locale], "locale": TranslationServer.get_locale_name(locale)})
+				line_text += "\n"
+			report += "%s\n%s\n" % [report_text, line_text]
+	scrolling_text_dialog_label.text = report
+	scrolling_text_dialog.window_title = tr("TOOLS_WINDOW_TRANSLATION_REPORT")
+	scrolling_text_dialog.popup_centered_ratio(0.25)
 	
 func _input(event):
 	if OS.is_debug_build():

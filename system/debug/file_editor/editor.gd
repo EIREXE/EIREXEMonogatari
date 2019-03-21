@@ -9,6 +9,7 @@ const AUTO_RELOAD_PATHS = ["res://game"]
 
 onready var tab_container : TabContainer = get_node("Panel/VBoxContainer/TabContainer")
 onready var file_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/FileButton")
+onready var tools_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/ToolsButton")
 onready var code_validation_status_label = get_node("Panel/VBoxContainer/StatusBar/ValidationStatusLabel")
 onready var new_format_option_button = get_node("NewFileDialog/HBoxContainer/OptionButton")
 onready var new_file_dialog : WindowDialog = get_node("NewFileDialog")
@@ -27,16 +28,15 @@ enum FILE_MENU_OPTIONS {
 	CHECK_FILE
 }
 
-enum TOOLS_MENU_OPTIONS {
-	TRANSLATION_REPORT
-}
-
 var file_dialog := FileDialog.new()
 var save_file_dialog := FileDialog.new()
 var open_files := []
 var character_dialog := SugarOpenCharacterDialog.new()
 
 func ui_setup():
+	
+	# Character dialog
+	
 	add_child(character_dialog)
 	character_dialog.connect("character_selected", self, "_on_character_selected")
 	
@@ -60,7 +60,6 @@ func ui_setup():
 	file_button.get_popup().add_separator()
 	
 	file_button.get_popup().add_item(tr("EDITOR_CHECK_FILE"), FILE_MENU_OPTIONS.CHECK_FILE)
-
 	
 	for key in SJSON.formats:
 		var format : Dictionary = SJSON.formats[key]
@@ -82,7 +81,6 @@ func _get_editor_for_format(format: String):
 	else:
 		format_editor = SugarJSONEditorTab.new()
 	return format_editor
-
 
 # Adds a new empty file format
 func new_empty_file(format: String) -> SugarEditorTab:
@@ -149,7 +147,6 @@ func on_option_pressed(id: int) -> void:
 				save_current_file_as()
 		FILE_MENU_OPTIONS.SAVE_FILE_AS:
 			save_current_file_as()
-		
 
 func validate_current_file() -> bool:
 	var tab_control = tab_container.get_current_tab_control()

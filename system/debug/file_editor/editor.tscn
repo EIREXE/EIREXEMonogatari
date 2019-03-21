@@ -25,6 +25,13 @@ margin_bottom = 21.0
 toggle_mode = true
 text = "EDITOR_FILE"
 
+[node name="ToolsButton" type="MenuButton" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_left = 87.0
+margin_right = 188.0
+margin_bottom = 21.0
+toggle_mode = true
+text = "EDITOR_TOOLS"
+
 [node name="TabContainer" type="TabContainer" parent="Panel/VBoxContainer"]
 margin_top = 25.0
 margin_right = 1024.0

@@ -12,6 +12,13 @@
       },
       "character": "nina",
       "__format": "text_line"
+    },
+    {
+      "text": {
+        "en": "Hello, World!"
+      },
+      "character": "",
+      "__format": "text_line"
     }
   ],
   "__format": "scene"
