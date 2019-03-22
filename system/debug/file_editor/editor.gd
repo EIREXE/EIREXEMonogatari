@@ -9,7 +9,7 @@ const AUTO_RELOAD_PATHS = ["res://game"]
 
 onready var tab_container : TabContainer = get_node("Panel/VBoxContainer/TabContainer")
 onready var file_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/FileButton")
-onready var tools_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/ToolsButton")
+
 onready var code_validation_status_label = get_node("Panel/VBoxContainer/StatusBar/ValidationStatusLabel")
 onready var new_format_option_button = get_node("NewFileDialog/HBoxContainer/OptionButton")
 onready var new_file_dialog : WindowDialog = get_node("NewFileDialog")

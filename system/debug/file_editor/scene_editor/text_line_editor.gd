@@ -28,6 +28,7 @@ func set_text_for_locale(locale: String, text: String):
 	.update_line()
 func _ready():
 	scene_editor.connect("locale_override_changed", self, "_on_locale_override_changed")
+	scene_editor.connect("line_changed", self, "_on_line_changed")
 	editable_area.add_child(line_text)
 	line_text.set_anchors_and_margins_preset(Control.PRESET_WIDE)
 	rect_min_size = Vector2(0, 100)
@@ -46,3 +47,7 @@ func _on_locale_override_changed():
 func on_character_selected(id):
 	line.character = character_selector.get_item_metadata(id)
 	.update_line()
+	
+func _on_line_changed(i: int):
+	if i == get_position_in_parent():
+		line_text.text = get_line_for_locale(scene_editor.locale_override)

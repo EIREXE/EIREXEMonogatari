@@ -5,8 +5,9 @@ Editor for VN scenes
 """
 
 signal locale_override_changed()
+signal line_changed(line_i)
 
-const TextLineEditor = preload("res://system/debug/file_editor/scene_editor/text_line_editor.gd")
+const TranslationGrid = preload("res://system/debug/file_editor/scene_editor/translation_grid.gd")
 
 var LINE_TYPES : Dictionary = {
 	"text_line": {
@@ -35,9 +36,10 @@ var locale_override : String
 
 var locale_override_selector = OptionButton.new()
 
-var translation_viewer := Panel.new()
+var translation_viewer := TranslationGrid.new()
 
 func _ready():
+	
 	locale_override = TranslationServer.get_locale()
 	var buttons_container := HBoxContainer.new()
 	buttons_container.add_constant_override("separation", 10)
@@ -46,6 +48,8 @@ func _ready():
 	# Translation viewer
 	editor_container.add_child(translation_viewer)
 	translation_viewer.hide()
+	translation_viewer.set_anchors_and_margins_preset(Control.PRESET_WIDE)
+	translation_viewer.connect("line_changed", self, "on_line_changed")
 	# Locale override selector
 	
 	for locale in GameManager.game_info.supported_languages:
@@ -132,6 +136,7 @@ func _toggle_code_view():
 func _toggle_translation_view():
 	translation_viewer.visible = !translation_viewer.visible
 	if translation_viewer.visible:
+		translation_viewer.set_grid(scene.lines)
 		scroll_container.hide()
 		code_viewer.hide()
 	else:
@@ -177,6 +182,7 @@ func add_new_line(line_type_name: String, line = null):
 	
 func on_line_changed(idx: int, new_line):
 	scene.lines[idx] = new_line
+	emit_signal("line_changed", idx)
 func set_content(_content):
 	content = _content
 	scene = JSON.parse(_content).result
