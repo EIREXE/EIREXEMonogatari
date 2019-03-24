@@ -31,7 +31,7 @@ func _ready():
 	scene_editor.connect("line_changed", self, "_on_line_changed")
 	editable_area.add_child(line_text)
 	line_text.set_anchors_and_margins_preset(Control.PRESET_WIDE)
-	rect_min_size = Vector2(0, 100)
+	editable_area.rect_min_size = Vector2(0, 50)
 	line_text.connect("text_changed", self, "on_text_changed")
 	line_text.text = get_line_for_locale(scene_editor.locale_override)
 	load_characters()
@@ -50,4 +50,6 @@ func on_character_selected(id):
 	
 func _on_line_changed(i: int):
 	if i == get_position_in_parent():
-		line_text.text = get_line_for_locale(scene_editor.locale_override)
+		var new_text = get_line_for_locale(scene_editor.locale_override)
+		if line_text.text != new_text:
+			line_text.text = get_line_for_locale(scene_editor.locale_override)
