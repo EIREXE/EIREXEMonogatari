@@ -1,6 +1,13 @@
 {
   "lines": [
     {
+      "show": true,
+      "character": "nina",
+      "layer": "base",
+      "position": "",
+      "__format": "change_character_visibility_line"
+    },
+    {
       "background": "bg uni.jpg",
       "__format": "background_change_line"
     },
@@ -14,8 +21,15 @@
       "__format": "text_line"
     },
     {
+      "show": false,
+      "character": "nina",
+      "layer": "base",
+      "position": "",
+      "__format": "change_character_visibility_line"
+    },
+    {
       "text": {
-        "en": "Hello, World!"
+        "en": "Hello, World2!"
       },
       "character": "",
       "__format": "text_line"

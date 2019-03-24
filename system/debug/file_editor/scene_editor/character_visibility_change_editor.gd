@@ -2,11 +2,14 @@ extends "base_line_editor.gd"
 
 var character_selector := OptionButton.new()
 var layer_list = ItemList.new()
+var visible_check = CheckBox.new()
 func _ready():
 	extra_buttons_container.add_child(character_selector)
+	extra_buttons_container.add_child(visible_check)
+	visible_check.text = tr("SCENE_EDITOR_CHARACTER_LAYER_VISIBLE")
 	character_selector.connect("item_selected", self, "on_character_selected")
 	editable_area.add_child(layer_list)
-	editable_area.rect_min_size = Vector2(0, 100)
+	
 	layer_list.set_anchors_and_margins_preset(Control.PRESET_WIDE)
 	layer_list.size_flags_vertical = SIZE_EXPAND_FILL
 	load_characters()
@@ -14,6 +17,17 @@ func _ready():
 	if line.layer == "" and layer_list.get_item_count() > 0:
 		layer_list.select(0)
 		on_layer_selected(0)
+
+	editable_area.rect_min_size = Vector2(0, 100)
+		
+	if line.show == false:
+		on_layer_visibility_changed(false)
+	else:
+		visible_check.pressed = true
+	
+	visible_check.connect("toggled", self, "on_layer_visibility_changed")
+	layer_list.connect("item_selected", self, "on_layer_selected")
+		
 func on_character_selected(id):
 	line.character = character_selector.get_item_metadata(id)
 	load_layers()
@@ -22,6 +36,15 @@ func on_character_selected(id):
 func on_layer_selected(id):
 	line.layer = layer_list.get_item_metadata(id)
 	.update_line()
+	
+func on_layer_visibility_changed(new_value: bool):
+	line.show = new_value
+	if line.show and layer_list.get_parent() != editable_area:
+		editable_area.add_child(layer_list)
+		editable_area.rect_min_size = Vector2(0, 100)
+	else:
+		editable_area.remove_child(layer_list)
+		editable_area.rect_min_size = Vector2(0, 0)
 	
 func load_layers():
 	layer_list.clear()

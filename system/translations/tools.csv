@@ -6,6 +6,8 @@ SCENE_EDITOR_BACKGROUND_CHANGE_LINE,Background change,Cambio de fondo,Canvi de f
 SCENE_EDITOR_NARRATOR,Narrator,Narrador,Narrador
 SCENE_EDITOR_HINT_RUN_SCENE,Run,Ejecutar,Executar
 SCENE_EDITOR_TRANSLATION_VIEW,Toggle translation view,Alternar vista de traducción,Alternar vista de traducció
+SCENE_EDITOR_CHARACTER_LAYER_VISIBLE,Show,Mostrar,Mostrar
+SCENE_EDITOR_CHARACTER_VISIBILITY_CHANGE,Show/Hide character,Mostrar/Ocultar personaje,Mostrar/Ocultar personatge
 EDITOR_FILE,File,Archivo,Arxiu
 EDITOR_NEW_FILE,New,Nuevo,Nou
 EDITOR_OPEN_FILE,Open,Abrir,Obrir

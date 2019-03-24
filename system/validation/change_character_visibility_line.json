@@ -4,7 +4,8 @@
     "inherits": "line",
     "keys": {
         "show": {
-            "type": "Boolean"
+            "type": "Boolean",
+            "default": true
         },
         "character": {
             "type": "String"

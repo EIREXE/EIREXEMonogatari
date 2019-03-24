@@ -10,9 +10,12 @@ onready var text_label = get_node("Panel/StoryContainer/VBoxContainer/TextLabel"
 onready var background = get_node("Panel/Background")
 onready var character_label = get_node("Panel/StoryContainer/CharacterNameTextureRect/CharacterLabel")
 onready var character_texture_rect = get_node("Panel/StoryContainer/CharacterNameTextureRect")
+onready var character_container = get_node("Panel/CharacterContainer")
 var current_position = 0.0
 var current_line = 0
 var lines : Array = []
+
+var visible_characters = {}
 
 func run_scene(scene: Dictionary) -> void:
 	set_process(false)
@@ -56,6 +59,35 @@ func _run_nontext_line(line):
 	match line.__format:
 		"background_change_line":
 			change_background(line.background)
+		"change_character_visibility_line":
+			change_character_visibility(line)
+
+func change_character_visibility(line: Dictionary):
+	if GameManager.characters.has(line.character):
+		var character = GameManager.characters[line.character]
+		if visible_characters.has(line.character):
+			visible_characters[line.character].queue_free()
+		if line.show:
+			if character.graphics_layers.has(line.layer):
+				var main_node = Control.new()
+				main_node.size_flags_horizontal = SIZE_EXPAND_FILL
+				for texture_path in character.graphics_layers[line.layer].graphics:
+					var path = "res://game/characters/%s/%s" % [line.character, texture_path]
+					var texture_rect := TextureRect.new()
+					texture_rect.texture = ImageTexture.new()
+					texture_rect.expand = true
+					texture_rect.texture.load(path)
+					texture_rect.set_anchors_and_margins_preset(Control.PRESET_WIDE)
+					texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+					texture_rect.size_flags_horizontal = SIZE_EXPAND_FILL
+
+					main_node.add_child(texture_rect)
+				character_container.add_child(main_node)
+				visible_characters[line.character] = character_container
+			else:
+				push_error("Character %s doesn't have graphics layer %s" % [line.character, line.layer])
+	else:
+		push_error("Character %s not found" % line.character)
 
 # Continues parsing lines
 func _continue_parsing():
