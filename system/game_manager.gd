@@ -14,7 +14,7 @@ const GAME_ROOT = "res://game/"
 var game_info : Dictionary
 var backgrounds := []
 var characters := {}
-var tools_menu = SugarToolsMenu.new()
+var tools_menu := SugarToolsMenu.new()
 
 var current_scene setget ,_get_current_scene
 
@@ -36,12 +36,18 @@ func list_backgrounds():
 			backgrounds.append(file_path)
 	dir.list_dir_end()
 
+# Handles game initialization
+
 func _ready():
 	var debug_canvas_layer := CanvasLayer.new()
 	debug_canvas_layer.add_child(tools_menu)
 	add_child(debug_canvas_layer)
 	reload_game()
 	
+	# Editor mode check
+	
+	if OS.has_feature("sugareditor"):
+		tools_menu.show_menu()
 func change_scene_to(scene_packed: PackedScene):
 	var scene = scene_packed.instance()
 	get_tree().get_root().add_child(scene)

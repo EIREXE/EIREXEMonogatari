@@ -9,7 +9,7 @@
         "character": {
             "type": "String"
         },
-        "graphic": {
+        "layer": {
             "type": "String"
         },
         "position": {

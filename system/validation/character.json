@@ -10,8 +10,8 @@
             "default": "000000"
         },
         "graphics_layers": {
-            "type": "Array",
-            "arrayType": {
+            "type": "ObjectOf",
+            "objectType": {
                 "type": "Format",
                 "format": "character_graphics_layer"
             }

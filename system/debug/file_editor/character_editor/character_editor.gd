@@ -37,8 +37,8 @@ func add_fields():
 			
 			line_edit.connect("text_changed", self, "_on_field_text_changed", [field_name])
 			
-	for layer in character.graphics_layers:
-		add_new_graphics_layer(layer)
+	for layer_name in character.graphics_layers:
+		add_new_graphics_layer(layer_name)
 
 func _ready():
 	var buttons_container := HBoxContainer.new()
@@ -124,38 +124,70 @@ func set_content(_content):
 	character = JSON.parse(_content).result
 	add_fields()
 	
-func add_new_graphics_layer(data):
+func add_new_graphics_layer(layer_name):
 	var layer = SugarGraphicsLayerEditor.new()
-	layer.layer_data = data
+	layer.layer_data = character.graphics_layers[layer_name]
+	layer.layer_internal_name = layer_name
 	layer_list_vbox.add_child(layer)
 	layer.character = get_character_internal_name()
 	layer.connect("layer_changed", self, "_on_layer_changed")
+	layer.connect("layer_internal_name_changed", self, "_on_layer_internal_name_changed")
 	layer.connect("move_up", self, "_on_move_layer_up")
 	layer.connect("move_down", self, "_on_move_layer_down")
 	layer.connect("delete", self, "_on_delete_layer")
 	
 func swap_layers(idx1: int, idx2: int):
-	var temp : Dictionary = character.graphics_layers[idx1]
-	character.graphics_layers[idx1] = character.graphics_layers[idx2]
-	character.graphics_layers[idx2] = temp
+	var layer1_name = character.graphics_layers.keys()[idx1]
+	var layer2_name = character.graphics_layers.keys()[idx2]
+	var layer1_data = character.graphics_layers.values()[idx1]
+	var layer2_data = character.graphics_layers.values()[idx2]
+	
+	var new_dict = {}
+	var layers := character.graphics_layers as Dictionary
+	
+	for key in layers:
+		if key == layer1_name:
+			new_dict[layer2_name] = layer2_data
+		elif key == layer2_name:
+			new_dict[layer1_name] = layer1_data
+		else:
+			new_dict[key] = layers[key]
+	character.graphics_layers = new_dict
 	
 func _on_move_layer_up(layer_idx: int):
 	swap_layers(layer_idx, layer_idx-1)
 func _on_move_layer_down(layer_idx: int):
 	swap_layers(layer_idx, layer_idx+1)
-func _on_delete_layer(layer_idx: int):
-	character.graphics_layers.remove(layer_idx)
+func _on_delete_layer(layer_name: String):
+	character.graphics_layers.erase(layer_name)
 	
-func _on_layer_changed(idx):
-	character.graphics_layers[idx] = layer_list_vbox.get_child(idx).layer_data
+func _on_layer_changed(name, data):
+	character.graphics_layers[name] = data
 	
+func _on_layer_internal_name_changed(idx: int, new_name: String):
+	var layers := character.graphics_layers as Dictionary
+	var new_dict = {}
+	for i in range(layers.values().size()):
+		var layer = layers.values()[i]
+		if i == idx:
+			new_dict[new_name] = layer
+		else:
+			var layer_name = layers.keys()[i]
+			new_dict[layer_name] = layer
+	character.graphics_layers = new_dict
 func get_character_internal_name():
 	return path.split("/")[-1].split(".json")[0]
 	
 func _on_add_graphics_layer():
 	var data = SJSON.get_format_defaults("character_graphics_layer")
-	character.graphics_layers.append(data)
-	add_new_graphics_layer(data)
+	var unique_name_found := false
+	var i := 0
+	var layer_name = "new layer"
+	while character.graphics_layers.has(layer_name):
+		i += 1
+		layer_name = "new_layer" + str(i)
+	character.graphics_layers[layer_name] = data
+	add_new_graphics_layer(layer_name)
 func _on_field_text_changed(value, field):
 	character[field] = value
 func get_content():
