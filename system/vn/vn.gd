@@ -4,30 +4,38 @@ extends Control
 Visual novel game
 """
 
-const TEXT_SPEED = 15.0
+const TEXT_SPEED = 15.0 # TODO: Make this user adjustable?
 
 onready var text_label = get_node("Panel/StoryContainer/VBoxContainer/TextLabel")
 onready var background = get_node("Panel/Background")
 onready var character_label = get_node("Panel/StoryContainer/CharacterNameTextureRect/CharacterLabel")
 onready var character_texture_rect = get_node("Panel/StoryContainer/CharacterNameTextureRect")
 onready var character_container = get_node("Panel/CharacterContainer")
+
+# Lines that require waiting instead of being executed at once
+const WAIT_LINES = ["text_line"]
+
 var current_position = 0.0
 var current_line = 0
 var lines : Array = []
 
 var visible_characters = {}
 
+# Runs a scene from scene data
 func run_scene(scene: Dictionary) -> void:
 	set_process(false)
 	lines = scene.lines
 	current_line = 0
 	_continue_parsing()
 
+# Some characters such as commas have different speeds, in order to create what
+# looks like natural speech.
 func _get_character_speed(character):
-	if character == ",":
-		return 7.0
-	else:
-		return TEXT_SPEED
+	var speed = TEXT_SPEED
+	match character:
+		",":
+			speed = 7.0
+	return speed
 
 # Returns the current line's target text in the correct locale, and also applies settings such as auto_quote
 func _get_current_line_text():
@@ -54,14 +62,7 @@ func change_background(background_filename: String):
 	background.texture = ImageTexture.new()
 	background.texture.load("res://game/backgrounds/" + background_filename)
 
-# Executes a non-text line
-func _run_nontext_line(line):
-	match line.__format:
-		"background_change_line":
-			change_background(line.background)
-		"change_character_visibility_line":
-			change_character_visibility(line)
-
+# Shows a character
 func change_character_visibility(line: Dictionary):
 	if GameManager.characters.has(line.character):
 		var character = GameManager.characters[line.character]
@@ -89,24 +90,35 @@ func change_character_visibility(line: Dictionary):
 	else:
 		push_error("Character %s not found" % line.character)
 
+func set_text(line: Dictionary):
+	current_position = 0
+	set_process(true)
+	text_label.text = ""
+	if line.character == "":
+		character_texture_rect.visible = false
+	else:
+		character_texture_rect.visible = true
+		character_label.text = GameManager.characters[line.character].name
+
+# Executes a non-text line
+func _execute_line(line):
+	match line.__format:
+		"text_line":
+			set_text(line)
+		"background_change_line":
+			change_background(line.background)
+		"change_character_visibility_line":
+			change_character_visibility(line)
+
 # Continues parsing lines
 func _continue_parsing():
 	for line_i in range(current_line, lines.size(), 1):
 		current_line = line_i
-
-		if lines[line_i].__format == "text_line":
-			current_position = 0
-			set_process(true)
-			text_label.text = ""
-			if lines[line_i].character == "":
-				character_texture_rect.visible = false
-			else:
-				character_texture_rect.visible = true
-				character_label.text = GameManager.characters[lines[line_i].character].name
+		_execute_line(lines[line_i])
+		if lines[line_i].__format in WAIT_LINES:
 			break
-		else:
-			_run_nontext_line(lines[line_i])
 func _process(delta):
+	# Text interface engine shenanigans
 	var target_text = _get_current_line_text()
 	
 	if current_position < target_text.length():

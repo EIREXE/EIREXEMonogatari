@@ -61,6 +61,7 @@ func ui_setup():
 	
 	file_button.get_popup().add_item(tr("EDITOR_CHECK_FILE"), FILE_MENU_OPTIONS.CHECK_FILE)
 	
+	# Popullate the format list
 	for key in SJSON.formats:
 		var format : Dictionary = SJSON.formats[key]
 		var hidden = false
@@ -100,7 +101,7 @@ func new_empty_file(format: String) -> SugarEditorTab:
 
 	return editor
 	
-func new_file_from_path(path: String) -> SugarEditorTab:
+func open_new_file_from_path(path: String) -> SugarEditorTab:
 	var result = SJSON.from_file(path)
 	var tab : SugarEditorTab
 	
@@ -171,7 +172,7 @@ func save_current_file():
 			GameManager.reload_game()
 			break
 func _on_character_selected(character):
-	new_file_from_path("res://game/characters/%s.json" % character)
+	open_new_file_from_path("res://game/characters/%s.json" % character)
 	
 func save_current_file_as():
 
@@ -189,6 +190,6 @@ func on_save_current_file_as(path):
 
 # Called when a user opens a file
 func on_open_file_file_selected(file_path: String):
-	new_file_from_path(file_path)
+	open_new_file_from_path(file_path)
 func _ready():
 	ui_setup()

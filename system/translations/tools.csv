@@ -35,3 +35,4 @@ TOOLS_WINDOW_TRANSLATION_REPORT,Translation report,Estadisticas de traducción,E
 TOOLS_WINDOW_TRANSLATION_REPORT_TEXT,Scene {path} needs translation for:,A la escena {path} le faltan por traducir:,A l'escena {path} li falten per traduïr:
 TOOLS_WINDOW_TRANSLATION_REPORT_LINE_TEXT,{n} lines in {locale},{n} lineas en {locale},{n} linies en {locale}
 TRANSLATION_GRID_CHARACTER,Character,Personaje,Personatge
+GAME_WINDOW_DEBUG_HINT,Press F10 to open developer tools,Pulsa F10 para abrir las herramientas de desarrollo,Prem F10 per obrir les eines de desenvolupament

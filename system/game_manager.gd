@@ -117,7 +117,7 @@ func reload_game(silent: bool = false):
 		print("ERROR Loading game config file: %s" % game_info["error"])
 		
 	if OS.is_debug_build():
-		title += " (Debug)"
+		title += " (Debug) - " + tr("GAME_WINDOW_DEBUG_HINT")
 	
 	OS.set_window_title(title)
 	

@@ -52,9 +52,10 @@ func _ready():
 	add_child(edit_button)
 	add_child(delete_button)
 	add_child(layer_internal_name_editor)
+	add_child(layer_name)
+	
 	layer_internal_name_editor.placeholder_text = tr("CHARACTER_EDITOR_LAYER_INTERNAL_NAME")
 	layer_name.placeholder_text = tr("CHARACTER_EDITOR_LAYER_NAME")
-	add_child(layer_name)
 	layer_name.text = layer_data.name
 	layer_internal_name_editor.text = layer_internal_name
 	layer_name.size_flags_horizontal = SIZE_EXPAND_FILL
