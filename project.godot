@@ -41,6 +41,7 @@ enabled=PoolStringArray( "zylann.editor_debugger" )
 
 [gui]
 
+theme/custom="res://system/theme.tres"
 theme/custom_font="res://system/fonts/RobotoRegular-12.tres"
 
 [input]
