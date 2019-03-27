@@ -14,6 +14,8 @@ var _target_text = ""
 var _current_text = ""
 var _current_position = 0
 
+var game
+
 # Some characters such as commas have different speeds, in order to create what
 # looks like natural speech.
 func _get_character_speed(character):
@@ -54,6 +56,6 @@ func show_text(text: String, character: String = ""):
 		character_name_texture_rect.visible = false
 	else:
 		character_name_texture_rect.visible = true
-		character_label.text = GameManager.characters[character].name
+		character_label.text = game.characters[character].name
 		
 	set_process(true)

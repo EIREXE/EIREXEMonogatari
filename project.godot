@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "SugarEditorTab",
 "language": "GDScript",
 "path": "res://system/debug/file_editor/editor_file.gd"
+}, {
+"base": "Control",
+"class": "SugarGame",
+"language": "GDScript",
+"path": "res://system/sugar_game.gd"
 } ]
 _global_script_class_icons={
-"SugarEditorTab": ""
+"SugarEditorTab": "",
+"SugarGame": ""
 }
 
 [application]
@@ -60,7 +66,7 @@ skip_text={
 [locale]
 
 test="en"
-translations=PoolStringArray( "res://system/translations/tools.es.translation", "res://system/translations/tools.en.translation", "res://system/translations/tools.ca.translation" )
+translations=PoolStringArray( "res://system/translations/tools.es.translation", "res://system/translations/tools.en.translation", "res://system/translations/tools.ca.translation", "res://system/translations/game_generic.es.translation", "res://system/translations/game_generic.en.translation", "res://system/translations/game_generic.ca.translation" )
 
 [rendering]
 

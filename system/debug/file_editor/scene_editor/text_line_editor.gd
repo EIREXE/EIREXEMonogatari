@@ -35,7 +35,7 @@ func _ready():
 	line_text.connect("text_changed", self, "on_text_changed")
 	line_text.text = get_line_for_locale(scene_editor.locale_override)
 	load_characters()
-	GameManager.connect("game_reloaded", self, "load_characters")
+	GameManager.game.connect("game_reloaded", self, "load_characters")
 	character_selector.connect("item_selected", self, "on_character_selected")
 	extra_buttons_container.add_child(character_selector)
 func on_text_changed():

@@ -10,6 +10,7 @@ onready var tie := get_node("Panel/StoryContainer")
 # Lines that require waiting instead of being executed at once
 const WAIT_LINES = ["text_line"]
 
+var game
 var current_position = 0.0
 var current_line = 0
 var lines : Array = []
@@ -40,7 +41,7 @@ func _get_current_line_text():
 			target_text = lines[current_line].text.values()[0]
 		push_error("Line translation not found uwu")
 		
-	if GameManager.game_info.auto_quote:
+	if game.game_info.auto_quote:
 		target_text = "\"%s\"" % target_text
 	return target_text
 
@@ -49,8 +50,8 @@ func change_background(background_filename: String):
 
 # Shows a character
 func change_character_visibility(line: Dictionary):
-	if GameManager.characters.has(line.character):
-		var character = GameManager.characters[line.character]
+	if game.characters.has(line.character):
+		var character = game.characters[line.character]
 		if visible_characters.has(line.character):
 			visible_characters[line.character].queue_free()
 		if line.show:
@@ -84,7 +85,7 @@ func run_minigame(line: Dictionary):
 	else:
 		minigame = load(line.path).instance()
 		
-	GameManager.set_node_as_current_scene(minigame)
+	game.run_minigame(minigame)
 # Executes a non-text line
 func _execute_line(line):
 	match line.__format:
@@ -113,4 +114,5 @@ func _on_text_line_skipped():
 
 func _ready():
 	set_process(false)
+	tie.game = game
 	tie.connect("line_skipped", self, "_on_text_line_skipped")
