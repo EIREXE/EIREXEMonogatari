@@ -22,6 +22,10 @@ EDITOR_HINT_BUTTON_UP,Up,Arriba,Amunt
 EDITOR_HINT_BUTTON_DOWN,Down,Abajo,Asota
 EDITOR_HINT_BUTTON_DELETE,Delete,Borrar,Esborrar
 EDITOR_HINT_BUTTON_EDIT,Edit,Editar,Editar
+EDITOR_HELP,Help,Ayuda,Ajuda
+EDITOR_ABOUT,About,Acerca de,Quant a
+EDITOR_ABOUT_TEXT,"EIREXEMonogatari, a free VN framework built in the Godot Engine and released under the GPLv3 license.\n\nOriginally developed by Alex R. (EIREXE) with input from Estrella R. (Kami) for use in My Sugar Sister.","EIREXEMonogatari, un framework de novelas visuales hecho en Godot Engine disponible bajo la licencia GPLv3.\n\nDesarrollado orginalmente por Alex R. (EIREXE) con ayuda de Estrella R. (Kami) para ser utilizado en My Sugar Sister.","EIREXEMonogatari, un framework de novel·les visuals fet en Godot Engine disponible sota la llicència GPLv3.\n\nDesenvolupat orginalment per Alex R. (EIREXE) amb l'ajuda de Estrella R. (Kami) per ser utilizat en My Sugar Sister."
+EDITOR_SOURCE_CODE,Source code,Codigo fuente,Codi font
 CHARACTER_EDITOR_ADD_GRAPHICS_LAYER,Add new graphics layer,Añadir nueva capa de graficos,Afegir nova capa de grafics
 CHARACTER_EDITOR_GRAPHIC_LAYER_EDITOR_TITLE,Graphic layers,Capas de graficos,Capes de grafics
 CHARACTER_EDITOR_OPEN_GRAPHICS_DIRECTORY,Open graphics directory,Abrir directorio de graficos,Obrir directori de gràfics

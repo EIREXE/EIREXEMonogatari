@@ -9,11 +9,13 @@ const AUTO_RELOAD_PATHS = ["res://game"]
 
 onready var tab_container : TabContainer = get_node("Panel/VBoxContainer/TabContainer")
 onready var file_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/FileButton")
-
+onready var help_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/HelpButton")
 onready var code_validation_status_label = get_node("Panel/VBoxContainer/StatusBar/ValidationStatusLabel")
 onready var new_format_option_button = get_node("NewFileDialog/HBoxContainer/OptionButton")
 onready var new_file_dialog : WindowDialog = get_node("NewFileDialog")
 onready var new_file_button : Button = get_node("NewFileDialog/HBoxContainer/NewFileButton")
+
+onready var source_code_button = get_node("AboutDialog/MarginContainer/VBoxContainer/HBoxContainer2/SourceCodeButton")
 
 const SugarJSONEditorTab = preload("res://system/debug/file_editor/editor_json_file.gd")
 const SugarSceneEditorTab = preload("res://system/debug/file_editor/scene_editor/scene_editor.gd")
@@ -28,15 +30,19 @@ enum FILE_MENU_OPTIONS {
 	CHECK_FILE
 }
 
+enum HELP_MENU_OPTIONS {
+	ABOUT
+}
+
 var file_dialog := FileDialog.new()
 var save_file_dialog := FileDialog.new()
 var open_files := []
 var character_dialog := SugarOpenCharacterDialog.new()
 
 func ui_setup():
+	source_code_button.text = tr("EDITOR_SOURCE_CODE")
 	
 	# Character dialog
-	
 	add_child(character_dialog)
 	character_dialog.connect("character_selected", self, "_on_character_selected")
 	
@@ -61,6 +67,10 @@ func ui_setup():
 	
 	file_button.get_popup().add_item(tr("EDITOR_CHECK_FILE"), FILE_MENU_OPTIONS.CHECK_FILE)
 	
+	# Help button
+	
+	help_button.get_popup().add_item(tr("EDITOR_ABOUT"))
+	
 	# Popullate the format list
 	for key in SJSON.formats:
 		var format : Dictionary = SJSON.formats[key]
@@ -71,6 +81,7 @@ func ui_setup():
 			new_format_option_button.add_item(format["name"])
 			new_format_option_button.set_item_metadata(new_format_option_button.get_item_count() - 1, key)
 	file_button.get_popup().connect("id_pressed", self, "on_option_pressed")
+	help_button.get_popup().connect("id_pressed", self, "on_help_pressed")
 	new_file_button.connect("pressed", self, "on_new_file_button_pressed")
 		
 func _get_editor_for_format(format: String):
@@ -122,6 +133,11 @@ func on_new_file_button_pressed():
 	var format := new_format_option_button.get_selected_metadata() as String
 	new_empty_file(format)
 	new_file_dialog.visible = false
+	
+func on_help_pressed(id: int) -> void:
+	match id:
+		HELP_MENU_OPTIONS.ABOUT:
+			$AboutDialog.popup_centered()
 	
 func on_option_pressed(id: int) -> void:
 	
