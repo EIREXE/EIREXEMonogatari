@@ -8,7 +8,7 @@ func _ready():
 
 	background_selector.connect("item_selected", self, "on_background_changed")
 
-	for background in GameManager.backgrounds:
+	for background in GameManager.game.backgrounds:
 		background_selector.add_item(background)
 		if background == line.background:
 			background_selector.select(background_selector.get_item_count()-1)

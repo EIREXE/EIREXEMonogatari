@@ -11,8 +11,8 @@ func load_characters():
 	character_selector.clear()
 	character_selector.add_item(tr("SCENE_EDITOR_NARRATOR"))
 	character_selector.set_item_metadata(0, "")
-	for character_name in GameManager.characters:
-		var character = GameManager.characters[character_name]
+	for character_name in GameManager.game.characters:
+		var character = GameManager.game.characters[character_name]
 		character_selector.add_item(character.name)
 		character_selector.set_item_metadata(character_selector.get_item_count()-1, character_name)
 		if character_name == line.character:

@@ -44,7 +44,7 @@ func set_grid(l: Array):
 			character_label.text = tr("SCENE_EDITOR_NARRATOR")
 			character_label.align = ALIGN_CENTER
 			if line.character != "":
-				character_label.text = GameManager.characters[line.character].name
+				character_label.text = GameManager.game.characters[line.character].name
 				
 			line_hbox.add_child(character_label)
 			

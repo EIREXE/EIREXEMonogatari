@@ -54,6 +54,7 @@ func change_character_visibility(line: Dictionary):
 		var character = game.characters[line.character]
 		if visible_characters.has(line.character):
 			visible_characters[line.character].queue_free()
+			visible_characters.erase(line.character)
 		if line.show:
 			if character.graphics_layers.has(line.layer):
 				var main_node = Control.new()
@@ -69,7 +70,7 @@ func change_character_visibility(line: Dictionary):
 
 					main_node.add_child(texture_rect)
 				character_container.add_child(main_node)
-				visible_characters[line.character] = character_container
+				visible_characters[line.character] = main_node
 			else:
 				push_error("Character %s doesn't have graphics layer %s" % [line.character, line.layer])
 	else:

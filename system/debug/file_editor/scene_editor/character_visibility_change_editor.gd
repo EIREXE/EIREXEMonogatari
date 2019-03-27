@@ -48,7 +48,7 @@ func on_layer_visibility_changed(new_value: bool):
 	
 func load_layers():
 	layer_list.clear()
-	var character = GameManager.characters[line.character]
+	var character = GameManager.game.characters[line.character]
 	for layer_name in character.graphics_layers:
 		layer_list.add_item(character.graphics_layers[layer_name].name)
 		layer_list.set_item_metadata(layer_list.get_item_count()-1, layer_name)
@@ -56,8 +56,8 @@ func load_layers():
 			layer_list.select(layer_list.get_item_count()-1)
 func load_characters():
 	character_selector.clear()
-	for character_name in GameManager.characters:
-		var character = GameManager.characters[character_name]
+	for character_name in GameManager.game.characters:
+		var character = GameManager.game.characters[character_name]
 		character_selector.add_item(character.name)
 		character_selector.set_item_metadata(character_selector.get_item_count()-1, character_name)
 		if character_name == line.character:

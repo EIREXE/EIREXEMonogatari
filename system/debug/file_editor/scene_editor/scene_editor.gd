@@ -56,7 +56,7 @@ func _ready():
 	translation_viewer.connect("line_changed", self, "on_line_changed")
 	# Locale override selector
 	
-	for locale in GameManager.game_info.supported_languages:
+	for locale in GameManager.game.game_info.supported_languages:
 		locale_override_selector.add_item(TranslationServer.get_locale_name(locale))
 		locale_override_selector.set_item_metadata(locale_override_selector.get_item_count()-1, locale)
 		if locale == locale_override:
@@ -146,7 +146,7 @@ func _toggle_translation_view():
 	else:
 		scroll_container.show()
 func _run_scene():
-	GameManager.run_vn_scene(scene)
+	GameManager.game.run_vn_scene(scene)
 	editor_window.hide()
 	
 func _on_locale_override_selected(i: int):

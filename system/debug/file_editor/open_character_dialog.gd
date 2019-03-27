@@ -10,8 +10,8 @@ func _ready():
 	character_list.connect("nothing_selected", self, "_on_item_selected")
 	connect("confirmed", self, "_on_confirm")
 	
-	for i in GameManager.characters:
-		var character = GameManager.characters[i]
+	for i in GameManager.game.characters:
+		var character = GameManager.game.characters[i]
 		character_list.add_item(character.name)
 		character_list.set_item_metadata(character_list.get_item_count()-1, i)
 
