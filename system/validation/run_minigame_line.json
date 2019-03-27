@@ -1,0 +1,9 @@
+{
+    "name": "Run Minigame",
+    "hidden": true,
+    "keys": {
+        "path": {
+            "type": "String"
+        }
+    }
+}

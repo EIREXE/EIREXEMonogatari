@@ -7,10 +7,10 @@ Extensible, general purpose game data editor
 # Paths that will automatically fire a game_reload when saving to them
 const AUTO_RELOAD_PATHS = ["res://game"]
 
-onready var tab_container : TabContainer = get_node("Panel/VBoxContainer/TabContainer")
-onready var file_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/FileButton")
-onready var help_button : MenuButton = get_node("Panel/VBoxContainer/HBoxContainer/HelpButton")
-onready var code_validation_status_label = get_node("Panel/VBoxContainer/StatusBar/ValidationStatusLabel")
+onready var tab_container : TabContainer = get_node("Panel/MarginContainer/VBoxContainer/TabContainer")
+onready var file_button : MenuButton = get_node("Panel/MarginContainer/VBoxContainer/HBoxContainer/FileButton")
+onready var help_button : MenuButton = get_node("Panel/MarginContainer/VBoxContainer/HBoxContainer/HelpButton")
+onready var code_validation_status_label = get_node("Panel/MarginContainer/VBoxContainer/StatusBar/ValidationStatusLabel")
 onready var new_format_option_button = get_node("NewFileDialog/HBoxContainer/OptionButton")
 onready var new_file_dialog : WindowDialog = get_node("NewFileDialog")
 onready var new_file_button : Button = get_node("NewFileDialog/HBoxContainer/NewFileButton")
