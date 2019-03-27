@@ -77,6 +77,14 @@ func change_character_visibility(line: Dictionary):
 func show_current_line_text():
 	tie.show_text(_get_current_line_text(), lines[current_line].character)
 
+func run_minigame(line: Dictionary):
+	var minigame
+	if line.path.ends_with(".gd"):
+		minigame = load(line.path).new()
+	else:
+		minigame = load(line.path).instance()
+		
+	GameManager.set_node_as_current_scene(minigame)
 # Executes a non-text line
 func _execute_line(line):
 	match line.__format:
@@ -86,6 +94,8 @@ func _execute_line(line):
 			change_background(line.background)
 		"change_character_visibility_line":
 			change_character_visibility(line)
+		"run_minigame_line":
+			run_minigame(line)
 
 # Continues parsing lines
 func _continue_parsing():

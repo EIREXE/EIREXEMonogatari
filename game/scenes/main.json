@@ -33,6 +33,10 @@
       },
       "character": "",
       "__format": "text_line"
+    },
+    {
+      "path": "res://game/minigames/test_minigame.tscn",
+      "__format": "run_minigame_line"
     }
   ],
   "__format": "scene"

@@ -48,17 +48,19 @@ func _ready():
 	
 	if OS.has_feature("sugareditor") or "--sugar-editor" in  OS.get_cmdline_args():
 		tools_menu.show_menu()
-func change_scene_to(scene_packed: PackedScene):
-	var scene = scene_packed.instance()
+		
+func set_node_as_current_scene(scene: Node):
 	get_tree().get_root().add_child(scene)
 	if get_tree().current_scene:
 		get_tree().current_scene.queue_free()
 	if current_scene:
 		current_scene.queue_free()
 	current_scene = scene
-	
+
+func change_scene_to(scene_packed: PackedScene):
+	var scene = scene_packed.instance()
+	set_node_as_current_scene(scene)
 	return current_scene
-	
 func run_vn_scene_from_file(scene_path: String):
 	var scene = SJSON.from_file(scene_path)
 	run_vn_scene(scene)

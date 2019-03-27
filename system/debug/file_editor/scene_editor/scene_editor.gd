@@ -21,6 +21,10 @@ var LINE_TYPES : Dictionary = {
 	"change_character_visibility_line": {
 		"name": tr("SCENE_EDITOR_CHARACTER_VISIBILITY_CHANGE"),
 		"editor": preload("res://system/debug/file_editor/scene_editor/character_visibility_change_editor.gd")
+	},
+	"run_minigame_line": {
+		"name": tr("SCENE_EDITOR_RUN_MINIGAME"),
+		"editor": preload("res://system/debug/file_editor/scene_editor/run_minigame_editor.gd")
 	}
 }
 
