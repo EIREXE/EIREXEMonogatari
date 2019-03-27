@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://system/vn/vn.gd" type="Script" id=1]
 [ext_resource path="res://game/backgrounds/bg uni.jpg" type="Texture" id=2]
-[ext_resource path="res://game/gui/textbox.png" type="Texture" id=3]
-[ext_resource path="res://system/fonts/ArchitectsDaughter.tres" type="DynamicFont" id=4]
-[ext_resource path="res://game/gui/namebox.png" type="Texture" id=5]
+[ext_resource path="res://system/vn/vn_tie.tscn" type="PackedScene" id=3]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -27,61 +25,5 @@ stretch_mode = 7
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="StoryContainer" type="TextureRect" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -365.0
-margin_top = -150.0
-margin_right = 365.0
-rect_min_size = Vector2( 0, 150 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 7
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/StoryContainer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -349.5
-margin_top = -62.5
-margin_right = 349.5
-margin_bottom = 62.5
-alignment = 1
-
-[node name="TextLabel" type="Label" parent="Panel/StoryContainer/VBoxContainer"]
-margin_top = 49.0
-margin_right = 699.0
-margin_bottom = 75.0
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.270588, 0.12549, 0.0117647, 1 )
-text = "\"Jo-Jofrillos\""
-align = 1
-autowrap = true
-
-[node name="CharacterNameTextureRect" type="TextureRect" parent="Panel/StoryContainer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -93.0
-margin_top = -99.5
-margin_right = 93.0
-margin_bottom = -62.5
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 7
-
-[node name="CharacterLabel" type="Label" parent="Panel/StoryContainer/CharacterNameTextureRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0, 0, 0.392157, 1 )
-text = "Nina"
-align = 1
-valign = 1
+[node name="StoryContainer" parent="Panel" instance=ExtResource( 3 )]
 

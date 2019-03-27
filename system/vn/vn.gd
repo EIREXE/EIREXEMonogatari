@@ -4,14 +4,9 @@ extends Control
 Visual novel game
 """
 
-const TEXT_SPEED = 15.0 # TODO: Make this user adjustable?
-
-onready var text_label = get_node("Panel/StoryContainer/VBoxContainer/TextLabel")
 onready var background = get_node("Panel/Background")
-onready var character_label = get_node("Panel/StoryContainer/CharacterNameTextureRect/CharacterLabel")
-onready var character_texture_rect = get_node("Panel/StoryContainer/CharacterNameTextureRect")
 onready var character_container = get_node("Panel/CharacterContainer")
-
+onready var tie := get_node("Panel/StoryContainer")
 # Lines that require waiting instead of being executed at once
 const WAIT_LINES = ["text_line"]
 
@@ -27,15 +22,6 @@ func run_scene(scene: Dictionary) -> void:
 	lines = scene.lines
 	current_line = 0
 	_continue_parsing()
-
-# Some characters such as commas have different speeds, in order to create what
-# looks like natural speech.
-func _get_character_speed(character):
-	var speed = TEXT_SPEED
-	match character:
-		",":
-			speed = 7.0
-	return speed
 
 # Returns the current line's target text in the correct locale, and also applies settings such as auto_quote
 func _get_current_line_text():
@@ -90,21 +76,14 @@ func change_character_visibility(line: Dictionary):
 	else:
 		push_error("Character %s not found" % line.character)
 
-func set_text(line: Dictionary):
-	current_position = 0
-	set_process(true)
-	text_label.text = ""
-	if line.character == "":
-		character_texture_rect.visible = false
-	else:
-		character_texture_rect.visible = true
-		character_label.text = GameManager.characters[line.character].name
+func show_current_line_text():
+	tie.show_text(_get_current_line_text(), lines[current_line].character)
 
 # Executes a non-text line
 func _execute_line(line):
 	match line.__format:
 		"text_line":
-			set_text(line)
+			show_current_line_text()
 		"background_change_line":
 			change_background(line.background)
 		"change_character_visibility_line":
@@ -117,27 +96,13 @@ func _continue_parsing():
 		_execute_line(lines[line_i])
 		if lines[line_i].__format in WAIT_LINES:
 			break
-func _process(delta):
-	# Text interface engine shenanigans
-	var target_text = _get_current_line_text()
-	
-	if current_position < target_text.length():
-		current_position += _get_character_speed(target_text.substr(current_position-1, 1))*delta
-	else:
-		current_position = target_text.length()
-		set_process(false)
-	text_label.text = target_text.substr(0, current_position)
 
-func _unhandled_input(event):
-	# text skipping
-	if event.is_action_pressed("skip_text") and not event.is_echo():
-			if _get_current_line_text().length() == text_label.text.length():
-				if current_line != lines.size()-1:
-					if current_line + 1 < lines.size():
-						current_line += 1
-					_continue_parsing()
-			else:
-				current_position = _get_current_line_text().length()
+func _on_text_line_skipped():
+	if current_line != lines.size()-1:
+		if current_line + 1 < lines.size():
+			current_line += 1
+		_continue_parsing()
 
 func _ready():
 	set_process(false)
+	tie.connect("line_skipped", self, "_on_text_line_skipped")
