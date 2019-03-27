@@ -46,7 +46,7 @@ func _ready():
 	
 	# Editor mode check
 	
-	if OS.has_feature("sugareditor"):
+	if OS.has_feature("sugareditor") or "--sugar-editor" in  OS.get_cmdline_args():
 		tools_menu.show_menu()
 func change_scene_to(scene_packed: PackedScene):
 	var scene = scene_packed.instance()
