@@ -37,6 +37,7 @@ TOOLS_WINDOW_TITLE,Development tools,Herramientas de desarrollo,Eines de desenvo
 TOOLS_WINDOW_RUN_MAIN_SCENE,Run main scene,Ejecutar escena principal,Executar escena principal
 TOOLS_WINDOW_RELOAD_GAME,Reload game data,Recargar datos del juego,Recarregar dades del joc
 TOOLS_WINDOW_JSON_EDITOR,Game data editor,Editor de datos del juego,Editor de dades del joc
+TOOLS_WINDOW_DUMP_STATE_TO_DISK,Dump state to disk,Volcar estado al disco,Volcar estat al disc
 TOOLS_WINDOW_TRANSLATION_REPORT,Translation report,Estadisticas de traducción,Estadistiques de traducció
 TOOLS_WINDOW_TRANSLATION_REPORT_TEXT,Scene {path} needs translation for:,A la escena {path} le faltan por traducir:,A l'escena {path} li falten per traduïr:
 TOOLS_WINDOW_TRANSLATION_REPORT_LINE_TEXT,{n} lines in {locale},{n} lineas en {locale},{n} linies en {locale}

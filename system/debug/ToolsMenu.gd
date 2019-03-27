@@ -52,6 +52,11 @@ func _ready():
 	translation_report_button.connect("button_down", self, "get_translation_report")
 	button_container.add_child(translation_report_button)
 	
+	var dump_state_to_disk_button = Button.new()
+	dump_state_to_disk_button.text = tr("TOOLS_WINDOW_DUMP_STATE_TO_DISK")
+	button_container.add_child(dump_state_to_disk_button)
+	dump_state_to_disk_button.connect("button_down", self, "_on_dump_state_to_disk")
+	
 	# Setup scrolling text container
 	var scroll_container = ScrollContainer.new()
 	add_child(scrolling_text_dialog)
@@ -104,7 +109,7 @@ func get_translation_report():
 		var locale_untranslated := {}
 		for line in scene.lines:
 			if line.__format == "text_line":
-				for locale in GameManager.game_info.supported_languages:
+				for locale in GameManager.game.game_info.supported_languages:
 					var is_translated = true
 					if not line.text.has(locale):
 						is_translated = false
@@ -135,3 +140,10 @@ func _input(event):
 	if OS.is_debug_build():
 		if Input.is_action_just_released("open_debug"):
 			show_menu()
+			
+func _on_dump_state_to_disk():
+	var state_text = JSON.print(GameManager.game.state, "  ")
+	var file := File.new()
+	file.open("user://state_dump.json", File.WRITE)
+	file.store_string(state_text)
+	file.close()
