@@ -75,25 +75,25 @@ func validate_string(string: String) -> bool:
 # Loads all the format data from the validation folder
 func load_formats():
 	var dir := Directory.new()
-	dir.open("res://system/validation")
-	dir.list_dir_begin()
-	while true:
-		var file_path := dir.get_next()
-		if file_path == "":
-			break
-		elif not file_path.begins_with(".") and file_path.get_extension() == "json":
-			var file := File.new()
-			var file_result := file.open("res://system/validation/" + file_path, File.READ)
-			if file_result == OK:
-				var text := file.get_as_text()
-				var result := JSON.parse(text)
-				if result.error == OK:
-					formats[file_path.get_basename()] = result.result
+	if dir.open("res://system/validation") == OK:
+		dir.list_dir_begin()
+		while true:
+			var file_path := dir.get_next()
+			if file_path == "":
+				break
+			elif not file_path.begins_with(".") and file_path.get_extension() == "json":
+				var file := File.new()
+				var file_result := file.open("res://system/validation/" + file_path, File.READ)
+				if file_result == OK:
+					var text := file.get_as_text()
+					var result := JSON.parse(text)
+					if result.error == OK:
+						formats[file_path.get_basename()] = result.result
+					else:
+						pass
 				else:
 					pass
-			else:
-				pass
-	dir.list_dir_end()
+		dir.list_dir_end()
 	
 # Loads and validates a JSON file from the disk, returns the file
 func from_file(path: String, validation: bool = true) -> Dictionary:

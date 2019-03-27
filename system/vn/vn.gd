@@ -45,8 +45,7 @@ func _get_current_line_text():
 	return target_text
 
 func change_background(background_filename: String):
-	background.texture = ImageTexture.new()
-	background.texture.load("res://game/backgrounds/" + background_filename)
+	background.texture = load("res://game/backgrounds/" + background_filename)
 
 # Shows a character
 func change_character_visibility(line: Dictionary):
@@ -61,9 +60,8 @@ func change_character_visibility(line: Dictionary):
 				for texture_path in character.graphics_layers[line.layer].graphics:
 					var path = "res://game/characters/%s/%s" % [line.character, texture_path]
 					var texture_rect := TextureRect.new()
-					texture_rect.texture = ImageTexture.new()
 					texture_rect.expand = true
-					texture_rect.texture.load(path)
+					texture_rect.texture = load(path)
 					texture_rect.set_anchors_and_margins_preset(Control.PRESET_WIDE)
 					texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 					texture_rect.size_flags_horizontal = SIZE_EXPAND_FILL

@@ -1,7 +1,7 @@
 extends TextureRect
-
-# VN Text Interface Engine (TIE)
-
+"""
+VN Text Interface Engine (TIE)
+"""
 signal line_skipped
 
 const TEXT_SPEED = 15.0 # TODO: Make this user adjustable?
@@ -22,7 +22,28 @@ func _get_character_speed(character):
 		",":
 			speed = 7.0
 	return speed
-
+	
+func _ready():
+	set_process(false)
+	
+func _process(delta: float):
+	# Text interface engine shenanigans
+	
+	if _current_position < _target_text.length():
+		_current_position += _get_character_speed(_target_text.substr(_current_position-1, 1))*delta
+	else:
+		_current_position = _target_text.length()
+		set_process(false)
+	text_label.text = _target_text.substr(0, _current_position)
+	
+func _unhandled_input(event: InputEvent):
+	# text skipping
+	if event.is_action_pressed("skip_text") and not event.is_echo():
+		if _target_text.length() == text_label.text.length():
+			emit_signal("line_skipped")
+		else:
+			_current_position = _target_text.length()
+			
 func show_text(text: String, character: String = ""):
 	_target_text = text
 	_current_text = ""
@@ -36,24 +57,3 @@ func show_text(text: String, character: String = ""):
 		character_label.text = GameManager.characters[character].name
 		
 	set_process(true)
-	
-func _ready():
-	set_process(false)
-	
-func _process(delta):
-	# Text interface engine shenanigans
-	
-	if _current_position < _target_text.length():
-		_current_position += _get_character_speed(_target_text.substr(_current_position-1, 1))*delta
-	else:
-		_current_position = _target_text.length()
-		set_process(false)
-	text_label.text = _target_text.substr(0, _current_position)
-	
-func _unhandled_input(event):
-	# text skipping
-	if event.is_action_pressed("skip_text") and not event.is_echo():
-		if _target_text.length() == text_label.text.length():
-			emit_signal("line_skipped")
-		else:
-			_current_position = _target_text.length()

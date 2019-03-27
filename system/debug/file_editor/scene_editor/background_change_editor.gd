@@ -25,6 +25,5 @@ func _ready():
 	
 func on_background_changed(idx):
 	line.background = background_selector.get_item_text(idx)
-	background_preview.texture = ImageTexture.new()
-	background_preview.texture.load("res://game/backgrounds/" + line.background)
+	background_preview.texture = load("res://game/backgrounds/" + line.background)
 	.update_line()
