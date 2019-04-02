@@ -14,7 +14,7 @@
     {
       "text": {
         "es": "¡Hola, Mundo!",
-        "en": "Hello, World!",
+        "en": "Hello, World! {characters/nina}",
         "ca": "Hola, Món!"
       },
       "character": "nina",

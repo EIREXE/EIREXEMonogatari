@@ -27,6 +27,8 @@ func init_state():
 	state = SJSON.get_format_defaults(game_state_format)
 	if state.has("error"):
 		push_error("error initializing game state")
+	for character in characters:
+		state.characters[character] = characters[character].name
 	
 func list_backgrounds():
 	var dir := Directory.new()
@@ -75,6 +77,7 @@ func list_characters():
 	
 func run_vn_scene_from_file(scene_path: String):
 	var scene = SJSON.from_file(scene_path)
+	print("RUNNING SCENE")
 	run_vn_scene(scene)
 	
 func run_vn_scene(scene: Dictionary):

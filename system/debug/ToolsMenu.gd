@@ -37,7 +37,7 @@ func _ready():
 	
 	var run_main_button = Button.new()
 	run_main_button.text = tr("TOOLS_WINDOW_RUN_MAIN_SCENE")
-	run_main_button.connect("button_down", GameManager, "run_vn_scene_from_file", ["res://game/scenes/main.json"])
+	run_main_button.connect("button_down", GameManager.game, "run_vn_scene_from_file", ["res://game/scenes/main.json"])
 	run_main_button.connect("button_down", self, "hide")
 	button_container.add_child(run_main_button)
 	

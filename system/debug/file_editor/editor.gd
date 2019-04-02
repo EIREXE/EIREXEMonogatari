@@ -185,7 +185,7 @@ func save_current_file():
 		tab_container.update()
 	for auto_reload_path in AUTO_RELOAD_PATHS:
 		if auto_reload_path in path:
-			GameManager.reload_game()
+			GameManager.game.reload_game()
 			break
 func _on_character_selected(character):
 	open_new_file_from_path("res://game/characters/%s.json" % character)

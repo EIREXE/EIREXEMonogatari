@@ -24,6 +24,29 @@ func run_scene(scene: Dictionary) -> void:
 	current_line = 0
 	_continue_parsing()
 
+# Gets a state key from a path with the format "characters/nina"
+func get_state_key_from_path(path: String):
+	var current_key
+	for key in path.split('/'):
+		if not current_key:
+			current_key = GameManager.game.state[key]
+		else:
+			current_key = current_key[key]
+	return current_key
+
+# Allows the text box to print state info
+func process_state_prints(text: String) -> String:
+	var regex = RegEx.new()
+	regex.compile("{(.*)}")
+	var results = regex.search_all(text)
+	for result in results:
+		var start = result.get_start()
+		var length = result.get_end()-result.get_start()
+		var path = result.get_string(1)
+		text.erase(start, length)
+		text = text.insert(start, get_state_key_from_path(path))
+	return text
+
 # Returns the current line's target text in the correct locale, and also applies settings such as auto_quote
 func _get_current_line_text():
 	var target_text : String
@@ -40,7 +63,7 @@ func _get_current_line_text():
 		if lines[current_line].text.size() > 0:
 			target_text = lines[current_line].text.values()[0]
 		push_error("Line translation not found uwu")
-		
+	target_text = process_state_prints(target_text)
 	if game.game_info.auto_quote:
 		target_text = "\"%s\"" % target_text
 	return target_text

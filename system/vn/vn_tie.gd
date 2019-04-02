@@ -21,8 +21,10 @@ var game
 func _get_character_speed(character):
 	var speed = TEXT_SPEED
 	match character:
-		",":
-			speed = 7.0
+		"," or ";":
+			speed = TEXT_SPEED*0.5
+		".":
+			speed = TEXT_SPEED * 0.25
 	return speed
 	
 func _ready():

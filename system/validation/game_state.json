@@ -2,6 +2,12 @@
     "name": "Game State",
     "hidden": false,
     "keys": {
+        "characters": {
+            "type": "ObjectOf",
+            "objectType": {
+                "type": "String"
+            }
+        },
         "nina_state": {
             "type": "Object",
             "description": "Información y stats de Nina",
