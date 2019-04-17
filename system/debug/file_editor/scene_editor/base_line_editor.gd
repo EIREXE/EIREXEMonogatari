@@ -17,6 +17,7 @@ var scene_editor
 var collapse_button_expanded = ImageTexture.new()
 var collapse_button_collapsed = ImageTexture.new()
 var collapse_button := Button.new()
+var type_label = Label.new()
 func _ready():
 	var hbox_container := HBoxContainer.new()
 	add_child(hbox_container)
@@ -46,6 +47,9 @@ func _ready():
 	down_button.connect("button_down", self, "move_position_down")
 	delete_button.connect("button_down", self, "delete")
 	hbox_container.add_child(collapse_button)
+	
+	hbox_container.add_child(type_label)
+	
 	hbox_container.add_child(up_button)
 	hbox_container.add_child(down_button)
 	hbox_container.add_child(delete_button)

@@ -180,6 +180,7 @@ func add_new_line(line_type_name: String, line = null):
 	line_editor.line = line
 	line_editor.connect("line_changed", self, "on_line_changed")
 	line_hbox_container.add_child(line_editor)
+	line_editor.type_label.text = LINE_TYPES[line_type_name].name
 	line_editor.connect("move_up", self, "move_line_up")
 	line_editor.connect("move_down", self, "move_line_down")
 	line_editor.connect("delete", self, "delete_line")

@@ -24,7 +24,7 @@ func set_grid(l: Array):
 	character_header_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	character_header_label.align = ALIGN_CENTER
 	language_container.add_child(character_header_label)
-	for locale in GameManager.game_info.supported_languages:
+	for locale in GameManager.game.game_info.supported_languages:
 		var label = Label.new()
 		label.text = TranslationServer.get_locale_name(locale)
 		label.align = ALIGN_CENTER
@@ -48,7 +48,7 @@ func set_grid(l: Array):
 				
 			line_hbox.add_child(character_label)
 			
-			for locale in GameManager.game_info.supported_languages:
+			for locale in GameManager.game.game_info.supported_languages:
 				var line_edit := LineEdit.new()
 				line_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				line_hbox.add_child(line_edit)
