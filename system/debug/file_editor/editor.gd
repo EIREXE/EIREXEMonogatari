@@ -15,8 +15,8 @@ onready var new_format_option_button = get_node("NewFileDialog/HBoxContainer/Opt
 onready var new_file_dialog : WindowDialog = get_node("NewFileDialog")
 onready var new_file_button : Button = get_node("NewFileDialog/HBoxContainer/NewFileButton")
 
-onready var source_code_button = get_node("AboutDialog/MarginContainer/VBoxContainer/HBoxContainer2/SourceCodeButton")
-
+onready var about_accept_button : Button = get_node("AboutDialog/MarginContainer/VBoxContainer/HBoxContainer3/Button")
+onready var about_dialog = get_node("AboutDialog")
 const SugarJSONEditorTab = preload("res://system/debug/file_editor/editor_json_file.gd")
 const SugarSceneEditorTab = preload("res://system/debug/file_editor/scene_editor/scene_editor.gd")
 const SugarCharacterEditorTab = preload("res://system/debug/file_editor/character_editor/character_editor.gd")
@@ -40,7 +40,6 @@ var open_files := []
 var character_dialog := SugarOpenCharacterDialog.new()
 
 func ui_setup():
-	source_code_button.text = tr("EDITOR_SOURCE_CODE")
 	
 	# Character dialog
 	add_child(character_dialog)
@@ -83,6 +82,8 @@ func ui_setup():
 	file_button.get_popup().connect("id_pressed", self, "on_option_pressed")
 	help_button.get_popup().connect("id_pressed", self, "on_help_pressed")
 	new_file_button.connect("pressed", self, "on_new_file_button_pressed")
+	
+	about_accept_button.connect("pressed", about_dialog, "hide")
 		
 func _get_editor_for_format(format: String):
 	var format_editor
@@ -137,7 +138,7 @@ func on_new_file_button_pressed():
 func on_help_pressed(id: int) -> void:
 	match id:
 		HELP_MENU_OPTIONS.ABOUT:
-			$AboutDialog.popup_centered()
+			$AboutDialog.popup_centered_ratio(0.40)
 	
 func on_option_pressed(id: int) -> void:
 	
