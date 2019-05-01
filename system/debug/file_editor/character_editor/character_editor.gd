@@ -14,9 +14,15 @@ var layer_list_vbox := VBoxContainer.new()
 var main_panel_vbox := VBoxContainer.new()
 const EDITABLE_FIELDS = {
 	"name": {
-		"name": "EDITOR_CHARACTER_NAME"
+		"name": "CHARACTER_EDITOR_CHARACTER_NAME"
+	},
+	"color": {
+		"name": "CHARACTER_EDITOR_CHARACTER_NAME_TEXT_COLOR",
+		"type_override": "color"
 	}
 }
+
+var field_controls = {}
 
 const SugarGraphicsLayerEditor = preload("res://system/debug/file_editor/character_editor/graphics_layer_editor.gd")
 
@@ -27,18 +33,38 @@ func add_fields():
 		layer.free()
 	for field_name in EDITABLE_FIELDS:
 		if character.has(field_name):
+			var field_hbox = HBoxContainer.new()
 			var field_label = Label.new()
 			field_label.text = EDITABLE_FIELDS[field_name].name
 			main_panel_vbox.add_child(field_label)
+			main_panel_vbox.add_child(field_hbox)
 			var line_edit = LineEdit.new()
+			field_hbox.add_child(line_edit)
+			field_controls[field_name] = { "line_edit": line_edit }
 			
-			main_panel_vbox.add_child(line_edit)
+			field_hbox.size_flags_horizontal = SIZE_EXPAND_FILL
+			line_edit.size_flags_horizontal = SIZE_EXPAND_FILL
 			line_edit.text = character[field_name]
 			
 			line_edit.connect("text_changed", self, "_on_field_text_changed", [field_name])
 			
+			if character.has(field_name):
+				if EDITABLE_FIELDS[field_name].has("type_override"):
+					match EDITABLE_FIELDS[field_name].type_override:
+						"color":
+							var color_change_button = ColorPickerButton.new()
+							field_hbox.add_child(color_change_button)
+							color_change_button.rect_min_size = Vector2(100,0)
+							field_controls[field_name]["color_editor"] = color_change_button
+							color_change_button.connect("color_changed", self, "_on_field_color_changed", [field_name])
+							color_change_button.color = Color(character[field_name])
+			
 	for layer_name in character.graphics_layers:
 		add_new_graphics_layer(layer_name)
+
+func _on_field_color_changed(color: Color, field):
+	field_controls[field].line_edit.text = color.to_html()
+	character[field] = color.to_html()
 
 func _ready():
 	var buttons_container := HBoxContainer.new()
@@ -190,6 +216,8 @@ func _on_add_graphics_layer():
 	add_new_graphics_layer(layer_name)
 func _on_field_text_changed(value, field):
 	character[field] = value
+	if field_controls[field].has("color"):
+		field_controls[field].color.color = Color(value)
 func get_content():
 	return JSON.print(character, "  ")
 func _on_open_graphics_directory():

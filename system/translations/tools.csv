@@ -19,7 +19,8 @@ EDITOR_SAVE_FILE_AS,Save as...,Guardar como...,Anomena i desa
 EDITOR_CHECK_FILE,Check file,Comprobar fichero,Comprovar arxiu
 EDITOR_UNTITLED,Untitled,Sín Título,Sense Titol
 EDITOR_CANCEL,Cancel,Cancelar,Cancel·lar
-EDITOR_CHARACTER_NAME,Name,Nombre,Nom
+CHARACTER_EDITOR_CHARACTER_NAME,Name,Nombre,Nom
+CHARACTER_EDITOR_CHARACTER_NAME_TEXT_COLOR,Name color,Color del nombre,Color del nom
 EDITOR_HINT_BUTTON_UP,Up,Arriba,Amunt
 EDITOR_HINT_BUTTON_DOWN,Down,Abajo,Asota
 EDITOR_HINT_BUTTON_DELETE,Delete,Borrar,Esborrar
