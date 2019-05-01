@@ -11,7 +11,8 @@ var button_container = VBoxContainer.new()
 var TOOLS = [
 		{
 			"name": tr("TOOLS_WINDOW_JSON_EDITOR"),
-			"path": "res://system/debug/file_editor/editor.tscn"
+			"path": "res://system/debug/file_editor/editor.tscn",
+			"fullscreen": true
 		}
 	]
 
@@ -30,7 +31,7 @@ func _ready():
 	for tool_info in TOOLS:
 		var button := Button.new()
 		button.text = tool_info["name"]
-		button.connect("button_up", self, "_run_tool", [tool_info["path"]])
+		button.connect("button_up", self, "_run_tool", [tool_info])
 		button_container.add_child(button)
 	
 	button_container.add_child(HSeparator.new())
@@ -66,20 +67,24 @@ func _ready():
 	scrolling_text_dialog.add_child(scroll_container)
 	scroll_container.add_child(scrolling_text_dialog_label)
 	
-func _run_tool(tool_path: String) -> void:
-	if open_tools.has(tool_path):
-		open_tools[tool_path].show()
+func _run_tool(tool_info: Dictionary) -> void:
+	if open_tools.has(tool_info.path):
+		open_tools[tool_info.path].show()
 	else:
-		var scene = load(tool_path)
-		var tool_window = SugarToolWindow.new() as WindowDialog
+		var scene = load(tool_info.path)
 		var tool_instance = scene.instance()
-		add_child(tool_window)
-		tool_window.add_child(tool_instance)
-		# HACK to prevent window from being hidden when clicked away, while still making use of popup_centered_ratio
-		tool_window.popup_centered_ratio()
-		tool_window.hide()
-		tool_window.show()
-		open_tools[tool_path] = tool_window
+		if tool_info.fullscreen:
+			get_tree().get_root().add_child(tool_instance)
+			open_tools[tool_info.path] = tool_instance
+		else:
+			var tool_window = SugarToolWindow.new() as WindowDialog
+			add_child(tool_window)
+			tool_window.add_child(tool_instance)
+			# HACK to prevent window from being hidden when clicked away, while still making use of popup_centered_ratio
+			tool_window.popup_centered_ratio()
+			tool_window.hide()
+			tool_window.show()
+			open_tools[tool_info.path] = tool_window
 	
 func get_translation_report():
 	var dir := Directory.new()
