@@ -1,28 +1,24 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://system/vn/vn_tie.gd" type="Script" id=1]
 [ext_resource path="res://game/gui/vn_tie_bg.png" type="Texture" id=2]
-[ext_resource path="res://system/fonts/RobotoSlabRegular-22.tres" type="DynamicFont" id=3]
-[ext_resource path="res://game/gui/chevron-right.png" type="Texture" id=4]
-[ext_resource path="res://system/fonts/RobotoRegular-18.tres" type="DynamicFont" id=5]
-[ext_resource path="res://game/gui/key_base.svg" type="Texture" id=6]
-[ext_resource path="res://system/fonts/RobotoBlack.tres" type="DynamicFont" id=7]
+[ext_resource path="res://game/gui/chevron-right.png" type="Texture" id=3]
+[ext_resource path="res://system/vn/vn_action_button.tscn" type="PackedScene" id=4]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0196078, 0.0588235, 0.121569, 1 )
 border_width_top = 1
 border_width_bottom = 3
 border_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 256, 256 )
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 modulate_color = Color( 0.0352941, 0.101961, 0.207843, 1 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "Loop"
+[sub_resource type="Animation" id=3]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("ChevronContainer:rect_position")
@@ -37,14 +33,13 @@ tracks/0/keys = {
 "values": [ Vector2( 761, 78 ), Vector2( 765, 78 ), Vector2( 761, 78 ) ]
 }
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.152941, 0.537255, 0.737255, 1 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 1, 1, 1, 1 )
-border_blend = true
 corner_radius_top_left = 1024
 corner_radius_top_right = 1024
 corner_radius_bottom_right = 1024
@@ -74,14 +69,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -2.0
 margin_bottom = -2.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="Panel" type="Panel" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 1.0
 margin_bottom = -3.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -95,8 +90,7 @@ margin_bottom = 61.6426
 
 [node name="TextLabel" type="Label" parent="VBoxContainer"]
 margin_right = 699.0
-margin_bottom = 63.0
-custom_fonts/font = ExtResource( 3 )
+margin_bottom = 41.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "asdsaddsasdadsadasdasdsadasdas
 "
@@ -122,12 +116,12 @@ margin_left = -35.0
 margin_top = -16.5
 margin_bottom = 16.5
 grow_horizontal = 0
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 expand = true
 stretch_mode = 5
 
 [node name="ChevronAnimation" type="AnimationPlayer" parent="."]
-anims/Loop = SubResource( 1 )
+anims/Loop = SubResource( 3 )
 
 [node name="CharacterNameTextureRect" type="Panel" parent="."]
 anchor_left = 0.5
@@ -138,12 +132,11 @@ margin_left = -387.0
 margin_top = -167.0
 margin_right = -240.0
 margin_bottom = -136.0
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 
 [node name="CharacterLabel" type="Label" parent="CharacterNameTextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Nina"
 align = 1
@@ -177,32 +170,11 @@ margin_bottom = 24.0
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+margin_top = 1.0
 margin_right = 201.0
-margin_bottom = 22.0
+margin_bottom = 21.0
 
-[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 20.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 20, 0 )
-texture = ExtResource( 6 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 7 )
-text = "R"
-align = 1
-valign = 1
-
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 24.0
-margin_right = 100.0
-margin_bottom = 22.0
-custom_fonts/font = ExtResource( 5 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Inventory"
-align = 1
-valign = 1
+[node name="InventoryButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
+margin_right = 76.0
+size_flags_horizontal = 1
 
