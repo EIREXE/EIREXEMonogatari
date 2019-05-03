@@ -4,8 +4,6 @@
 [ext_resource path="res://game/backgrounds/bg uni.jpg" type="Texture" id=2]
 [ext_resource path="res://system/vn/vn_tie.tscn" type="PackedScene" id=3]
 
-
-
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,4 +26,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="StoryContainer" parent="Panel" instance=ExtResource( 3 )]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = 113.0
+margin_bottom = 263.0
 

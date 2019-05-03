@@ -1,4 +1,4 @@
-extends TextureRect
+extends Control
 """
 VN Text Interface Engine (TIE)
 """
@@ -9,7 +9,7 @@ const TEXT_SPEED = 15.0 # TODO: Make this user adjustable?
 onready var text_label = get_node("VBoxContainer/TextLabel")
 onready var character_name_texture_rect = get_node("CharacterNameTextureRect")
 onready var character_label = get_node("CharacterNameTextureRect/CharacterLabel")
-
+onready var chevron = get_node("ChevronContainer/Chevron")
 var _target_text = ""
 var _current_text = ""
 var _current_position = 0
@@ -28,6 +28,8 @@ func _get_character_speed(character):
 	return speed
 	
 func _ready():
+	chevron.hide()
+	$ChevronAnimation.play("Loop")
 	set_process(false)
 	
 func _process(delta: float):
@@ -37,6 +39,7 @@ func _process(delta: float):
 		_current_position += _get_character_speed(_target_text.substr(_current_position-1, 1))*delta
 	else:
 		_current_position = _target_text.length()
+		chevron.show()
 		set_process(false)
 	text_label.text = _target_text.substr(0, _current_position)
 	
@@ -61,3 +64,4 @@ func show_text(text: String, character: String = ""):
 		character_label.text = game.characters[character].name
 		
 	set_process(true)
+	chevron.hide()
