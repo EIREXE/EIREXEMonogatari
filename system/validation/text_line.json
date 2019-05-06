@@ -12,9 +12,9 @@
         "character": {
             "type": "String"
         },
-        "thinking": {
-            "type": "Boolean",
-            "default": false
+        "line_style": {
+            "type": "String",
+            "default": "normal"
         }
     }
 }

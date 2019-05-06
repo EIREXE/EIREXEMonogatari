@@ -19,7 +19,7 @@
       },
       "character": "nina",
       "__format": "text_line",
-      "thinking": true
+      "line_style": "internal_dialogue"
     },
     {
       "show": false,
@@ -34,7 +34,7 @@
         "ca": "La mare que em va matricular, UNA LOLI!"
       },
       "character": "",
-      "thinking": false,
+      "line_style": "normal",
       "__format": "text_line"
     },
     {

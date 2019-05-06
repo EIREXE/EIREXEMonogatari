@@ -64,10 +64,12 @@ func _get_current_line_text():
 			target_text = lines[current_line].text.values()[0]
 		push_error("Line translation not found uwu")
 	target_text = process_state_prints(target_text)
-	if lines[current_line].thinking:
-		target_text = "(%s)" % target_text
-	elif game.game_info.auto_quote:
-		target_text = "\"%s\"" % target_text
+	if game.game_info.auto_quote:
+		match lines[current_line].line_style:
+			"internal_dialogue":
+				target_text = "(%s)" % target_text
+			_:
+				target_text = "\"%s\"" % target_text
 	return target_text
 
 func change_background(background_filename: String):
@@ -102,7 +104,7 @@ func change_character_visibility(line: Dictionary):
 		push_error("Character %s not found" % line.character)
 
 func show_current_line_text():
-	tie.show_text(_get_current_line_text(), lines[current_line].character, lines[current_line].thinking)
+	tie.show_text(_get_current_line_text(), lines[current_line].character, lines[current_line].line_style)
 
 func run_minigame(line: Dictionary):
 	var minigame

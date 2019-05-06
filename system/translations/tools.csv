@@ -10,7 +10,8 @@ SCENE_EDITOR_CHARACTER_LAYER_VISIBLE,Show,Mostrar,Mostrar
 SCENE_EDITOR_CHARACTER_VISIBILITY_CHANGE,Show/Hide character,Mostrar/Ocultar personaje,Mostrar/Ocultar personatge
 SCENE_EDITOR_RUN_MINIGAME,Run minigame,Ejecutar minijuego,Executar minijoc
 SCENE_EDITOR_SELECT_FILE,Select file...,Seleccionar archivo...,Seleccionar arxiu...
-SCENE_EDITOR_THINKING,Internal dialogue,Diálogo interno,Diàleg intern
+SCENE_EDITOR_NORMAL_LINE_STYLE,Normal,Normal,Normal
+SCENE_EDITOR_INTERNAL_DIALOGUE_LINE_STYLE,Internal dialogue,Diálogo interno,Diàleg intern
 EDITOR_FILE,File,Archivo,Arxiu
 EDITOR_NEW_FILE,New,Nuevo,Nou
 EDITOR_OPEN_FILE,Open,Abrir,Obrir

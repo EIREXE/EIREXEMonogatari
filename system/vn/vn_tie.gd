@@ -23,14 +23,11 @@ var game
 # looks like natural speech.
 func _get_character_speed(character):
 	var speed = TEXT_SPEED
-	print(character == ",")
 	match character:
 		",":
-			print("matching comma")
 			speed = TEXT_SPEED*0.15
 		".":
 			speed = TEXT_SPEED * 0.05
-	print("getting speed for %s as %d" % [character, speed])
 	return speed
 	
 func _ready():
@@ -57,7 +54,7 @@ func _unhandled_input(event: InputEvent):
 		else:
 			_current_position = _target_text.length()
 			
-func show_text(text: String, character: String = "", thinking: bool = false):
+func show_text(text: String, character: String = "", line_style: String = "normal"):
 	_target_text = text
 	_current_text = ""
 	text_label.text = ""
@@ -69,10 +66,12 @@ func show_text(text: String, character: String = "", thinking: bool = false):
 		character_name_texture_rect.visible = true
 		character_label.text = game.characters[character].name
 		
-	if thinking:
-		text_label.add_color_override("font_color", THINKING_TEXT_COLOR)
-	else:
-		text_label.add_color_override("font_color", BASE_TEXT_COLOR)
+	match line_style:
+		"internal_dialogue":
+			text_label.add_color_override("font_color", THINKING_TEXT_COLOR)
+		_:
+			text_label.add_color_override("font_color", BASE_TEXT_COLOR)
+		
 		
 	set_process(true)
 	chevron.hide()
