@@ -11,6 +11,10 @@
         },
         "character": {
             "type": "String"
+        },
+        "thinking": {
+            "type": "Boolean",
+            "default": false
         }
     }
 }

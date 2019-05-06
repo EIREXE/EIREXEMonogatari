@@ -15,10 +15,11 @@
       "text": {
         "es": "¡Hola, Mundo!",
         "en": "Hello, World! {characters/nina}",
-        "ca": "Hola, Món!"
+        "ca": "Era un dissabte al vespre, vaig anar als cotxes de xoc"
       },
       "character": "nina",
-      "__format": "text_line"
+      "__format": "text_line",
+      "thinking": true
     },
     {
       "show": false,
@@ -29,9 +30,11 @@
     },
     {
       "text": {
-        "en": "Hello, World2!"
+        "en": "Hello, World2!",
+        "ca": "La mare que em va matricular, UNA LOLI!"
       },
       "character": "",
+      "thinking": false,
       "__format": "text_line"
     },
     {

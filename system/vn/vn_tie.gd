@@ -4,7 +4,10 @@ VN Text Interface Engine (TIE)
 """
 signal line_skipped
 
-const TEXT_SPEED = 15.0 # TODO: Make this user adjustable?
+const BASE_TEXT_COLOR = Color(1.0, 1.0, 1.0)
+const THINKING_TEXT_COLOR = Color("#79bee4")
+
+const TEXT_SPEED = 35.0 # TODO: Make this user adjustable?
 
 onready var text_label = get_node("VBoxContainer/TextLabel")
 onready var character_name_texture_rect = get_node("CharacterNameTextureRect")
@@ -20,11 +23,14 @@ var game
 # looks like natural speech.
 func _get_character_speed(character):
 	var speed = TEXT_SPEED
+	print(character == ",")
 	match character:
-		"," or ";":
-			speed = TEXT_SPEED*0.5
+		",":
+			print("matching comma")
+			speed = TEXT_SPEED*0.15
 		".":
-			speed = TEXT_SPEED * 0.25
+			speed = TEXT_SPEED * 0.05
+	print("getting speed for %s as %d" % [character, speed])
 	return speed
 	
 func _ready():
@@ -51,7 +57,7 @@ func _unhandled_input(event: InputEvent):
 		else:
 			_current_position = _target_text.length()
 			
-func show_text(text: String, character: String = ""):
+func show_text(text: String, character: String = "", thinking: bool = false):
 	_target_text = text
 	_current_text = ""
 	text_label.text = ""
@@ -62,6 +68,11 @@ func show_text(text: String, character: String = ""):
 	else:
 		character_name_texture_rect.visible = true
 		character_label.text = game.characters[character].name
+		
+	if thinking:
+		text_label.add_color_override("font_color", THINKING_TEXT_COLOR)
+	else:
+		text_label.add_color_override("font_color", BASE_TEXT_COLOR)
 		
 	set_process(true)
 	chevron.hide()

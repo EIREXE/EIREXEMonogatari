@@ -6,7 +6,7 @@ Editor for VN dialogue lines
 
 var line_text = TextEdit.new()
 var character_selector := OptionButton.new()
-
+var thinking_checkbox := CheckBox.new()
 func load_characters():
 	character_selector.clear()
 	character_selector.add_item(tr("SCENE_EDITOR_NARRATOR"))
@@ -38,6 +38,14 @@ func _ready():
 	GameManager.game.connect("game_reloaded", self, "load_characters")
 	character_selector.connect("item_selected", self, "on_character_selected")
 	extra_buttons_container.add_child(character_selector)
+	
+	thinking_checkbox.text = tr("SCENE_EDITOR_THINKING")
+	extra_buttons_container.add_child(thinking_checkbox)
+	
+	thinking_checkbox.pressed = line.thinking
+	
+	thinking_checkbox.connect("toggled", self, "_on_thinking_changed")
+	
 func on_text_changed():
 	set_text_for_locale(scene_editor.locale_override, line_text.text)
 	
@@ -53,3 +61,6 @@ func _on_line_changed(i: int):
 		var new_text = get_line_for_locale(scene_editor.locale_override)
 		if line_text.text != new_text:
 			line_text.text = get_line_for_locale(scene_editor.locale_override)
+func _on_thinking_changed(value: bool):
+	line.thinking = value
+	.update_line()
