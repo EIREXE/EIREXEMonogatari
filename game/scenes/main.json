@@ -13,7 +13,7 @@
     },
     {
       "text": {
-        "es": "¡Hola, Mundo!",
+        "es": "El policia me come tol capullo",
         "en": "Hello, World! {characters/nina}",
         "ca": "Hola, Món!"
       },
@@ -29,7 +29,8 @@
     },
     {
       "text": {
-        "en": "Hello, World2!"
+        "en": "Hello, World2!",
+        "es": ""
       },
       "character": "",
       "__format": "text_line"
