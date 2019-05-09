@@ -24,7 +24,6 @@ func set_label_text(value):
 		label.text = value
 		label.rect_size.x = 0
 		container.rect_size.x = 0
-		
 		on_size_changed()
 
 # Called when the node enters the scene tree for the first time.
@@ -51,4 +50,5 @@ func on_size_changed():
 
 
 func _on_Label_item_rect_changed():
-	on_size_changed()
+	pass
+	#on_size_changed()

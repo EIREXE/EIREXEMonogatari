@@ -4,9 +4,18 @@ extends "base_line_editor.gd"
 Editor for VN dialogue lines
 """
 
+const LINE_STYLES = {
+	"normal": {
+		"name": "SCENE_EDITOR_NORMAL_LINE_STYLE"
+	},
+	"internal_dialogue": {
+		"name": "SCENE_EDITOR_INTERNAL_DIALOGUE_LINE_STYLE"
+	}
+}
+
 var line_text = TextEdit.new()
 var character_selector := OptionButton.new()
-
+var line_style_selector := OptionButton.new()
 func load_characters():
 	character_selector.clear()
 	character_selector.add_item(tr("SCENE_EDITOR_NARRATOR"))
@@ -38,6 +47,18 @@ func _ready():
 	GameManager.game.connect("game_reloaded", self, "load_characters")
 	character_selector.connect("item_selected", self, "on_character_selected")
 	extra_buttons_container.add_child(character_selector)
+	
+	for style_name in LINE_STYLES:
+		var line_style = LINE_STYLES[style_name]
+		line_style_selector.add_item(line_style.name)
+		line_style_selector.set_item_metadata(line_style_selector.get_item_count() - 1, style_name)
+		if line.line_style == style_name:
+			line_style_selector.select(line_style_selector.get_item_count() - 1)
+	extra_buttons_container.add_child(line_style_selector)
+	
+	
+	line_style_selector.connect("item_selected", self, "_on_line_style_selected")
+	
 func on_text_changed():
 	set_text_for_locale(scene_editor.locale_override, line_text.text)
 	
@@ -53,3 +74,6 @@ func _on_line_changed(i: int):
 		var new_text = get_line_for_locale(scene_editor.locale_override)
 		if line_text.text != new_text:
 			line_text.text = get_line_for_locale(scene_editor.locale_override)
+func _on_line_style_selected(i: int):
+	line.line_style = line_style_selector.get_item_metadata(i)
+	.update_line()

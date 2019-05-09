@@ -4,8 +4,6 @@ extends SugarEditorTab
 Plain JSON text file editor
 """
 
-signal contents_changed
-
 var text_edit : TextEdit
 
 func set_content(_content: String) -> void:

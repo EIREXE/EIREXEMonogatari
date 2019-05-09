@@ -6,6 +6,8 @@ Base class for all different JSON file editors
 
 class_name SugarEditorTab
 
+signal contents_changed
+
 var path : String setget set_path
 
 var content : String setget set_content, get_content
