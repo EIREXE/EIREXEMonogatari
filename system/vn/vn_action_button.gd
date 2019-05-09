@@ -21,15 +21,17 @@ func set_button_text(value):
 func set_label_text(value):
 	label_text = value
 	if container:
+		label.text = value
 		label.rect_size.x = 0
 		container.rect_size.x = 0
-		label.text = value
 		on_size_changed()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().get_root().connect("size_changed", self, "on_size_changed")
 	on_size_changed()
+	set_label_text(label_text)
+	set_button_text(label_text)
 
 
 func on_size_changed():

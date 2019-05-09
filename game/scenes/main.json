@@ -13,7 +13,7 @@
     },
     {
       "text": {
-        "es": "¡Hola, Mundo!",
+        "es": "El policia me come tol capullo",
         "en": "Hello, World! {characters/nina}",
         "ca": "Era un dissabte al vespre, vaig anar als cotxes de xoc"
       },
@@ -31,7 +31,8 @@
     {
       "text": {
         "en": "Hello, World2!",
-        "ca": "La mare que em va matricular, UNA LOLI!"
+        "ca": "La mare que em va matricular, UNA LOLI!",
+        "es": ""
       },
       "character": "",
       "line_style": "normal",

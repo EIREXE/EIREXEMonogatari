@@ -110,6 +110,7 @@ func run_vn_scene(scene: Dictionary):
 	
 	get_tree().set_screen_stretch(stretch_mode, aspect_mode, size)
 	vn.run_scene(scene)
+	GameManager.free_current_scene()
 	
 func run_minigame(minigame):
 	vn.hide()
