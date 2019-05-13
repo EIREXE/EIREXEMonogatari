@@ -177,12 +177,12 @@ margin_right = 201.0
 margin_bottom = 21.0
 
 [node name="InventoryButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
-margin_right = 76.0
+margin_right = 88.0
 size_flags_horizontal = 1
 
 [node name="OptionsButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
-margin_left = 80.0
-margin_right = 162.0
+margin_left = 92.0
+margin_right = 188.0
 size_flags_horizontal = 1
 text = "Options (ESC)"
 
