@@ -23,11 +23,11 @@ func _ready():
 	var debug_canvas_layer := CanvasLayer.new()
 	game = load("res://game/game.gd").new()
 	game.init_game()
-	add_child(game)
+	
 	
 	debug_canvas_layer.add_child(tools_menu)
 	add_child(debug_canvas_layer)
-	
+	add_child(game)
 	# Editor mode check
 	
 	if OS.has_feature("sugareditor") or "--sugar-editor" in  OS.get_cmdline_args():

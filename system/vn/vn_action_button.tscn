@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://system/vn/vn_action_button.gd" type="Script" id=1]
-[ext_resource path="res://game/gui/key_base.svg" type="Texture" id=2]
+[ext_resource path="res://system/fonts/RobotoRegular-12.tres" type="DynamicFont" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 5.0
@@ -29,42 +28,10 @@ custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
 custom_styles/normal = SubResource( 4 )
-custom_colors/icon_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.772549, 0.772549, 0.772549, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/icon_color_hover = Color( 1, 1, 1, 1 )
 custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
-text = "Inventory"
-align = 2
-script = ExtResource( 1 )
-button_text = "Inventory"
-label_text = "r"
+text = "Inventory (E)"
 
-[node name="CenterContainer" type="NinePatchRect" parent="."]
-anchor_bottom = 1.0
-margin_right = 20.0
-rect_min_size = Vector2( 0, 20 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 2 )
-patch_margin_left = 10
-patch_margin_top = 10
-patch_margin_right = 10
-patch_margin_bottom = 10
-
-[node name="Label" type="Label" parent="CenterContainer"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_top = -11.5
-margin_right = 8.0
-margin_bottom = 11.5
-rect_min_size = Vector2( 20, 0 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "r"
-align = 1
-uppercase = true
-
-[connection signal="item_rect_changed" from="CenterContainer/Label" to="." method="_on_Label_item_rect_changed"]

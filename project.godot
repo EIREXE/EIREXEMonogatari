@@ -45,10 +45,6 @@ window/stretch/aspect="keep_height"
 
 enabled=PoolStringArray( "zylann.editor_debugger" )
 
-[gui]
-
-theme/custom="res://system/theme.tres"
-
 [input]
 
 open_debug={
@@ -66,7 +62,7 @@ skip_text={
 [locale]
 
 test="en"
-translations=PoolStringArray( "res://system/translations/tools.es.translation", "res://system/translations/tools.en.translation", "res://system/translations/tools.ca.translation", "res://system/translations/game_generic.es.translation", "res://system/translations/game_generic.en.translation", "res://system/translations/game_generic.ca.translation" )
+translations=PoolStringArray( "res://system/translations/tools.es.translation", "res://system/translations/tools.en.translation", "res://system/translations/tools.ca.translation", "res://system/translations/game_generic.es.translation", "res://system/translations/game_generic.en.translation", "res://system/translations/game_generic.ca.translation", "res://game/ui_translations/game.en.translation", "res://game/ui_translations/game.ca.translation", "res://game/ui_translations/game.es.translation" )
 
 [rendering]
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://system/vn/vn_tie.gd" type="Script" id=1]
 [ext_resource path="res://game/gui/vn_tie_bg.png" type="Texture" id=2]
-[ext_resource path="res://game/gui/chevron-right.png" type="Texture" id=3]
-[ext_resource path="res://system/vn/vn_action_button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://system/fonts/RobotoSlabRegular-22.tres" type="DynamicFont" id=3]
+[ext_resource path="res://game/gui/chevron-right.png" type="Texture" id=4]
+[ext_resource path="res://system/vn/vn_action_button.tscn" type="PackedScene" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0196078, 0.0588235, 0.121569, 1 )
@@ -90,7 +91,8 @@ margin_bottom = 61.6426
 
 [node name="TextLabel" type="Label" parent="VBoxContainer"]
 margin_right = 699.0
-margin_bottom = 41.0
+margin_bottom = 63.0
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "asdsaddsasdadsadasdasdsadasdas
 "
@@ -116,7 +118,7 @@ margin_left = -35.0
 margin_top = -16.5
 margin_bottom = 16.5
 grow_horizontal = 0
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 expand = true
 stretch_mode = 5
 
@@ -174,7 +176,15 @@ margin_top = 1.0
 margin_right = 201.0
 margin_bottom = 21.0
 
-[node name="InventoryButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
+[node name="InventoryButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 margin_right = 76.0
 size_flags_horizontal = 1
 
+[node name="OptionsButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
+margin_left = 80.0
+margin_right = 162.0
+size_flags_horizontal = 1
+text = "Options (ESC)"
+
+
+[editable path="Panel/MarginContainer/VBoxContainer/HBoxContainer/InventoryButton"]
