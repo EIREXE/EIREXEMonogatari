@@ -50,7 +50,7 @@ func _ready():
 	
 	for style_name in LINE_STYLES:
 		var line_style = LINE_STYLES[style_name]
-		line_style_selector.add_item(line_style.name)
+		line_style_selector.add_item(tr(line_style.name))
 		line_style_selector.set_item_metadata(line_style_selector.get_item_count() - 1, style_name)
 		if line.line_style == style_name:
 			line_style_selector.select(line_style_selector.get_item_count() - 1)
