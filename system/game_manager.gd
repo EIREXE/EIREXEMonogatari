@@ -33,13 +33,15 @@ func _ready():
 	if OS.has_feature("sugareditor") or "--sugar-editor" in  OS.get_cmdline_args():
 		tools_menu.show_menu()
 		
-
-func set_node_as_current_scene(scene: Node):
-	get_tree().get_root().add_child(scene)
+func free_current_scene():
 	if get_tree().current_scene:
 		get_tree().current_scene.queue_free()
 	if current_scene:
 		current_scene.queue_free()
+
+func set_node_as_current_scene(scene: Node):
+	get_tree().get_root().add_child(scene)
+	free_current_scene()
 	current_scene = scene
 
 func change_scene_to(scene_packed: PackedScene):

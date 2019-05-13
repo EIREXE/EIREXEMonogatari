@@ -11,6 +11,10 @@
         },
         "character": {
             "type": "String"
+        },
+        "line_style": {
+            "type": "String",
+            "default": "normal"
         }
     }
 }
