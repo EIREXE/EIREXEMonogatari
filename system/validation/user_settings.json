@@ -1,0 +1,10 @@
+{
+    "name": "Configuración del usuario",
+    "keys": {
+        "locale": {
+            "type": "String",
+            "default": null,
+            "required": true
+        }
+    }
+}
