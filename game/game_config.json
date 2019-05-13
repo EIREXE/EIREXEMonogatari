@@ -3,7 +3,6 @@
   "name": "My Sugar Sister",
   "auto_quote": true,
   "supported_languages": [
-    "es",
     "en",
     "ca"
   ]
