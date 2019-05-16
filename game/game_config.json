@@ -4,6 +4,7 @@
   "auto_quote": true,
   "supported_languages": [
     "en",
-    "ca"
+    "ca",
+    "es"
   ]
 }

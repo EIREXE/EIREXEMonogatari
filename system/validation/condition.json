@@ -1,0 +1,15 @@
+{
+    "name": "Condición",
+    "hidden": true,
+    "keys": {
+        "type": {
+            "type": "String"
+        },
+        "first_variable": {
+            "type": "String"
+        },
+        "second_variable": {
+            "type": "String"
+        }
+    }
+}

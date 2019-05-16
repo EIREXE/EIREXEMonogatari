@@ -19,8 +19,10 @@ onready var about_accept_button : Button = get_node("AboutDialog/MarginContainer
 onready var about_dialog = get_node("AboutDialog")
 const SugarJSONEditorTab = preload("res://system/debug/file_editor/editor_json_file.gd")
 const SugarSceneEditorTab = preload("res://system/debug/file_editor/scene_editor/scene_editor.gd")
+const SugarConditionalSceneCollectionEditorTab = preload("res://system/debug/file_editor/conditional_scene_collection_editor/conditional_scene_collection_editor.tscn")
 const SugarCharacterEditorTab = preload("res://system/debug/file_editor/character_editor/character_editor.gd")
 const SugarOpenCharacterDialog = preload("res://system/debug/file_editor/open_character_dialog.gd")
+
 enum FILE_MENU_OPTIONS {
 	NEW_FILE,
 	OPEN_FILE,
@@ -91,6 +93,8 @@ func _get_editor_for_format(format: String):
 		format_editor = SugarCharacterEditorTab.new()
 	elif format == "scene":
 		format_editor = SugarSceneEditorTab.new()
+	elif format == "conditional_scene_collection":
+		format_editor = SugarConditionalSceneCollectionEditorTab.instance()
 	else:
 		format_editor = SugarJSONEditorTab.new()
 	return format_editor

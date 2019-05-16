@@ -120,16 +120,18 @@ func get_defaults(format_keys: Dictionary):
 		var format_key = format_keys[key]
 		if format_key.has("default"):
 			result[key] = format_key.default
-		elif format_key["type"] == "ObjectOf":
+		elif format_key.type == "ObjectOf":
 			result[key] = {}
-		elif format_key["type"] == "Object":
+		elif format_key.type == "Object":
 			result[key] = get_defaults(format_key["object"])
-		elif format_key["type"] == "String":
+		elif format_key.type == "String":
 			result[key] = ""
-		elif format_key["type"] == "Number":
+		elif format_key.type == "Number":
 			result[key] = 0
-		elif format_key["type"] == "Array":
+		elif format_key.type == "Array":
 			result[key] = []
+		elif format_key.type == "Format":
+			result[key] = get_format_defaults(format_key["format"])
 	return result
 
 # Gets the defaults for a format by name

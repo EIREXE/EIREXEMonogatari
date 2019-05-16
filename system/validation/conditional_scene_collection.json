@@ -1,0 +1,12 @@
+{
+    "name": "Colección de escenas condicionales",
+    "keys": {
+        "lines": {
+            "type": "Array",
+            "arrayType": {
+                "type": "Format",
+                "format": "conditional_scene"
+            }
+        }
+    }
+}
