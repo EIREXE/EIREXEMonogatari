@@ -25,6 +25,14 @@ var LINE_TYPES : Dictionary = {
 	"run_minigame_line": {
 		"name": tr("SCENE_EDITOR_RUN_MINIGAME"),
 		"editor": preload("res://system/debug/file_editor/scene_editor/run_minigame_editor.gd")
+	},
+	"marker_line": {
+		"name": tr("SCENE_EDITOR_MARKER"),
+		"editor": preload("res://system/debug/file_editor/scene_editor/marker_line_editor.gd")
+	},
+	"random_end": {
+		"name": tr("SCENE_EDITOR_RANDOM_END"),
+		"editor": preload("res://system/debug/file_editor/scene_editor/base_line_editor.gd")
 	}
 }
 

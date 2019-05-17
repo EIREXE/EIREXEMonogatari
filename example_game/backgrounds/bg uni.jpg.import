@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bg uni.jpg-4ee5db7fa53d1e5f39b23c41111496fc.stex"
+path="res://.import/bg uni.jpg-3b30f2082390c37cff41345cd2ffebe0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/backgrounds/bg uni.jpg"
-dest_files=[ "res://.import/bg uni.jpg-4ee5db7fa53d1e5f39b23c41111496fc.stex" ]
+source_file="res://example_game/backgrounds/bg uni.jpg"
+dest_files=[ "res://.import/bg uni.jpg-3b30f2082390c37cff41345cd2ffebe0.stex" ]
 
 [params]
 

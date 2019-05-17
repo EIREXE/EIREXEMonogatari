@@ -16,11 +16,13 @@ func validate_key(value, keyData: Dictionary) -> bool:
 		"Object":
 			validation_OK = validate(value, keyData.object)
 		"ObjectOf":
-			for i in value:
-				var object = value[i]
-				validation_OK = validate_key(object, keyData.objectType)
-				if not validation_OK:
-					break
+			validation_OK = typeof(value) == TYPE_DICTIONARY
+			if value.size() > 0:
+				for i in value:
+					var object = value[i]
+					validation_OK = validate_key(object, keyData.objectType)
+					if not validation_OK:
+						break
 		"Number":
 			validation_OK = typeof(value) == TYPE_REAL
 		"Boolean":

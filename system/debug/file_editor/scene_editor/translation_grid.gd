@@ -21,7 +21,7 @@ func set_grid(l: Array):
 	
 	var character_header_label := Label.new()
 	character_header_label.text = tr("TRANSLATION_GRID_CHARACTER")
-	character_header_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#character_header_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	character_header_label.align = ALIGN_CENTER
 	language_container.add_child(character_header_label)
 	for locale in GameManager.game.game_info.supported_languages:
@@ -40,7 +40,7 @@ func set_grid(l: Array):
 			add_child(line_hbox)
 			
 			var character_label = Label.new()
-			character_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			#character_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			character_label.text = tr("SCENE_EDITOR_NARRATOR")
 			character_label.align = ALIGN_CENTER
 			if line.character != "":

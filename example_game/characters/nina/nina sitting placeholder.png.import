@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/nina sitting placeholder.png-d7c47e455929d37a58742c357cedc59a.stex"
+path="res://.import/nina sitting placeholder.png-3c691d7426048bf0f96a1dac8a267372.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/characters/nina/nina sitting placeholder.png"
-dest_files=[ "res://.import/nina sitting placeholder.png-d7c47e455929d37a58742c357cedc59a.stex" ]
+source_file="res://example_game/characters/nina/nina sitting placeholder.png"
+dest_files=[ "res://.import/nina sitting placeholder.png-3c691d7426048bf0f96a1dac8a267372.stex" ]
 
 [params]
 

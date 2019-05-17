@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "SugarGame",
 "language": "GDScript",
 "path": "res://system/sugar_game.gd"
+}, {
+"base": "Node",
+"class": "SugarMinigame",
+"language": "GDScript",
+"path": "res://system/sugar_minigame.gd"
 } ]
 _global_script_class_icons={
 "SugarEditorTab": "",
-"SugarGame": ""
+"SugarGame": "",
+"SugarMinigame": ""
 }
 
 [application]

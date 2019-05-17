@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/vn_tie_bg.png-cb8dc9d924441641e161386a721e6eb6.stex"
+path="res://.import/vn_tie_bg.png-680df8789ab0d094277c6d2779ef08e9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/gui/vn_tie_bg.png"
-dest_files=[ "res://.import/vn_tie_bg.png-cb8dc9d924441641e161386a721e6eb6.stex" ]
+source_file="res://example_game/gui/vn_tie_bg.png"
+dest_files=[ "res://.import/vn_tie_bg.png-680df8789ab0d094277c6d2779ef08e9.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bg meadow.jpg-e76d93d38b88aa4e2560dd27e19e4e5d.stex"
+path="res://.import/bg meadow.jpg-b7b7a30328f8e59a645fa241fa4282e9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/backgrounds/bg meadow.jpg"
-dest_files=[ "res://.import/bg meadow.jpg-e76d93d38b88aa4e2560dd27e19e4e5d.stex" ]
+source_file="res://example_game/backgrounds/bg meadow.jpg"
+dest_files=[ "res://.import/bg meadow.jpg-b7b7a30328f8e59a645fa241fa4282e9.stex" ]
 
 [params]
 

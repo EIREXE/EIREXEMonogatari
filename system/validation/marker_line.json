@@ -1,0 +1,9 @@
+{
+    "name": "Marker line",
+    "hidden": true,
+    "keys": {
+        "name": {
+            "type": "String"
+        }
+    }
+}

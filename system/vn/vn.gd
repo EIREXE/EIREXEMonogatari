@@ -4,6 +4,8 @@ extends Control
 Visual novel game
 """
 
+signal scene_finished
+
 onready var background = get_node("Panel/Background")
 onready var character_container = get_node("Panel/CharacterContainer")
 onready var tie := get_node("Panel/StoryContainer")
@@ -14,7 +16,7 @@ var game
 var current_position = 0.0
 var current_line = 0
 var lines : Array = []
-
+onready var minigame_container = get_node("Panel/Minigame")
 var visible_characters = {}
 
 # Runs a scene from scene data
@@ -128,17 +130,23 @@ func _execute_line(line):
 
 # Continues parsing lines
 func _continue_parsing():
+
+	print("from " + str(current_line) + " to " + str(lines.size()))
 	for line_i in range(current_line, lines.size(), 1):
 		current_line = line_i
+		var format = lines[line_i].__format
 		_execute_line(lines[line_i])
-		if lines[line_i].__format in WAIT_LINES:
+		if format in WAIT_LINES:
 			break
 
 func _on_text_line_skipped():
+	if current_line >= lines.size()-1:
+		emit_signal("scene_finished")
 	if current_line != lines.size()-1:
 		if current_line + 1 < lines.size():
 			current_line += 1
 		_continue_parsing()
+
 
 func _ready():
 	set_process(false)

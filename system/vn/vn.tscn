@@ -25,9 +25,12 @@ stretch_mode = 7
 anchor_right = 1.0
 anchor_bottom = 1.0
 
+[node name="Minigame" type="Control" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="StoryContainer" parent="Panel" instance=ExtResource( 3 )]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_top = 113.0
 margin_bottom = 263.0
-

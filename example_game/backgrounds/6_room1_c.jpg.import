@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/6_room1_c.jpg-22c2a8b3d5cdb2eb6668e1f9f6264f03.stex"
+path="res://.import/6_room1_c.jpg-31bf6e79308ed2af4b16e9625ed05be8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/backgrounds/6_room1_c.jpg"
-dest_files=[ "res://.import/6_room1_c.jpg-22c2a8b3d5cdb2eb6668e1f9f6264f03.stex" ]
+source_file="res://example_game/backgrounds/6_room1_c.jpg"
+dest_files=[ "res://.import/6_room1_c.jpg-31bf6e79308ed2af4b16e9625ed05be8.stex" ]
 
 [params]
 

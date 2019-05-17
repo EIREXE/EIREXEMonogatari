@@ -82,8 +82,6 @@ func run_vn_scene_from_file(scene_path: String):
 	
 func run_vn_scene(scene: Dictionary):
 	vn.show()
-	if current_minigame:
-		current_minigame.hide()
 	# Stretch mode shenanigans to ensure wea re using the proper one
 	var stretch_mode = SceneTree.STRETCH_MODE_DISABLED
 	var stretch_mode_setting = ProjectSettings.get_setting("display/window/stretch/mode")
@@ -113,10 +111,9 @@ func run_vn_scene(scene: Dictionary):
 	GameManager.free_current_scene()
 	
 func run_minigame(minigame):
-	vn.hide()
 	current_minigame = minigame
 	current_minigame.show()
-	GameManager.set_node_as_current_scene(minigame)
+	vn.minigame_container.add_child(minigame)
 	
 func init_game():
 	init_state()

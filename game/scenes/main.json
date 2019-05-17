@@ -39,7 +39,7 @@
       "__format": "text_line"
     },
     {
-      "path": "res://game/minigames/test_minigame.tscn",
+      "path": "res://game/minigames/main_minigame/main_minigame.tscn",
       "__format": "run_minigame_line"
     }
   ],
