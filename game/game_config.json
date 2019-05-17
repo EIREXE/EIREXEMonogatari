@@ -1,9 +1,0 @@
-{
-  "__format": "game_config",
-  "name": "My Sugar Sister",
-  "auto_quote": true,
-  "supported_languages": [
-    "en",
-    "ca"
-  ]
-}
