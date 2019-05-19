@@ -10,7 +10,7 @@ SCENE_EDITOR_CHARACTER_LAYER_VISIBLE,Show,Mostrar,Mostrar
 SCENE_EDITOR_CHARACTER_VISIBILITY_CHANGE,Show/Hide character,Mostrar/Ocultar personaje,Mostrar/Ocultar personatge
 SCENE_EDITOR_RUN_MINIGAME,Run minigame,Ejecutar minijuego,Executar minijoc
 SCENE_EDITOR_MARKER,Marker,Marcador,Marcador
-SCENE_EDITOR_RANDOM_END,End random sequence,Acabar sequencia aleatoria,Acabar sequencia aleatoria
+SCENE_EDITOR_RANDOM_END,Subscene finish,Final de subescena,Fi de subescena
 SCENE_EDITOR_SELECT_FILE,Select file...,Seleccionar archivo...,Seleccionar arxiu...
 SCENE_EDITOR_NORMAL_LINE_STYLE,Normal,Normal,Normal
 SCENE_EDITOR_INTERNAL_DIALOGUE_LINE_STYLE,Internal dialogue,Diálogo interno,Diàleg intern
