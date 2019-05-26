@@ -77,7 +77,6 @@ func list_characters():
 	
 func run_vn_scene_from_file(scene_path: String):
 	var scene = SJSON.from_file(scene_path)
-	print("RUNNING SCENE")
 	run_vn_scene(scene)
 	
 func run_vn_scene(scene: Dictionary):

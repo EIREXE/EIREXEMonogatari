@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://system/menus/game_settings/game_settings_option.gd" type="Script" id=1]
+[ext_resource path="res://system/fonts/RobotoRegular-22.tres" type="DynamicFont" id=2]
+
+
+[node name="HBoxContainer" type="HBoxContainer"]
+margin_right = 565.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+
+[node name="EditorContainer" type="HBoxContainer" parent="."]
+margin_right = 100.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 100, 0 )
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorContainer"]
+margin_left = 90.0
+margin_right = 90.0
+margin_bottom = 45.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 104.0
+margin_right = 565.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="OptionName" type="Label" parent="VBoxContainer"]
+margin_right = 461.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+
+[node name="OptionDescription" type="Label" parent="VBoxContainer"]
+margin_top = 31.0
+margin_right = 461.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+

@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
+[ext_resource path="res://system/menus/game_settings/game_settings.gd" type="Script" id=2]
+[ext_resource path="res://system/menus/game_settings/game_settings_option.tscn" type="PackedScene" id=3]
+
+[node name="Control" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 0
+script = ExtResource( 2 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1014.0
+margin_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 1004.0
+margin_bottom = 138.0
+size_flags_horizontal = 3
+
+[node name="LeftHandedModeOption" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_right = 1004.0
+margin_bottom = 67.0
+user_settings_key_name = "left_handed_mode"
+option_name = "GAME_SETTINGS_LEFT_HANDED_MODE_TITLE"
+option_description = "GAME_SETTINGS_LEFT_HANDED_MODE_DESCRIPTION"
+
+[node name="EditorContainer" parent="ScrollContainer/VBoxContainer/LeftHandedModeOption" index="0"]
+margin_bottom = 67.0
+
+[node name="VBoxContainer" parent="ScrollContainer/VBoxContainer/LeftHandedModeOption/EditorContainer" index="0"]
+margin_left = 23.0
+margin_right = 77.0
+margin_bottom = 67.0
+
+[node name="VBoxContainer" parent="ScrollContainer/VBoxContainer/LeftHandedModeOption" index="1"]
+margin_right = 1004.0
+margin_bottom = 67.0
+
+[node name="OptionName" parent="ScrollContainer/VBoxContainer/LeftHandedModeOption/VBoxContainer" index="0"]
+margin_right = 900.0
+margin_bottom = 35.0
+text = "GAME_SETTINGS_LEFT_HANDED_MODE_TITLE"
+
+[node name="OptionDescription" parent="ScrollContainer/VBoxContainer/LeftHandedModeOption/VBoxContainer" index="1"]
+margin_top = 39.0
+margin_right = 900.0
+margin_bottom = 67.0
+text = "GAME_SETTINGS_LEFT_HANDED_MODE_DESCRIPTION"
+
+[node name="LeftHandedModeOption2" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 71.0
+margin_right = 1004.0
+margin_bottom = 138.0
+edit_type = 1
+user_settings_key_name = "speed"
+option_name = "GAME_SETTINGS_SPEED_TITLE"
+option_description = "GAME_SETTINGS_SPEED_DESCRIPTION"
+slider_min = 30.0
+slider_max = 100.0
+slider_step = 1.0
+
+
+[editable path="ScrollContainer/VBoxContainer/LeftHandedModeOption"]

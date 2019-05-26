@@ -12,7 +12,7 @@ var current_scene setget ,_get_current_scene
 var game
 
 var user_settings
-const USER_SETTINGS_PATH = "user://config.json"
+const USER_SETTINGS_PATH = "user://settings.json"
 
 func _get_current_scene():
 	if current_scene:
@@ -56,14 +56,13 @@ func save_user_settings():
 	file.store_string(JSON.print(user_settings, "  "))
 	file.close()
 func free_current_scene():
-	if get_tree().current_scene:
-		get_tree().current_scene.queue_free()
-	if current_scene:
-		current_scene.queue_free()
+	if _get_current_scene():
+		_get_current_scene().queue_free()
+		current_scene = null
 
 func set_node_as_current_scene(scene: Node):
-	get_tree().get_root().add_child(scene)
 	free_current_scene()
+	get_tree().get_root().call_deferred("add_child", scene)
 	current_scene = scene
 
 func change_scene_to(scene_packed: PackedScene):

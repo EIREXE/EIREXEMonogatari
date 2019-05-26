@@ -5,6 +5,16 @@
             "type": "String",
             "default": null,
             "required": true
+        },
+        "left_handed_mode": {
+            "type": "Boolean",
+            "default": false,
+            "required": true
+        },
+        "speed": {
+            "type": "Number",
+            "default": 60,
+            "required": true
         }
     }
 }
