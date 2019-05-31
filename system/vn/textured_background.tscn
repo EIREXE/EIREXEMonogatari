@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game/gui/vn_tie_bg.png" type="Texture" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0196078, 0.0588235, 0.121569, 1 )
+border_width_top = 1
+border_width_bottom = 3
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 256, 256 )
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color( 0.0352941, 0.101961, 0.207843, 1 )
+
+[node name="Background" type="Panel"]
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0.9 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -2.21466
+margin_bottom = -2.21466
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 1.0
+margin_bottom = -3.0
+custom_styles/panel = SubResource( 2 )

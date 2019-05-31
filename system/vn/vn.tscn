@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://system/vn/vn.gd" type="Script" id=1]
-[ext_resource path="res://game/backgrounds/bg uni.jpg" type="Texture" id=2]
-[ext_resource path="res://system/vn/vn_tie.tscn" type="PackedScene" id=3]
+[ext_resource path="res://system/vn/vn_tie.tscn" type="PackedScene" id=2]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -17,7 +16,6 @@ anchor_bottom = 1.0
 [node name="Background" type="TextureRect" parent="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 2 )
 expand = true
 stretch_mode = 7
 
@@ -29,7 +27,7 @@ anchor_bottom = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="StoryContainer" parent="Panel" instance=ExtResource( 3 )]
+[node name="StoryContainer" parent="Panel" instance=ExtResource( 2 )]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_top = 113.0

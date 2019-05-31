@@ -30,6 +30,11 @@ func _get_character_speed(character):
 			speed = TEXT_SPEED * 0.05
 	return speed
 	
+func hide_buttons():
+	$Buttons.hide()
+func show_buttons():
+	$Buttons.show()
+	
 func _ready():
 	chevron.hide()
 	$ChevronAnimation.play("Loop")

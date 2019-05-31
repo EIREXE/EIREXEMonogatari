@@ -13,7 +13,6 @@ onready var tie := get_node("Panel/StoryContainer")
 const WAIT_LINES = ["text_line"]
 
 var game
-var current_position = 0.0
 var current_line = 0
 var lines : Array = []
 onready var minigame_container = get_node("Panel/Minigame")

@@ -1,25 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://system/vn/vn_tie.gd" type="Script" id=1]
-[ext_resource path="res://game/gui/vn_tie_bg.png" type="Texture" id=2]
+[ext_resource path="res://system/vn/textured_background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://system/fonts/RobotoSlabRegular-22.tres" type="DynamicFont" id=3]
 [ext_resource path="res://game/gui/chevron-right.png" type="Texture" id=4]
 [ext_resource path="res://system/vn/vn_action_button.tscn" type="PackedScene" id=5]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.0196078, 0.0588235, 0.121569, 1 )
-border_width_top = 1
-border_width_bottom = 3
-border_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="StyleBoxTexture" id=2]
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 256, 256 )
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-modulate_color = Color( 0.0352941, 0.101961, 0.207843, 1 )
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=7]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("ChevronContainer:rect_position")
@@ -34,7 +21,7 @@ tracks/0/keys = {
 "values": [ Vector2( 761, 78 ), Vector2( 765, 78 ), Vector2( 761, 78 ) ]
 }
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.152941, 0.537255, 0.737255, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -47,7 +34,7 @@ corner_radius_bottom_right = 1024
 corner_radius_bottom_left = 1024
 corner_detail = 1
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 1, 1, 1, 1 )
 border_color = Color( 1, 1, 1, 1 )
 border_blend = true
@@ -64,20 +51,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
-[node name="Background" type="Panel" parent="."]
-modulate = Color( 1, 1, 1, 0.9 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -2.0
-margin_bottom = -2.0
-custom_styles/panel = SubResource( 1 )
-
-[node name="Panel" type="Panel" parent="Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 1.0
-margin_bottom = -3.0
-custom_styles/panel = SubResource( 2 )
+[node name="Background" parent="." instance=ExtResource( 2 )]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -123,7 +97,7 @@ expand = true
 stretch_mode = 5
 
 [node name="ChevronAnimation" type="AnimationPlayer" parent="."]
-anims/Loop = SubResource( 3 )
+anims/Loop = SubResource( 7 )
 
 [node name="CharacterNameTextureRect" type="Panel" parent="."]
 anchor_left = 0.5
@@ -134,7 +108,7 @@ margin_left = -387.0
 margin_top = -167.0
 margin_right = -240.0
 margin_bottom = -136.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 8 )
 
 [node name="CharacterLabel" type="Label" parent="CharacterNameTextureRect"]
 anchor_right = 1.0
@@ -144,7 +118,7 @@ text = "Nina"
 align = 1
 valign = 1
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Buttons" type="Panel" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 1.0
@@ -154,37 +128,33 @@ margin_top = -27.0
 margin_right = 1.0
 margin_bottom = -4.0
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 6 )
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Buttons"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 custom_constants/margin_top = 2
 custom_constants/margin_left = 25
 custom_constants/margin_bottom = 7
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons/MarginContainer"]
 margin_left = 25.0
 margin_top = 2.0
 margin_right = 226.0
-margin_bottom = 24.0
+margin_bottom = 23.0
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
-margin_top = 1.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons/MarginContainer/VBoxContainer"]
 margin_right = 201.0
-margin_bottom = 21.0
+margin_bottom = 20.0
 
-[node name="InventoryButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
+[node name="InventoryButton" parent="Buttons/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 margin_right = 88.0
 size_flags_horizontal = 1
 
-[node name="OptionsButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
+[node name="OptionsButton" parent="Buttons/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 margin_left = 92.0
 margin_right = 188.0
 size_flags_horizontal = 1
 text = "Options (ESC)"
-
-
-[editable path="Panel/MarginContainer/VBoxContainer/HBoxContainer/InventoryButton"]

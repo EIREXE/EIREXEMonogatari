@@ -81,6 +81,7 @@ func run_vn_scene_from_file(scene_path: String):
 	
 func run_vn_scene(scene: Dictionary):
 	vn.show()
+	vn.tie.show_buttons()
 	# Stretch mode shenanigans to ensure wea re using the proper one
 	var stretch_mode = SceneTree.STRETCH_MODE_DISABLED
 	var stretch_mode_setting = ProjectSettings.get_setting("display/window/stretch/mode")

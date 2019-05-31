@@ -4,9 +4,17 @@ class_name SugarMinigame
 
 onready var game = GameManager.game
 
+func _minigame_ready():
+	pass
+
 func _ready():
+	# Ensure game is shown, for debugging within the editor
+	game.show()
+	game.vn.show()
 	game.vn.tie.hide()
+	game.vn.tie.hide_buttons()
 	game.vn.connect("scene_finished", self, "_on_scene_finished")
+	_minigame_ready()
 func _on_scene_finished():
 	game.vn.tie.hide()
 func play_random_subscene_from_file(path: String):
