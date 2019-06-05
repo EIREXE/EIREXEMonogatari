@@ -51,7 +51,7 @@ func _process(delta: float):
 		set_process(false)
 	text_label.text = _target_text.substr(0, _current_position)
 	
-func _unhandled_input(event: InputEvent):
+func _input(event: InputEvent):
 	# text skipping
 	if event.is_action_pressed("skip_text") and not event.is_echo():
 		if _target_text.length() == text_label.text.length():
