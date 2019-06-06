@@ -10,9 +10,11 @@ func _ready():
 	game.vn.show()
 	game.vn.tie.hide()
 	game.vn.tie.hide_buttons()
-	game.vn.connect("scene_finished", self, "_on_scene_finished")
-func _on_scene_finished():
-	game.vn.tie.hide()
+	
+	# HACK: Ensure game is a child of the vn minigame container
+	if get_parent() != game.vn.minigame_container:
+		get_parent().call_deferred("remove_child", self)
+		game.vn.minigame_container.call_deferred("add_child", self)
 func play_random_subscene_from_file(path: String):
 	play_random_subscene(SJSON.from_file(path))
 func play_random_subscene(scene: Dictionary):
@@ -27,7 +29,10 @@ func play_random_subscene(scene: Dictionary):
 			# We intentionally leave the random_end out, although this isn't really necessary...
 			found_subscenes.append(get_subscene(scene_start, i-1, scene))
 			scene_start = i + 1
-	game.run_vn_scene(found_subscenes[randi() % found_subscenes.size()])
+	if found_subscenes.size() == 0:
+		game.run_vn_scene(scene)
+	else:
+		game.run_vn_scene(found_subscenes[randi() % found_subscenes.size()])
 func get_subscene(start: int, end: int, scene: Dictionary):
 	var subscene = SJSON.get_format_defaults("scene")
 	for i in range(start, end+1):

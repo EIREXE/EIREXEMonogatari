@@ -8,6 +8,14 @@
                 "type": "String"
             }
         },
+        "time_of_day": {
+            "type": "Number",
+            "default": 5
+        },
+        "days_passed": {
+            "type": "Number",
+            "default": 0
+        },
         "nina_state": {
             "type": "Object",
             "description": "Información y stats de Nina",
