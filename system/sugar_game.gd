@@ -128,3 +128,7 @@ func init_game():
 func _ready():
 	init_state()
 	set_anchors_and_margins_preset(Control.PRESET_WIDE)
+	if get_tree().current_scene is SugarMinigame:
+		var minigame = get_tree().current_scene
+		get_tree().root.call_deferred("remove_child", minigame)
+		call_deferred("run_minigame", minigame)

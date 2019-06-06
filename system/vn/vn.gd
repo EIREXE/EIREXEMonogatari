@@ -141,7 +141,7 @@ func _continue_parsing():
 func _on_text_line_skipped():
 	if current_line >= lines.size()-1:
 		emit_signal("scene_finished")
-	if current_line != lines.size()-1:
+	elif current_line != lines.size()-1:
 		if current_line + 1 < lines.size():
 			current_line += 1
 		_continue_parsing()

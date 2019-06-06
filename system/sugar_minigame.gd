@@ -10,11 +10,6 @@ func _ready():
 	game.vn.show()
 	game.vn.tie.hide()
 	game.vn.tie.hide_buttons()
-	
-	# HACK: Ensure game is a child of the vn minigame container
-	if get_parent() != game.vn.minigame_container:
-		get_parent().call_deferred("remove_child", self)
-		game.vn.minigame_container.call_deferred("add_child", self)
 func play_random_subscene_from_file(path: String):
 	play_random_subscene(SJSON.from_file(path))
 func play_random_subscene(scene: Dictionary):
