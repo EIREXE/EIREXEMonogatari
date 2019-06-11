@@ -10,7 +10,7 @@
         },
         "time_of_day": {
             "type": "Number",
-            "default": 5
+            "default": 0
         },
         "days_passed": {
             "type": "Number",
@@ -32,7 +32,7 @@
                 },
                 "affection": {
                     "type": "Number",
-                    "default": 300,
+                    "default": 0,
                     "description": "Lo unida que se siente Nina al jugador"
                 },
                 "sex_count": {
