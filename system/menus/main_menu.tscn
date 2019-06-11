@@ -2,9 +2,9 @@
 
 [ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
 [ext_resource path="res://system/menus/main_menu.gd" type="Script" id=2]
-[ext_resource path="res://system/debug/file_editor/icons/icon_back.svg" type="Texture" id=3]
-[ext_resource path="res://system/menus/main_menu_button.gd" type="Script" id=4]
-[ext_resource path="res://system/menus/game_settings/game_settings.tscn" type="PackedScene" id=5]
+[ext_resource path="res://system/menus/main_menu_button.gd" type="Script" id=3]
+[ext_resource path="res://system/menus/game_settings/game_settings.tscn" type="PackedScene" id=4]
+[ext_resource path="res://system/menus/language_selector.tscn" type="PackedScene" id=5]
 [ext_resource path="res://system/fonts/RobotoSlabRegular-22.tres" type="DynamicFont" id=6]
 
 [node name="Control" type="Control"]
@@ -34,13 +34,11 @@ size_flags_stretch_ratio = 0.15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Button" type="TextureButton" parent="SubMenuUI/Panel/HBoxContainer"]
-margin_right = 50.0
+[node name="Button" type="Button" parent="SubMenuUI/Panel/HBoxContainer"]
+margin_right = 53.0
 margin_bottom = 78.0
 rect_min_size = Vector2( 50, 0 )
-texture_normal = ExtResource( 3 )
-expand = true
-stretch_mode = 3
+text = "back"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_left = 0.5
@@ -55,16 +53,24 @@ custom_constants/margin_top = 200
 custom_constants/margin_bottom = 10
 
 [node name="MainMenu" type="VBoxContainer" parent="MarginContainer"]
-editor/display_folded = true
 margin_top = 200.0
 margin_right = 576.0
 margin_bottom = 590.0
+focus_mode = 2
 
 [node name="Button" type="Button" parent="MarginContainer/MainMenu"]
 margin_right = 576.0
 margin_bottom = 28.0
 text = "GAME_GENERIC_MAIN_MENU_SETTINGS"
-script = ExtResource( 4 )
+script = ExtResource( 3 )
+submenu_scene = ExtResource( 4 )
+
+[node name="Button2" type="Button" parent="MarginContainer/MainMenu"]
+margin_top = 32.0
+margin_right = 576.0
+margin_bottom = 60.0
+text = "GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT"
+script = ExtResource( 3 )
 submenu_scene = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="."]
@@ -75,4 +81,3 @@ size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 6 )
 text = "Game Name"
 align = 1
-

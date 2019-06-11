@@ -32,7 +32,7 @@
                 },
                 "affection": {
                     "type": "Number",
-                    "default": 0,
+                    "default": 300,
                     "description": "Lo unida que se siente Nina al jugador"
                 },
                 "sex_count": {

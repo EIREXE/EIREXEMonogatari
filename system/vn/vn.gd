@@ -114,7 +114,7 @@ func run_minigame(line: Dictionary):
 	else:
 		minigame = load(line.path).instance()
 		
-	game.run_minigame(minigame)
+	game.run_minigame(minigame, line.path)
 # Executes a non-text line
 func _execute_line(line):
 	match line.__format:
@@ -126,6 +126,10 @@ func _execute_line(line):
 			change_character_visibility(line)
 		"run_minigame_line":
 			run_minigame(line)
+
+func fast_forward_to_line(line: int):
+	# TODO
+	pass
 
 # Continues parsing lines
 func _continue_parsing():

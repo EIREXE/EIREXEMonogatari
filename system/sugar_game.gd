@@ -21,8 +21,13 @@ var characters := {}
 var game_state_format = "game_state"
 
 const BASE_SCENE = "res://game/scenes/main.json"
+
 var vn
+
 var current_minigame
+var current_minigame_path
+var current_scene
+
 func init_state():
 	state = SJSON.get_format_defaults(game_state_format)
 	if state.has("error"):
@@ -77,7 +82,13 @@ func list_characters():
 	
 func run_vn_scene_from_file(scene_path: String):
 	var scene = SJSON.from_file(scene_path)
+	current_scene = scene_path
 	run_vn_scene(scene)
+	
+func kill_minigame():
+	if current_minigame:
+		current_minigame.free()
+		current_minigame = null
 	
 func run_vn_scene(scene: Dictionary):
 	vn.show()
@@ -110,7 +121,8 @@ func run_vn_scene(scene: Dictionary):
 	vn.run_scene(scene)
 	GameManager.free_current_scene()
 	
-func run_minigame(minigame):
+# Runs the minigame, path is necessary so it can be reloaded when deserialized
+func run_minigame(minigame, path):
 	current_minigame = minigame
 	current_minigame.show()
 	vn.minigame_container.add_child(minigame)
@@ -132,3 +144,32 @@ func _ready():
 		var minigame = get_tree().current_scene
 		get_tree().root.call_deferred("remove_child", minigame)
 		call_deferred("run_minigame", minigame)
+		
+func _serialize_game():
+	var serialized_game = {
+			"game_state": state,
+			"current_minigame": current_minigame_path,
+			"current_scene": current_scene,
+			"current_line": vn.current_line
+		}
+		
+	return serialized_game
+	
+func _load_from_serialized_game(game_save: Dictionary):
+	state = game_save.game_state
+	if game_save.current_minigame:
+		var new_minigame_class = load(game_save.current_minigame)
+		var new_minigame
+		if new_minigame_class is PackedScene:
+			new_minigame = new_minigame_class.instance()
+		else:
+			new_minigame = new_minigame_class.new()
+		run_minigame(new_minigame, game_save.current_minigame)
+	elif game_save.current_scene:
+		run_vn_scene_from_file(game_save.current_scene)
+		vn.fast_forward_to_line(game_save.current_line)
+		
+func save_game(path: String):
+	var file = File.new()
+	file.open(File.WRITE)
+	file.store_string(JSON.print(_serialize_game(), "  "))
