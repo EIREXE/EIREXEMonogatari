@@ -163,7 +163,7 @@ func _ready():
 	if get_tree().current_scene is SugarMinigame:
 		var minigame = get_tree().current_scene
 		get_tree().root.call_deferred("remove_child", minigame)
-		call_deferred("run_minigame", minigame)
+		call_deferred("run_minigame", minigame, minigame.filename)
 		
 	pause_mode = PAUSE_MODE_PROCESS
 	pause_menu.hide()

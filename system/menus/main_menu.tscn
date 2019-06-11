@@ -14,42 +14,42 @@ theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -57.0
-margin_top = 50.0
-margin_right = 57.0
-margin_bottom = -572.0
+anchor_right = 1.0
+margin_bottom = 102.0
 text = "game_name"
+align = 1
+valign = 1
 
 [node name="Control" parent="." instance=ExtResource( 3 )]
 
+[node name="Button" parent="Control/SubMenuUI/Panel/HBoxContainer" index="0"]
+margin_right = 60.0
+
 [node name="Button" type="Button" parent="Control/MarginContainer/MainMenu" index="0"]
 margin_right = 576.0
-margin_bottom = 28.0
+margin_bottom = 35.0
 text = "GAME_GENERIC_MAIN_MENU_SETTINGS"
 script = ExtResource( 4 )
 submenu_scene = ExtResource( 5 )
 
 [node name="Button2" type="Button" parent="Control/MarginContainer/MainMenu" index="1"]
-margin_top = 32.0
+margin_top = 39.0
 margin_right = 576.0
-margin_bottom = 60.0
+margin_bottom = 74.0
 text = "GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT"
 script = ExtResource( 4 )
 submenu_scene = ExtResource( 6 )
 
 [node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="2"]
-margin_top = 64.0
+margin_top = 78.0
 margin_right = 576.0
-margin_bottom = 89.0
+margin_bottom = 103.0
 custom_constants/separation = 25
 
 [node name="Quitbutton" type="Button" parent="Control/MarginContainer/MainMenu" index="3"]
-margin_top = 93.0
+margin_top = 107.0
 margin_right = 576.0
-margin_bottom = 121.0
+margin_bottom = 142.0
 text = "GAME_GENERIC_QUIT"
 
 [editable path="Control"]

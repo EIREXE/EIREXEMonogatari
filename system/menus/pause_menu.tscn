@@ -24,28 +24,31 @@ script = ExtResource( 2 )
 
 [node name="Control" parent="." instance=ExtResource( 3 )]
 
+[node name="Button" parent="Control/SubMenuUI/Panel/HBoxContainer" index="0"]
+margin_right = 60.0
+
 [node name="ResumeButton" type="Button" parent="Control/MarginContainer/MainMenu" index="0"]
 margin_right = 576.0
-margin_bottom = 28.0
-text = "PAUSE_RESUME"
+margin_bottom = 35.0
+text = "GAME_GENERIC_PAUSE_RESUME"
 
 [node name="LoadGameButton" type="Button" parent="Control/MarginContainer/MainMenu" index="1"]
-margin_top = 32.0
+margin_top = 39.0
 margin_right = 576.0
-margin_bottom = 60.0
+margin_bottom = 74.0
 text = "GAME_GENERIC_LOAD_GAME"
 
 [node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="2"]
-margin_top = 64.0
+margin_top = 78.0
 margin_right = 576.0
-margin_bottom = 139.0
+margin_bottom = 153.0
 custom_constants/separation = 75
 
 [node name="ExitToMainMenuButton" type="Button" parent="Control/MarginContainer/MainMenu" index="3"]
-margin_top = 143.0
+margin_top = 157.0
 margin_right = 576.0
-margin_bottom = 171.0
-text = "PAUSE_QUIT_TO_MAIN_MENU"
+margin_bottom = 192.0
+text = "GAME_GENERIC_PAUSE_QUIT_TO_MAIN_MENU"
 
 [node name="PopupPanel" type="ConfirmationDialog" parent="."]
 anchor_left = 0.5

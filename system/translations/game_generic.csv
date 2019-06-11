@@ -1,6 +1,7 @@
 ,en,es,ca
 GAME_GENERIC_NEW_GAME,New game,Nueva partida,Nova partida
 GAME_GENERIC_LOAD_GAME,Load game,Cargar partida,Carregar partida
+GAME_GENERIC_SAVE,Save,Guardar,Desar
 GAME_GENERIC_MAIN_MENU_SETTINGS,Settings,Opciones,Opcions
 GAME_SETTINGS_LEFT_HANDED_MODE_TITLE,Left-Handed mode,Modo para zurdos,Mode per esquerrans
 GAME_SETTINGS_LEFT_HANDED_MODE_DESCRIPTION,Prevents the UI from being obstructed by your hand when using a phone or similar device.,Previene que la interfaz se vea obstruida por tu mano al usar un teléfono o dispositivo similar.,Evita que la interfície es vegi obstruïda per la teva mà al utilitzar un telèfon o dispositiu similar.
