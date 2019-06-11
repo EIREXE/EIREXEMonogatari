@@ -10,3 +10,4 @@ GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT,Language,Idioma,Idioma
 GAME_GENERIC_PAUSE_RESUME,Resume,Reanudar,Reprendre
 GAME_GENERIC_PAUSE_QUIT_TO_MAIN_MENU,Quit to main menu,Salir al menú principal,Sortir al menú principal
 GAME_GENERIC_CONFIRM_QUIT_TO_MAIN_MENU,"Unsaved data will be lost, do you want to continue?","Se perderán los datos sin guardar, ¿quieres continuar?","Les dades no desades es perdran, vols continuar?"
+GAME_GENERIC_QUIT,Quit,Salir,Sortir
