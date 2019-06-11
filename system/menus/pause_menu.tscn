@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
+[ext_resource path="res://system/menus/main_menu.gd" type="Script" id=2]
+[ext_resource path="res://system/menus/main_menu_button.gd" type="Script" id=3]
+[ext_resource path="res://system/menus/game_settings/game_settings.tscn" type="PackedScene" id=4]
+[ext_resource path="res://system/menus/language_selector.tscn" type="PackedScene" id=5]
+[ext_resource path="res://system/fonts/RobotoSlabRegular-22.tres" type="DynamicFont" id=6]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="SubMenuUI" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SubMenu" type="Control" parent="SubMenuUI"]
+margin_right = 1024.0
+margin_bottom = 518.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="SubMenuUI"]
+margin_top = 522.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubMenuUI/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Button" type="Button" parent="SubMenuUI/Panel/HBoxContainer"]
+margin_right = 53.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 50, 0 )
+text = "back"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -288.0
+margin_top = -300.0
+margin_right = 288.0
+margin_bottom = 300.0
+custom_constants/margin_top = 200
+custom_constants/margin_bottom = 10
+
+[node name="MainMenu" type="VBoxContainer" parent="MarginContainer"]
+margin_top = 200.0
+margin_right = 576.0
+margin_bottom = 590.0
+focus_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/MainMenu"]
+margin_right = 576.0
+margin_bottom = 28.0
+text = "GAME_GENERIC_MAIN_MENU_SETTINGS"
+script = ExtResource( 3 )
+submenu_scene = ExtResource( 4 )
+
+[node name="Button2" type="Button" parent="MarginContainer/MainMenu"]
+margin_top = 32.0
+margin_right = 576.0
+margin_bottom = 60.0
+text = "GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT"
+script = ExtResource( 3 )
+submenu_scene = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 20.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+text = "Game Name"
+align = 1

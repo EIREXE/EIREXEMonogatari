@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
+[ext_resource path="res://system/menus/menu_submenu.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="SubMenuUI" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SubMenu" type="Control" parent="SubMenuUI"]
+margin_right = 1024.0
+margin_bottom = 518.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="SubMenuUI"]
+margin_top = 522.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubMenuUI/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Button" type="Button" parent="SubMenuUI/Panel/HBoxContainer"]
+margin_right = 53.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 50, 0 )
+text = "back"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -288.0
+margin_top = -300.0
+margin_right = 288.0
+margin_bottom = 300.0
+custom_constants/margin_top = 200
+custom_constants/margin_bottom = 10
+
+[node name="MainMenu" type="VBoxContainer" parent="MarginContainer"]
+margin_top = 200.0
+margin_right = 576.0
+margin_bottom = 590.0
+focus_mode = 2

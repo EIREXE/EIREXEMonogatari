@@ -22,6 +22,8 @@ var game_state_format = "game_state"
 
 const BASE_SCENE = "res://game/scenes/main.json"
 
+const SAVE_DIRECTORY = "user://saves"
+
 var vn
 
 var current_minigame
@@ -140,6 +142,11 @@ func init_game():
 func _ready():
 	init_state()
 	set_anchors_and_margins_preset(Control.PRESET_WIDE)
+	
+	var dir = Directory.new()
+	# Create save directory so we can write and save to it
+	dir.make_dir_recursive(SAVE_DIRECTORY)
+	
 	if get_tree().current_scene is SugarMinigame:
 		var minigame = get_tree().current_scene
 		get_tree().root.call_deferred("remove_child", minigame)
