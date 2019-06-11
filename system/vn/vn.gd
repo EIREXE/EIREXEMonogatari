@@ -6,6 +6,8 @@ Visual novel game
 
 signal scene_finished
 
+
+
 onready var background = get_node("Panel/Background")
 onready var character_container = get_node("Panel/CharacterContainer")
 onready var tie := get_node("Panel/StoryContainer")

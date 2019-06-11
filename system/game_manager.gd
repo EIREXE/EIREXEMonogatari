@@ -9,7 +9,7 @@ const SugarToolsMenu = preload("debug/ToolsMenu.gd")
 var tools_menu := SugarToolsMenu.new()
 var current_scene setget ,_get_current_scene
 
-var game
+var game : SugarGame
 
 var user_settings
 const USER_SETTINGS_PATH = "user://settings.json"
@@ -24,8 +24,10 @@ func _get_current_scene():
 
 func _ready():
 	var debug_canvas_layer := CanvasLayer.new()
-	game = load("res://game/game.gd").new()
+	game = preload("res://game/game.gd").new()
 	game.init_game()
+	
+	print("LOADING GAME")
 	
 	
 	debug_canvas_layer.add_child(tools_menu)

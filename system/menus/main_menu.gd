@@ -8,8 +8,8 @@ func _ready():
 	# Add default buttons
 
 
-	var separator = Control.new()
-	separator.rect_min_size.y = 75
+	var separator := HSeparator.new()
+	separator.add_constant_override("separation", 75)
 	menu_options_container.add_child(separator)
 	menu_options_container.move_child(separator, 0)
 

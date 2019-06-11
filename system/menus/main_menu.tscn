@@ -3,7 +3,7 @@
 [ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
 [ext_resource path="res://system/menus/main_menu.gd" type="Script" id=2]
 [ext_resource path="res://system/menus/menu_submenu.tscn" type="PackedScene" id=3]
-[ext_resource path="res://system/menus/main_menu_button.gd" type="Script" id=4]
+[ext_resource path="res://system/menus/submenu_button.gd" type="Script" id=4]
 [ext_resource path="res://system/menus/game_settings/game_settings.tscn" type="PackedScene" id=5]
 [ext_resource path="res://system/menus/language_selector.tscn" type="PackedScene" id=6]
 
@@ -24,7 +24,6 @@ margin_bottom = -572.0
 text = "game_name"
 
 [node name="Control" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 
 [node name="Button" type="Button" parent="Control/MarginContainer/MainMenu" index="0"]
 margin_right = 576.0
@@ -40,5 +39,17 @@ margin_bottom = 60.0
 text = "GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT"
 script = ExtResource( 4 )
 submenu_scene = ExtResource( 6 )
+
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="2"]
+margin_top = 64.0
+margin_right = 576.0
+margin_bottom = 89.0
+custom_constants/separation = 25
+
+[node name="Quitbutton" type="Button" parent="Control/MarginContainer/MainMenu" index="3"]
+margin_top = 93.0
+margin_right = 576.0
+margin_bottom = 121.0
+text = "GAME_GENERIC_QUIT"
 
 [editable path="Control"]

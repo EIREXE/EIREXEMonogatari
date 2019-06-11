@@ -5,11 +5,15 @@ onready var submenu_container = get_node("SubMenuUI/SubMenu")
 onready var submenu_vbox = get_node("SubMenuUI")
 onready var submenu_back_button = get_node("SubMenuUI/Panel/HBoxContainer/Button")
 onready var main_menu_margin_container = get_node("MarginContainer")
+
+const SubmenuButton = preload("res://system/menus/submenu_button.gd")
+
 var current_submenu
 func _ready():
 	submenu_vbox.hide()
 	for option in menu_options_container.get_children():
-		option.connect("pressed", self, "_open_submenu", [option.submenu_scene])
+		if option is SubmenuButton:
+			option.connect("pressed", self, "_open_submenu", [option.submenu_scene])
 
 	submenu_back_button.connect("pressed", self, "_submenu_back")
 

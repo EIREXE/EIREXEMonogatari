@@ -1,83 +1,72 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
-[ext_resource path="res://system/menus/main_menu.gd" type="Script" id=2]
-[ext_resource path="res://system/menus/main_menu_button.gd" type="Script" id=3]
-[ext_resource path="res://system/menus/game_settings/game_settings.tscn" type="PackedScene" id=4]
-[ext_resource path="res://system/menus/language_selector.tscn" type="PackedScene" id=5]
-[ext_resource path="res://system/fonts/RobotoSlabRegular-22.tres" type="DynamicFont" id=6]
+[ext_resource path="res://system/menus/pause_menu.gd" type="Script" id=2]
+[ext_resource path="res://system/menus/menu_submenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://system/sfx/menu_open.ogg" type="AudioStream" id=4]
 
-[node name="Control" type="Control"]
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, 2.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[node name="Control" type="Panel"]
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
-[node name="SubMenuUI" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Control" parent="." instance=ExtResource( 3 )]
 
-[node name="SubMenu" type="Control" parent="SubMenuUI"]
-margin_right = 1024.0
-margin_bottom = 518.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="ResumeButton" type="Button" parent="Control/MarginContainer/MainMenu" index="0"]
+margin_right = 576.0
+margin_bottom = 28.0
+text = "PAUSE_RESUME"
 
-[node name="Panel" type="Panel" parent="SubMenuUI"]
-margin_top = 522.0
-margin_right = 1024.0
-margin_bottom = 600.0
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.15
+[node name="LoadGameButton" type="Button" parent="Control/MarginContainer/MainMenu" index="1"]
+margin_top = 32.0
+margin_right = 576.0
+margin_bottom = 60.0
+text = "GAME_GENERIC_LOAD_GAME"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SubMenuUI/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="2"]
+margin_top = 64.0
+margin_right = 576.0
+margin_bottom = 139.0
+custom_constants/separation = 75
 
-[node name="Button" type="Button" parent="SubMenuUI/Panel/HBoxContainer"]
-margin_right = 53.0
-margin_bottom = 78.0
-rect_min_size = Vector2( 50, 0 )
-text = "back"
+[node name="ExitToMainMenuButton" type="Button" parent="Control/MarginContainer/MainMenu" index="3"]
+margin_top = 143.0
+margin_right = 576.0
+margin_bottom = 171.0
+text = "PAUSE_QUIT_TO_MAIN_MENU"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PopupPanel" type="ConfirmationDialog" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -288.0
-margin_top = -300.0
-margin_right = 288.0
-margin_bottom = 300.0
-custom_constants/margin_top = 200
-custom_constants/margin_bottom = 10
+margin_left = -237.0
+margin_top = -53.5
+margin_right = 237.0
+margin_bottom = 53.5
+popup_exclusive = true
+window_title = "asdadasdsa"
+dialog_text = "GAME_GENERIC_CONFIRM_QUIT_TO_MAIN_MENU"
 
-[node name="MainMenu" type="VBoxContainer" parent="MarginContainer"]
-margin_top = 200.0
-margin_right = 576.0
-margin_bottom = 590.0
-focus_mode = 2
+[node name="PauseStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 
-[node name="Button" type="Button" parent="MarginContainer/MainMenu"]
-margin_right = 576.0
-margin_bottom = 28.0
-text = "GAME_GENERIC_MAIN_MENU_SETTINGS"
-script = ExtResource( 3 )
-submenu_scene = ExtResource( 4 )
+[node name="ResumeStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+[connection signal="pressed" from="Control/MarginContainer/MainMenu/ResumeButton" to="." method="_on_game_resumed"]
+[connection signal="pressed" from="Control/MarginContainer/MainMenu/ExitToMainMenuButton" to="." method="_on_quit_to_main_menu"]
+[connection signal="confirmed" from="PopupPanel" to="." method="quit_to_main_menu"]
 
-[node name="Button2" type="Button" parent="MarginContainer/MainMenu"]
-margin_top = 32.0
-margin_right = 576.0
-margin_bottom = 60.0
-text = "GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT"
-script = ExtResource( 3 )
-submenu_scene = ExtResource( 5 )
-
-[node name="Label" type="Label" parent="."]
-anchor_right = 1.0
-margin_top = 20.0
-margin_bottom = 38.0
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 6 )
-text = "Game Name"
-align = 1
+[editable path="Control"]

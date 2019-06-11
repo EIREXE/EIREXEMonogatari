@@ -13,10 +13,12 @@ var state := {
 const VNScene = preload("res://system/vn/vn.tscn")
 
 const GAME_ROOT = "res://game/"
-
+var pause_menu = preload("res://system/menus/pause_menu.tscn").instance()
 var game_info : Dictionary
 var backgrounds := []
 var characters := {}
+
+signal game_reloaded
 
 var game_state_format = "game_state"
 
@@ -29,6 +31,10 @@ var vn
 var current_minigame
 var current_minigame_path
 var current_scene
+
+var is_in_game = false
+
+var vn_container = Control.new()
 
 func init_state():
 	state = SJSON.get_format_defaults(game_state_format)
@@ -93,6 +99,7 @@ func kill_minigame():
 		current_minigame = null
 	
 func run_vn_scene(scene: Dictionary):
+	is_in_game = true
 	vn.show()
 	vn.tie.show_buttons()
 	# Stretch mode shenanigans to ensure wea re using the proper one
@@ -124,24 +131,30 @@ func run_vn_scene(scene: Dictionary):
 	GameManager.free_current_scene()
 	
 # Runs the minigame, path is necessary so it can be reloaded when deserialized
-func run_minigame(minigame, path):
+func run_minigame(minigame: Node, path: String):
 	current_minigame = minigame
+	current_minigame.pause_mode = Node.PAUSE_MODE_STOP
 	current_minigame.show()
 	vn.minigame_container.add_child(minigame)
-	
+	is_in_game = true
 func init_game():
-	init_state()
 	reload_game()
+	init_state()
 	if vn:
 		vn.queue_free()
-	vn = VNScene.instance()
+	vn = VNScene.instance() as Node
 	vn.game = self
-	add_child(vn)
+	vn_container.add_child(vn)
 	vn.hide()
+	vn.pause_mode = PAUSE_MODE_STOP
+	is_in_game = false
 	
 func _ready():
-	init_state()
 	set_anchors_and_margins_preset(Control.PRESET_WIDE)
+	
+	vn_container.name = "Sugar VN"
+	add_child(vn_container)
+	vn_container.set_anchors_and_margins_preset(Control.PRESET_WIDE)
 	
 	var dir = Directory.new()
 	# Create save directory so we can write and save to it
@@ -152,6 +165,9 @@ func _ready():
 		get_tree().root.call_deferred("remove_child", minigame)
 		call_deferred("run_minigame", minigame)
 		
+	pause_mode = PAUSE_MODE_PROCESS
+	pause_menu.hide()
+	add_child(pause_menu)
 func _serialize_game():
 	var serialized_game = {
 			"game_state": state,
@@ -176,6 +192,19 @@ func _load_from_serialized_game(game_save: Dictionary):
 		run_vn_scene_from_file(game_save.current_scene)
 		vn.fast_forward_to_line(game_save.current_line)
 		
+func pause_game():
+	get_tree().paused = true
+	pause_menu.show_pause()
+	
+func resume_game():
+	get_tree().paused = false
+	pause_menu.hide()
+func _input(event: InputEvent):
+	if event.is_action_pressed("pause_game") and not event.is_echo():
+		if get_tree().paused:
+			pause_menu._on_game_resumed()
+		else:
+			pause_game()
 func save_game(path: String):
 	var file = File.new()
 	file.open(File.WRITE)
