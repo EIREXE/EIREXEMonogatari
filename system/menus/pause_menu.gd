@@ -8,6 +8,7 @@ func _on_quit_to_main_menu():
 func quit_to_main_menu():
 	GameManager.game.init_game()
 	GameManager.change_scene_to(MAIN_MENU)
+	GameManager.game.resume_game()
 	
 func _on_game_resumed():
 	$ResumeStreamPlayer.play()

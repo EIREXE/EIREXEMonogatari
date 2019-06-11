@@ -8,4 +8,5 @@ func _ready():
 	game_label.text = GameManager.game.game_info.name
 
 func _on_new_game():
+	print("NEW GAME")
 	GameManager.game.run_vn_scene_from_file(GameManager.game.BASE_SCENE)
