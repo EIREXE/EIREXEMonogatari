@@ -25,31 +25,50 @@ valign = 1
 [node name="Button" parent="Control/SubMenuUI/Panel/HBoxContainer" index="0"]
 margin_right = 60.0
 
-[node name="Button" type="Button" parent="Control/MarginContainer/MainMenu" index="0"]
+[node name="NewGameButton" type="Button" parent="Control/MarginContainer/MainMenu" index="0"]
 margin_right = 576.0
 margin_bottom = 35.0
-text = "GAME_GENERIC_MAIN_MENU_SETTINGS"
-script = ExtResource( 4 )
-submenu_scene = ExtResource( 5 )
+text = "GAME_GENERIC_NEW_GAME"
 
-[node name="Button2" type="Button" parent="Control/MarginContainer/MainMenu" index="1"]
+[node name="LoadGameButton" type="Button" parent="Control/MarginContainer/MainMenu" index="1"]
 margin_top = 39.0
 margin_right = 576.0
 margin_bottom = 74.0
-text = "GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT"
-script = ExtResource( 4 )
-submenu_scene = ExtResource( 6 )
+text = "GAME_GENERIC_LOAD_GAME"
 
-[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="2"]
+[node name="HSeparator2" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="2"]
 margin_top = 78.0
 margin_right = 576.0
 margin_bottom = 103.0
 custom_constants/separation = 25
 
-[node name="Quitbutton" type="Button" parent="Control/MarginContainer/MainMenu" index="3"]
+[node name="Button" type="Button" parent="Control/MarginContainer/MainMenu" index="3"]
 margin_top = 107.0
 margin_right = 576.0
 margin_bottom = 142.0
+text = "GAME_GENERIC_MAIN_MENU_SETTINGS"
+script = ExtResource( 4 )
+submenu_scene = ExtResource( 5 )
+
+[node name="Button2" type="Button" parent="Control/MarginContainer/MainMenu" index="4"]
+margin_top = 146.0
+margin_right = 576.0
+margin_bottom = 181.0
+text = "GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT"
+script = ExtResource( 4 )
+submenu_scene = ExtResource( 6 )
+
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="5"]
+margin_top = 185.0
+margin_right = 576.0
+margin_bottom = 210.0
+custom_constants/separation = 25
+
+[node name="Quitbutton" type="Button" parent="Control/MarginContainer/MainMenu" index="6"]
+margin_top = 214.0
+margin_right = 576.0
+margin_bottom = 249.0
 text = "GAME_GENERIC_QUIT"
+[connection signal="pressed" from="Control/MarginContainer/MainMenu/NewGameButton" to="." method="_on_new_game"]
 
 [editable path="Control"]
