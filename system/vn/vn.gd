@@ -6,8 +6,6 @@ Visual novel game
 
 signal scene_finished
 
-
-
 onready var background = get_node("Panel/Background")
 onready var character_container = get_node("Panel/CharacterContainer")
 onready var tie := get_node("Panel/StoryContainer")
@@ -28,7 +26,7 @@ func run_scene(scene: Dictionary) -> void:
 	_continue_parsing()
 
 # Gets a state key from a path with the format "characters/nina"
-func get_state_key_from_path(path: String):
+static func get_state_key_from_path(path: String):
 	var current_key
 	for key in path.split('/'):
 		if not current_key:
@@ -37,18 +35,56 @@ func get_state_key_from_path(path: String):
 			current_key = current_key[key]
 	return current_key
 
-# Allows the text box to print state info
-func process_state_prints(text: String) -> String:
+# Returns a state print with filters applied, takes the raw state print in the form of path|filter(arguments)
+static func parse_state_print_filters(raw_state_print: String):
 	var regex = RegEx.new()
-	regex.compile("{(.*)}")
-	var results = regex.search_all(text)
-	for result in results:
-		var start = result.get_start()
-		var length = result.get_end()-result.get_start()
+	regex.compile("(.*)\\|(.*)\\((.*)\\)")
+	var result = regex.search(raw_state_print)
+	var filtered_text: String = ""
+	if not result:
+		push_error("Invalid state print: {}".format(raw_state_print))
+	else:
 		var path = result.get_string(1)
-		text.erase(start, length)
-		text = text.insert(start, get_state_key_from_path(path))
+		var filter = result.get_string(2)
+		var arguments = result.get_string(3)
+		var key = get_state_key_from_path(path)
+		match filter:
+			"caps":
+				var singular = arguments.split(",")[0].strip_edges()
+				var plural = arguments.split(",")[1].strip_edges()
+				if key > 1 or key == 0:
+					filtered_text = plural
+				else:
+					filtered_text = singular
+
+	return filtered_text
+
+static func parse_state_prints(text: String, state: Dictionary) -> String:
+	var regex = RegEx.new()
+	regex.compile("\\{(.*?)\\}")
+	var result_found = true
+	while result_found:
+		result_found = false
+		var result = regex.search(text)
+		if result:
+			result_found = true
+			var start = result.get_start()
+			var length = result.get_end()-result.get_start()
+			var path := result.get_string(1) as String
+			
+			var text_to_insert: String
+			
+			if path.split("|").size() > 1:
+				text_to_insert = parse_state_print_filters(path)
+			else:
+				text_to_insert = str(get_state_key_from_path(path))
+			text.erase(start, length)
+			text = text.insert(start, text_to_insert)
+			
 	return text
+# Allows the text box to print state info
+static func process_state_prints(text: String) -> String:
+	return parse_state_prints(text, GameManager.game.state)
 
 # Returns the current line's target text in the correct locale, and also applies settings such as auto_quote
 func _get_current_line_text():

@@ -17,12 +17,12 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "SugarGame",
 "language": "GDScript",
-"path": "res://system/sugar_game.gd"
+"path": "res://system/game/sugar_game.gd"
 }, {
 "base": "Node",
 "class": "SugarMinigame",
 "language": "GDScript",
-"path": "res://system/sugar_minigame.gd"
+"path": "res://system/game/sugar_minigame.gd"
 } ]
 _global_script_class_icons={
 "SugarEditorTab": "",
