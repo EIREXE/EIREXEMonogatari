@@ -1,7 +1,7 @@
 ,en,es,ca
 GAME_GENERIC_NEW_GAME,New game,Nueva partida,Nova partida
 GAME_GENERIC_LOAD_GAME,Load game,Cargar partida,Carregar partida
-GAME_GENERIC_SAVE,Save,Guardar,Desar
+GAME_GENERIC_SAVE,Save game,Guardar partida,Desar partida
 GAME_GENERIC_MAIN_MENU_SETTINGS,Settings,Opciones,Opcions
 GAME_SETTINGS_LEFT_HANDED_MODE_TITLE,Left-Handed mode,Modo para zurdos,Mode per esquerrans
 GAME_SETTINGS_LEFT_HANDED_MODE_DESCRIPTION,Prevents the UI from being obstructed by your hand when using a phone or similar device.,Previene que la interfaz se vea obstruida por tu mano al usar un teléfono o dispositivo similar.,Evita que la interfície es vegi obstruïda per la teva mà al utilitzar un telèfon o dispositiu similar.
@@ -12,3 +12,5 @@ GAME_GENERIC_PAUSE_RESUME,Resume,Reanudar,Reprendre
 GAME_GENERIC_PAUSE_QUIT_TO_MAIN_MENU,Quit to main menu,Salir al menú principal,Sortir al menú principal
 GAME_GENERIC_CONFIRM_QUIT_TO_MAIN_MENU,"Unsaved data will be lost, do you want to continue?","Se perderán los datos sin guardar, ¿quieres continuar?","Les dades no desades es perdran, vols continuar?"
 GAME_GENERIC_QUIT,Quit,Salir,Sortir
+GAME_GENERIC_NEW_SAVE,New saved game...,Nueva partida guardada...,Nova partida desada...
+GAME_GENERIC_CONFIRM_SAVE_OVERWRITE,"The selected file already exists, do you really want to overwrite it?","El fichero seleccionado ya existe, ¿quieres sobrescribirlo?","El fitxer seleccionat ja existeix, voleu sobreescriure-lo?"

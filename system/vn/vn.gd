@@ -26,17 +26,17 @@ func run_scene(scene: Dictionary) -> void:
 	_continue_parsing()
 
 # Gets a state key from a path with the format "characters/nina"
-static func get_state_key_from_path(path: String):
+static func get_state_key_from_path(path: String, state: Dictionary):
 	var current_key
 	for key in path.split('/'):
 		if not current_key:
-			current_key = GameManager.game.state[key]
+			current_key = state[key]
 		else:
 			current_key = current_key[key]
 	return current_key
 
 # Returns a state print with filters applied, takes the raw state print in the form of path|filter(arguments)
-static func parse_state_print_filters(raw_state_print: String):
+static func parse_state_print_filters(raw_state_print: String, state: Dictionary):
 	var regex = RegEx.new()
 	regex.compile("(.*)\\|(.*)\\((.*)\\)")
 	var result = regex.search(raw_state_print)
@@ -47,7 +47,7 @@ static func parse_state_print_filters(raw_state_print: String):
 		var path = result.get_string(1)
 		var filter = result.get_string(2)
 		var arguments = result.get_string(3)
-		var key = get_state_key_from_path(path)
+		var key = get_state_key_from_path(path, state)
 		match filter:
 			"caps":
 				var singular = arguments.split(",")[0].strip_edges()
@@ -60,6 +60,7 @@ static func parse_state_print_filters(raw_state_print: String):
 	return filtered_text
 
 static func parse_state_prints(text: String, state: Dictionary) -> String:
+	print(state)
 	var regex = RegEx.new()
 	regex.compile("\\{(.*?)\\}")
 	var result_found = true
@@ -75,12 +76,11 @@ static func parse_state_prints(text: String, state: Dictionary) -> String:
 			var text_to_insert: String
 			
 			if path.split("|").size() > 1:
-				text_to_insert = parse_state_print_filters(path)
+				text_to_insert = parse_state_print_filters(path, state)
 			else:
-				text_to_insert = str(get_state_key_from_path(path))
+				text_to_insert = str(get_state_key_from_path(path, state))
 			text.erase(start, length)
 			text = text.insert(start, text_to_insert)
-			
 	return text
 # Allows the text box to print state info
 static func process_state_prints(text: String) -> String:

@@ -68,6 +68,7 @@ stream = ExtResource( 4 )
 
 [node name="ResumeStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
 [connection signal="pressed" from="Control/MarginContainer/MainMenu/ResumeButton" to="." method="_on_game_resumed"]
 [connection signal="pressed" from="Control/MarginContainer/MainMenu/ExitToMainMenuButton" to="." method="_on_quit_to_main_menu"]
 [connection signal="confirmed" from="PopupPanel" to="." method="quit_to_main_menu"]
