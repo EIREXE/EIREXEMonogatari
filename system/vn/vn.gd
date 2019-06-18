@@ -49,7 +49,7 @@ static func parse_state_print_filters(raw_state_print: String, state: Dictionary
 		var arguments = result.get_string(3)
 		var key = get_state_key_from_path(path, state)
 		match filter:
-			"caps":
+			"plur":
 				var singular = arguments.split(",")[0].strip_edges()
 				var plural = arguments.split(",")[1].strip_edges()
 				if key > 1 or key == 0:

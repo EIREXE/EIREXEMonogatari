@@ -1,15 +1,11 @@
 extends Control
 
-const font = preload("res://system/fonts/RobotoSlabRegular-22.tres")
-const theme_s = preload("res://system/theme.tres")
 onready var language_container = get_node("LanguageContainer")
 
 func add_option(locale):
 	var button := Button.new()
 	button.text = TranslationServer.get_locale_name(locale)
-	button.theme = theme_s
 	language_container.add_child(button)
-	button.add_font_override("font", font)
 	button.connect("pressed", self, "on_locale_selected", [locale])
 	
 func on_locale_selected(locale: String):

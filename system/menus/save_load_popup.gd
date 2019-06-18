@@ -30,7 +30,7 @@ func _on_about_to_show() -> void:
 	match mode:
 		Mode.SAVE:
 			save_new_game_button.show()
-			title_label.text = tr("GAME_GENERIC_SAVE_GAME")
+			title_label.text = tr("GAME_GENERIC_SAVE")
 		Mode.LOAD:
 			title_label.text = tr("GAME_GENERIC_LOAD_GAME")
 	for save_id in saves:

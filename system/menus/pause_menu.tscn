@@ -74,6 +74,7 @@ stream = ExtResource( 4 )
 [node name="SavePopup" parent="." instance=ExtResource( 5 )]
 
 [node name="LoadGamePopup" parent="." instance=ExtResource( 5 )]
+mode = 0
 [connection signal="pressed" from="Control/MarginContainer/MainMenu/ResumeButton" to="." method="_on_game_resumed"]
 [connection signal="pressed" from="Control/MarginContainer/MainMenu/LoadGameButton" to="LoadGamePopup" method="popup_centered_ratio" binds= [ 0.5 ]]
 [connection signal="pressed" from="Control/MarginContainer/MainMenu/ExitToMainMenuButton" to="." method="_on_quit_to_main_menu"]
