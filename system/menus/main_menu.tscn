@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
 [ext_resource path="res://system/menus/main_menu.gd" type="Script" id=2]
-[ext_resource path="res://system/menus/menu_submenu.tscn" type="PackedScene" id=3]
-[ext_resource path="res://system/menus/submenu_button.gd" type="Script" id=4]
-[ext_resource path="res://system/menus/game_settings/game_settings.tscn" type="PackedScene" id=5]
-[ext_resource path="res://system/menus/language_selector.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/gui/bg_faded.png" type="Texture" id=3]
+[ext_resource path="res://game/gui/logo.png" type="Texture" id=4]
+[ext_resource path="res://system/menus/menu_submenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://system/menus/submenu_button.gd" type="Script" id=6]
+[ext_resource path="res://system/menus/game_settings/game_settings.tscn" type="PackedScene" id=7]
+[ext_resource path="res://system/menus/language_selector.tscn" type="PackedScene" id=8]
+[ext_resource path="res://system/menus/save_load_popup.tscn" type="PackedScene" id=9]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -13,62 +16,77 @@ anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
-margin_bottom = 102.0
-text = "game_name"
-align = 1
-valign = 1
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+stretch_mode = 2
 
-[node name="Control" parent="." instance=ExtResource( 3 )]
+[node name="LogoTextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 28.0
+margin_bottom = -469.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
 
-[node name="Button" parent="Control/SubMenuUI/Panel/HBoxContainer" index="0"]
-margin_right = 60.0
+[node name="Control" parent="." instance=ExtResource( 5 )]
+
+[node name="SubMenuUI" parent="Control" index="0"]
+editor/display_folded = true
 
 [node name="NewGameButton" type="Button" parent="Control/MarginContainer/MainMenu" index="0"]
 margin_right = 576.0
-margin_bottom = 35.0
+margin_bottom = 60.0
 text = "GAME_GENERIC_NEW_GAME"
 
 [node name="LoadGameButton" type="Button" parent="Control/MarginContainer/MainMenu" index="1"]
-margin_top = 39.0
+margin_top = 64.0
 margin_right = 576.0
-margin_bottom = 74.0
+margin_bottom = 124.0
 text = "GAME_GENERIC_LOAD_GAME"
 
 [node name="HSeparator2" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="2"]
-margin_top = 78.0
+margin_top = 128.0
 margin_right = 576.0
-margin_bottom = 103.0
+margin_bottom = 153.0
 custom_constants/separation = 25
 
 [node name="Button" type="Button" parent="Control/MarginContainer/MainMenu" index="3"]
-margin_top = 107.0
+margin_top = 157.0
 margin_right = 576.0
-margin_bottom = 142.0
+margin_bottom = 217.0
 text = "GAME_GENERIC_MAIN_MENU_SETTINGS"
-script = ExtResource( 4 )
-submenu_scene = ExtResource( 5 )
+script = ExtResource( 6 )
+submenu_scene = ExtResource( 7 )
 
 [node name="Button2" type="Button" parent="Control/MarginContainer/MainMenu" index="4"]
-margin_top = 146.0
+margin_top = 221.0
 margin_right = 576.0
-margin_bottom = 181.0
+margin_bottom = 281.0
 text = "GAME_GENERIC_MAIN_MENU_LANGUAGE_SELECT"
-script = ExtResource( 4 )
-submenu_scene = ExtResource( 6 )
+script = ExtResource( 6 )
+submenu_scene = ExtResource( 8 )
 
 [node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="5"]
-margin_top = 185.0
+margin_top = 285.0
 margin_right = 576.0
-margin_bottom = 210.0
+margin_bottom = 310.0
 custom_constants/separation = 25
 
 [node name="Quitbutton" type="Button" parent="Control/MarginContainer/MainMenu" index="6"]
-margin_top = 214.0
+margin_top = 314.0
 margin_right = 576.0
-margin_bottom = 249.0
+margin_bottom = 374.0
 text = "GAME_GENERIC_QUIT"
+
+[node name="PopupPanel" parent="." instance=ExtResource( 9 )]
+mode = 0
+[connection signal="exit_submenu" from="Control" to="LogoTextureRect" method="show"]
+[connection signal="open_submenu" from="Control" to="LogoTextureRect" method="hide"]
 [connection signal="pressed" from="Control/MarginContainer/MainMenu/NewGameButton" to="." method="_on_new_game"]
+[connection signal="pressed" from="Control/MarginContainer/MainMenu/LoadGameButton" to="PopupPanel" method="popup_centered_ratio" binds= [ 0.5 ]]
+[connection signal="pressed" from="Control/MarginContainer/MainMenu/Quitbutton" to="." method="_on_quit_game"]
 
 [editable path="Control"]

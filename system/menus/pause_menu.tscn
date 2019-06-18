@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
 [ext_resource path="res://system/menus/pause_menu.gd" type="Script" id=2]
 [ext_resource path="res://system/menus/menu_submenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://system/sfx/menu_open.ogg" type="AudioStream" id=4]
+[ext_resource path="res://system/menus/save_load_popup.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -24,30 +25,31 @@ script = ExtResource( 2 )
 
 [node name="Control" parent="." instance=ExtResource( 3 )]
 
-[node name="Button" parent="Control/SubMenuUI/Panel/HBoxContainer" index="0"]
-margin_right = 60.0
+[node name="SubMenuUI" parent="Control" index="0"]
+editor/display_folded = true
+visible = false
 
 [node name="ResumeButton" type="Button" parent="Control/MarginContainer/MainMenu" index="0"]
 margin_right = 576.0
-margin_bottom = 35.0
+margin_bottom = 60.0
 text = "GAME_GENERIC_PAUSE_RESUME"
 
 [node name="LoadGameButton" type="Button" parent="Control/MarginContainer/MainMenu" index="1"]
-margin_top = 39.0
+margin_top = 64.0
 margin_right = 576.0
-margin_bottom = 74.0
+margin_bottom = 124.0
 text = "GAME_GENERIC_LOAD_GAME"
 
 [node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/MainMenu" index="2"]
-margin_top = 78.0
+margin_top = 128.0
 margin_right = 576.0
-margin_bottom = 153.0
+margin_bottom = 203.0
 custom_constants/separation = 75
 
 [node name="ExitToMainMenuButton" type="Button" parent="Control/MarginContainer/MainMenu" index="3"]
-margin_top = 157.0
+margin_top = 207.0
 margin_right = 576.0
-margin_bottom = 192.0
+margin_bottom = 267.0
 text = "GAME_GENERIC_PAUSE_QUIT_TO_MAIN_MENU"
 
 [node name="PopupPanel" type="ConfirmationDialog" parent="."]
@@ -69,7 +71,11 @@ stream = ExtResource( 4 )
 [node name="ResumeStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 
+[node name="SavePopup" parent="." instance=ExtResource( 5 )]
+
+[node name="LoadGamePopup" parent="." instance=ExtResource( 5 )]
 [connection signal="pressed" from="Control/MarginContainer/MainMenu/ResumeButton" to="." method="_on_game_resumed"]
+[connection signal="pressed" from="Control/MarginContainer/MainMenu/LoadGameButton" to="LoadGamePopup" method="popup_centered_ratio" binds= [ 0.5 ]]
 [connection signal="pressed" from="Control/MarginContainer/MainMenu/ExitToMainMenuButton" to="." method="_on_quit_to_main_menu"]
 [connection signal="confirmed" from="PopupPanel" to="." method="quit_to_main_menu"]
 

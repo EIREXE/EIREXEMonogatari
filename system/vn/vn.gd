@@ -111,9 +111,15 @@ func _get_current_line_text():
 				target_text = "\"%s\"" % target_text
 	return target_text
 
+# Clears all VN graphics
+func clear_all():
+	background.texture = null
+	for character in visible_characters:
+		visible_characters[character].free()
+	visible_characters = {}
+
 func change_background(background_filename: String):
 	background.texture = load("res://game/backgrounds/" + background_filename)
-
 # Shows a character
 func change_character_visibility(line: Dictionary):
 	if game.characters.has(line.character):

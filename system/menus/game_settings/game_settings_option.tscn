@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://system/menus/game_settings/game_settings_option.gd" type="Script" id=1]
-[ext_resource path="res://system/fonts/RobotoRegular-22.tres" type="DynamicFont" id=2]
+[ext_resource path="res://system/fonts/Lobster-Regular.ttf" type="DynamicFontData" id=2]
 
+[sub_resource type="DynamicFont" id=1]
+size = 20
+outline_size = 3
+outline_color = Color( 0.988235, 0.490196, 0.862745, 1 )
+use_filter = true
+font_data = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer"]
 margin_right = 565.0
@@ -17,8 +23,8 @@ rect_min_size = Vector2( 100, 0 )
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="EditorContainer"]
-margin_left = 90.0
-margin_right = 90.0
+margin_left = 12.0
+margin_right = 88.0
 margin_bottom = 45.0
 alignment = 1
 
@@ -30,14 +36,16 @@ size_flags_horizontal = 3
 alignment = 2
 
 [node name="OptionName" type="Label" parent="VBoxContainer"]
+margin_top = 2.0
 margin_right = 461.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "dsdsdsds"
 
 [node name="OptionDescription" type="Label" parent="VBoxContainer"]
 margin_top = 31.0
 margin_right = 461.0
 margin_bottom = 45.0
 size_flags_horizontal = 3
-
+text = "asdadasdasdasdasdsadasdasdsadasd"

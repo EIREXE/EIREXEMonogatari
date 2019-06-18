@@ -29,7 +29,6 @@ func _ready():
 	
 	print("LOADING GAME")
 	
-	
 	debug_canvas_layer.add_child(tools_menu)
 	add_child(debug_canvas_layer)
 	add_child(game)

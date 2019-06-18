@@ -1,0 +1,10 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[ext_resource path="res://system/fonts/Lobster-Regular.ttf" type="DynamicFontData" id=1]
+
+[resource]
+size = 25
+outline_size = 3
+outline_color = Color( 0.988235, 0.490196, 0.862745, 1 )
+use_filter = true
+font_data = ExtResource( 1 )
