@@ -66,9 +66,9 @@ func show_text(text: String, character: String = "", line_style: String = "norma
 	_current_position = 0
 	
 	if character == "":
-		character_name_texture_rect.visible = false
+		character_name_texture_rect.hide()
 	else:
-		character_name_texture_rect.visible = true
+		character_name_texture_rect.show()
 		character_label.text = game.characters[character].name
 		
 	match line_style:
@@ -80,3 +80,7 @@ func show_text(text: String, character: String = "", line_style: String = "norma
 		
 	set_process(true)
 	chevron.hide()
+	
+func clear():
+	text_label.text = ""
+	character_name_texture_rect.hide()
