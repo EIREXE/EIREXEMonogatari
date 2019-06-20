@@ -9,7 +9,7 @@ const AUTO_RELOAD_PATHS = ["res://game"]
 
 onready var tab_container : TabContainer = get_node("Panel/MarginContainer/VBoxContainer/TabContainer")
 onready var file_button : MenuButton = get_node("Panel/MarginContainer/VBoxContainer/HBoxContainer/FileButton")
-onready var help_button : MenuButton = get_node("Panel/MarginContainer/VBoxContainer/HBoxContainer/HelpButton")
+onready var about_button : MenuButton = get_node("Panel/MarginContainer/VBoxContainer/HBoxContainer/HelpButton")
 onready var code_validation_status_label = get_node("Panel/MarginContainer/VBoxContainer/StatusBar/ValidationStatusLabel")
 onready var new_format_option_button = get_node("NewFileDialog/HBoxContainer/OptionButton")
 onready var new_file_dialog : WindowDialog = get_node("NewFileDialog")
@@ -69,7 +69,7 @@ func ui_setup():
 	
 	# Help button
 	
-	help_button.get_popup().add_item(tr("EDITOR_ABOUT"))
+	about_button.get_popup().add_item(tr("EDITOR_ABOUT"))
 	
 	# Popullate the format list
 	for key in SJSON.formats:
@@ -81,7 +81,7 @@ func ui_setup():
 			new_format_option_button.add_item(format["name"])
 			new_format_option_button.set_item_metadata(new_format_option_button.get_item_count() - 1, key)
 	file_button.get_popup().connect("id_pressed", self, "on_option_pressed")
-	help_button.get_popup().connect("id_pressed", self, "on_help_pressed")
+	about_button.get_popup().connect("id_pressed", self, "on_about_button_pressed")
 	new_file_button.connect("pressed", self, "on_new_file_button_pressed")
 	
 	about_accept_button.connect("pressed", about_dialog, "hide")
@@ -136,10 +136,10 @@ func on_new_file_button_pressed():
 	new_empty_file(format)
 	new_file_dialog.visible = false
 	
-func on_help_pressed(id: int) -> void:
+func on_about_button_pressed(id: int) -> void:
 	match id:
 		HELP_MENU_OPTIONS.ABOUT:
-			$AboutDialog.popup_centered_ratio(0.40)
+			about_dialog.popup_centered_ratio(0.40)
 	
 func on_option_pressed(id: int) -> void:
 	
