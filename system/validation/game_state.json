@@ -16,6 +16,10 @@
             "type": "Number",
             "default": 0
         },
+        "orgasm_count": {
+            "type": "Number",
+            "default": 0
+        },
         "nina_state": {
             "type": "Object",
             "description": "Información y stats de Nina",

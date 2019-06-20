@@ -78,7 +78,6 @@ text = "asdsaddsasdadsadasdasdsadasdas
 autowrap = true
 
 [node name="ChevronContainer" type="Control" parent="."]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 1.0

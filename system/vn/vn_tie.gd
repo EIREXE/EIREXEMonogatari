@@ -80,7 +80,3 @@ func show_text(text: String, character: String = "", line_style: String = "norma
 		
 	set_process(true)
 	chevron.hide()
-	
-func clear():
-	text_label.text = ""
-	character_name_texture_rect.hide()

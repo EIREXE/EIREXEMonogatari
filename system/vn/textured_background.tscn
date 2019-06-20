@@ -16,7 +16,7 @@ axis_stretch_vertical = 1
 modulate_color = Color( 0.321569, 0.121569, 0.270588, 1 )
 
 [node name="Background" type="Panel"]
-modulate = Color( 1, 1, 1, 0.9 )
+modulate = Color( 1, 1, 1, 0.901961 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -2.21466
