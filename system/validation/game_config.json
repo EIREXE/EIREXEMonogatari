@@ -14,7 +14,7 @@
             "arrayType": {
                 "type": "String"
             },
-            "default": ["en"]
+            "default": ["ca"]
         }
     }
 }

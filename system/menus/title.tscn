@@ -1,22 +1,40 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game/game_theme.tres" type="Theme" id=1]
-[ext_resource path="res://system/menus/scrolling_background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://system/menus/title.gd" type="Script" id=2]
+[ext_resource path="res://system/menus/scrolling_background.tscn" type="PackedScene" id=3]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade_in_out"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2.9, 3.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Title" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+script = ExtResource( 2 )
 
-[node name="Title" parent="." instance=ExtResource( 2 )]
+[node name="Title" parent="." instance=ExtResource( 3 )]
 
 [node name="Panel" type="Panel" parent="."]
-self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.36047
-margin_right = 1.36047
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fade_in_out = SubResource( 2 )
